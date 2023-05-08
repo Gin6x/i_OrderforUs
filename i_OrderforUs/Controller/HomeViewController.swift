@@ -16,10 +16,10 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .gray
         
-        testingLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        testingLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
         testingLabel.center = CGPoint(x: 160, y: 285)
         testingLabel.textAlignment = .center
-        testingLabel.text = "Testing"
+        testingLabel.text = "Test if sourceTree and github is working"
         testingLabel.textColor = .white
         
         self.view.addSubview(testingLabel)
