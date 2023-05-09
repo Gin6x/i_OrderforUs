@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  WelcomeViewContoller.swift
 //  i_OrderforUs
 //
 //  Created by Gin on 8/5/2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class WelcomeViewController: UIViewController {
     
     let welcomeView = WelcomeView()
     
