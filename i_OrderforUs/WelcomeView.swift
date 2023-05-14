@@ -33,13 +33,14 @@ class WelcomeView: UIView {
         return iconView
     }()
     
-    private let startOrderButton: UIButton = {
+    let startOrderButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 25
         button.backgroundColor = .white
         button.titleLabel?.textColor = .darkGray
         button.setTitle("Start your order", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = true
         return button
     }()
     

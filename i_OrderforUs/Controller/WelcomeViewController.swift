@@ -14,5 +14,12 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = welcomeView
+        welcomeView.startOrderButton.addTarget(self, action: #selector(startButtonPressed) , for: .touchUpInside)
     }
+    
+    @objc func startButtonPressed() {
+        print("Start button pressed")
+    }
+    
+    
 }
