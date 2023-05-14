@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
     
     let welcomeView = WelcomeView()
     
@@ -18,8 +18,47 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func startButtonPressed() {
-        print("Start button pressed")
+        imageOption()
     }
+    
+    func imagePicker(sourceType: UIImagePickerController.SourceType) -> UIImagePickerController {
+        
+        let imagePickerVC = UIImagePickerController()
+        imagePickerVC.sourceType = sourceType
+        return imagePickerVC
+    }
+    
+    func imageOption() {
+        
+        let pickPhotoAlertVC = UIAlertController(title: "Menu upload", message: "Please choose a photo for the menu", preferredStyle: .actionSheet)
+        
+        let pickCamera = UIAlertAction(title: "Camera", style: .default) { (action) in
+            
+            let cameraPhotoPicker = self.imagePicker(sourceType: .camera)
+            self.present(cameraPhotoPicker, animated: true) {
+                print("Picked camera as photo source")
+            }
+        }
+        
+        let pickLibrary = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+            
+            let libraryPhotoPicker = self.imagePicker(sourceType: .photoLibrary)
+            self.present(libraryPhotoPicker, animated: true){
+                print("Picked photo library as photo source")
+            }
+        }
+        
+        let cancelPhotoSelection = UIAlertAction(title: "cancel", style: .cancel)
+        
+        pickPhotoAlertVC.addAction(pickCamera)
+        pickPhotoAlertVC.addAction(pickLibrary)
+        pickPhotoAlertVC.addAction(cancelPhotoSelection)
+        
+        self.present(pickPhotoAlertVC, animated: true, completion: nil)
+    }
+
+    
+    
     
     
 }
