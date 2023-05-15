@@ -13,6 +13,8 @@
 		BE1B0C442A0940BD0067F492 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE1B0C422A0940BD0067F492 /* LaunchScreen.storyboard */; };
 		BE1B0C4C2A0943260067F492 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */; };
 		BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4302A09B141004425B6 /* WelcomeView.swift */; };
+		BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4322A12F420004425B6 /* OrderViewController.swift */; };
+		BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4342A12F465004425B6 /* OrderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		BE1B0C452A0940BD0067F492 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		BE7BD4302A09B141004425B6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		BE7BD4322A12F420004425B6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
+		BE7BD4342A12F465004425B6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */,
+				BE7BD4322A12F420004425B6 /* OrderViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -87,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				BE7BD4302A09B141004425B6 /* WelcomeView.swift */,
+				BE7BD4342A12F465004425B6 /* OrderView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -162,7 +168,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE1B0C382A0940BC0067F492 /* AppDelegate.swift in Sources */,
+				BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */,
 				BE1B0C3A2A0940BC0067F492 /* SceneDelegate.swift in Sources */,
+				BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */,
 				BE1B0C4C2A0943260067F492 /* WelcomeViewController.swift in Sources */,
 				BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */,
 			);

@@ -37,8 +37,19 @@ class WelcomeView: UIView {
         let button = UIButton()
         button.layer.cornerRadius = 25
         button.backgroundColor = .white
-        button.titleLabel?.textColor = .darkGray
         button.setTitle("Start your order", for: .normal)
+        button.setTitleColor(.darkGray, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = true
+        return button
+    }()
+    
+    let testButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 25
+        button.backgroundColor = .white
+        button.setTitle("Go orderVC", for: .normal)
+        button.setTitleColor(.darkGray, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = true
         return button
@@ -55,12 +66,13 @@ class WelcomeView: UIView {
     }
     
     private func setupLayout() {
+        
         addSubview(welcomeContentView)
         NSLayoutConstraint.activate([
-        welcomeContentView.topAnchor.constraint(equalTo: topAnchor),
-        welcomeContentView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        welcomeContentView.leftAnchor.constraint(equalTo: leftAnchor),
-        welcomeContentView.rightAnchor.constraint(equalTo: rightAnchor)
+            welcomeContentView.topAnchor.constraint(equalTo: topAnchor),
+            welcomeContentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            welcomeContentView.leftAnchor.constraint(equalTo: leftAnchor),
+            welcomeContentView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
         
         welcomeContentView.addSubview(welcomeLabel)
@@ -86,6 +98,14 @@ class WelcomeView: UIView {
             startOrderButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             startOrderButton.widthAnchor.constraint(equalToConstant: 200),
             startOrderButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        welcomeContentView.addSubview(testButton)
+        NSLayoutConstraint.activate([
+            testButton.topAnchor.constraint(equalTo: startOrderButton.bottomAnchor, constant: 50),
+            testButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            testButton.widthAnchor.constraint(equalToConstant: 200),
+            testButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         
