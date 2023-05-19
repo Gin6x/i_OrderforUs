@@ -11,9 +11,14 @@ class OrderView: UIView {
 
     private let orderContentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private let orderTableView: UITableView = {
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 200, height: 100), style: .grouped)
+        return tableView
     }()
     
     override init(frame: CGRect) {
