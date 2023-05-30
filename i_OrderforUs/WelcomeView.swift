@@ -44,16 +44,16 @@ class WelcomeView: UIView {
         return button
     }()
     
-    let testButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 25
-        button.backgroundColor = .white
-        button.setTitle("Go orderVC", for: .normal)
-        button.setTitleColor(.darkGray, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.isUserInteractionEnabled = true
-        return button
-    }()
+//    let testButton: UIButton = {
+//        let button = UIButton()
+//        button.layer.cornerRadius = 25
+//        button.backgroundColor = .white
+//        button.setTitle("Go orderVC", for: .normal)
+//        button.setTitleColor(.darkGray, for: .normal)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.isUserInteractionEnabled = true
+//        return button
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -100,18 +100,13 @@ class WelcomeView: UIView {
             startOrderButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        welcomeContentView.addSubview(testButton)
-        NSLayoutConstraint.activate([
-            testButton.topAnchor.constraint(equalTo: startOrderButton.bottomAnchor, constant: 50),
-            testButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            testButton.widthAnchor.constraint(equalToConstant: 200),
-            testButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        
-        
-        
-        
+//        welcomeContentView.addSubview(testButton)
+//        NSLayoutConstraint.activate([
+//            testButton.topAnchor.constraint(equalTo: startOrderButton.bottomAnchor, constant: 50),
+//            testButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+//            testButton.widthAnchor.constraint(equalToConstant: 200),
+//            testButton.heightAnchor.constraint(equalToConstant: 50)
+//        ])
     }
     
     

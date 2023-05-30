@@ -8,15 +8,18 @@
 import UIKit
 
 class OrderViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-//    let orderView = OrderView()
     
-    var info = [
-            ["林書豪","陳信安"],
-            ["陳偉殷","王建民","陳金鋒","林智勝"]
-        ]
+    var orderInfo = [
+        ["Name": "Mary", "Email": "123@gmail.com", "Order": "LSD fried rice", "Price": "$46"],
+        ["Name": "Gary", "Email": "456@gmail.com", "Order": "LSD fried noodle", "Price": "$49"]
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Order"
+        let barButtonItem = UIBarButtonItem(title: "Test", style: .plain, target: self, action: #selector(buttonTapped))
+        navigationItem.rightBarButtonItem = barButtonItem
+
         
         let fullScreenSize = UIScreen.main.bounds.size
         
@@ -31,52 +34,51 @@ class OrderViewController: UIViewController, UITableViewDelegate, UITableViewDat
         orderTableView.allowsSelection = true
         
         self.view.addSubview(orderTableView)
-
-//        self.view = orderView
+    }
+    
+    @objc func buttonTapped () {
+        print("OrderVC dismissed")
+        dismiss(animated: true)
     }
 
    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return info[section].count
+        return orderInfo[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 取得 tableView 目前使用的 cell
-            let cell =
-        tableView.dequeueReusableCell(
-            withIdentifier: "Cell", for: indexPath) as
-                UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
 
-            // 設置 Accessory 按鈕樣式
-            if indexPath.section == 1 {
-                if indexPath.row == 0 {
-                    cell.accessoryType = .checkmark
-                } else if indexPath.row == 1 {
-                    cell.accessoryType = .detailButton
-                } else if indexPath.row == 2 {
-                    cell.accessoryType =
-                      .detailDisclosureButton
-                } else if indexPath.row == 3 {
-                    cell.accessoryType = .disclosureIndicator
-                }
-            }
-
+//            // 設置 Accessory 按鈕樣式
+//            if indexPath.section == 1 {
+//                if indexPath.row == 0 {
+//                    cell.accessoryType = .checkmark
+//                } else if indexPath.row == 1 {
+//                    cell.accessoryType = .detailButton
+//                } else if indexPath.row == 2 {
+//                    cell.accessoryType =
+//                      .detailDisclosureButton
+//                } else if indexPath.row == 3 {
+//                    cell.accessoryType = .disclosureIndicator
+//                }
+//            }
+//
             // 顯示的內容
             if let myLabel = cell.textLabel {
-                myLabel.text =
-                  "\(info[indexPath.section][indexPath.row])"
+                myLabel.text = "\(orderInfo[indexPath.section])"
             }
 
             return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return info.count
+        return orderInfo.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let title = section == 0 ? "籃球" : "棒球"
+        let title = section == 0 ? "Item1" : "Item2"
             return title
     }
 }
