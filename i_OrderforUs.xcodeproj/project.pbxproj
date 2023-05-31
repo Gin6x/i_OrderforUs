@@ -15,7 +15,6 @@
 		BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4302A09B141004425B6 /* WelcomeView.swift */; };
 		BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4322A12F420004425B6 /* OrderViewController.swift */; };
 		BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4342A12F465004425B6 /* OrderView.swift */; };
-		BE7BD4372A264D16004425B6 /* OrderNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4362A264D16004425B6 /* OrderNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		BE7BD4302A09B141004425B6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BE7BD4322A12F420004425B6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		BE7BD4342A12F465004425B6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
-		BE7BD4362A264D16004425B6 /* OrderNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */,
-				BE7BD4362A264D16004425B6 /* OrderNavigationController.swift */,
 				BE7BD4322A12F420004425B6 /* OrderViewController.swift */,
 			);
 			path = Controller;
@@ -174,7 +171,6 @@
 				BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */,
 				BE1B0C3A2A0940BC0067F492 /* SceneDelegate.swift in Sources */,
 				BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */,
-				BE7BD4372A264D16004425B6 /* OrderNavigationController.swift in Sources */,
 				BE1B0C4C2A0943260067F492 /* WelcomeViewController.swift in Sources */,
 				BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */,
 			);

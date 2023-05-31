@@ -17,7 +17,7 @@ class OrderViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Order"
-        let barButtonItem = UIBarButtonItem(title: "Test", style: .plain, target: self, action: #selector(buttonTapped))
+        let barButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(buttonTapped))
         navigationItem.rightBarButtonItem = barButtonItem
 
         
