@@ -15,6 +15,7 @@
 		BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4302A09B141004425B6 /* WelcomeView.swift */; };
 		BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4322A12F420004425B6 /* OrderViewController.swift */; };
 		BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4342A12F465004425B6 /* OrderView.swift */; };
+		BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4382A2A0986004425B6 /* OrderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		BE7BD4302A09B141004425B6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BE7BD4322A12F420004425B6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		BE7BD4342A12F465004425B6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
+		BE7BD4382A2A0986004425B6 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		BE1B0C4E2A0943450067F492 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BE7BD4382A2A0986004425B6 /* OrderCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			files = (
 				BE1B0C382A0940BC0067F492 /* AppDelegate.swift in Sources */,
 				BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */,
+				BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */,
 				BE1B0C3A2A0940BC0067F492 /* SceneDelegate.swift in Sources */,
 				BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */,
 				BE1B0C4C2A0943260067F492 /* WelcomeViewController.swift in Sources */,
