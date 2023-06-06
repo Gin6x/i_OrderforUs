@@ -8,23 +8,27 @@
 import UIKit
 
 class OrderView: UIView {
+    
+//    private let fullScreenSize = UIScreen.main.bounds.size
 
     private let orderContentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemCyan
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private let orderTableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 200, height: 100), style: .grouped)
+
+    let orderTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .singleLine
+        tableView.allowsSelection = true
         return tableView
     }()
     
     override init(frame: CGRect) {
         super.init(frame:frame)
         setupLayout()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -32,13 +36,19 @@ class OrderView: UIView {
     }
     
     private func setupLayout() {
-        
         addSubview(orderContentView)
         NSLayoutConstraint.activate([
             orderContentView.topAnchor.constraint(equalTo: topAnchor),
             orderContentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             orderContentView.leftAnchor.constraint(equalTo: leftAnchor),
             orderContentView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+        addSubview(orderTableView)
+        NSLayoutConstraint.activate([
+            orderTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            orderTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            orderTableView.leftAnchor.constraint(equalTo: leftAnchor),
+            orderTableView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
     }
 }
