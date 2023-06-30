@@ -22,7 +22,7 @@ class OrderView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.separatorStyle = .singleLine
-        tableView.allowsSelection = true
+        tableView.allowsSelection = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()

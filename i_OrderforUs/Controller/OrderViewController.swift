@@ -10,7 +10,7 @@ import UIKit
 class OrderViewController: UIViewController {
     
     let orderView = OrderView()
-    var data: [String] = ["a", "b", "c"]
+    var data: [String] = ["a"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,14 +41,32 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? OrderCell {
             cell.textLabel?.text = data[indexPath.row]
+            cell.menuTextField.delegate = self
             return cell
         }
+        
         fatalError("could not dequeueReusableCell")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight: CGFloat = 100
+        let cellHeight: CGFloat = 85 
         return cellHeight
+    }
+}
+
+extension OrderViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

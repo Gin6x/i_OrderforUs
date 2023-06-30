@@ -16,9 +16,10 @@ class OrderCell: UITableViewCell {
         return view
     }()
     
-    private let menuTextField: UITextField = {
+    let menuTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Add detail for the menu"
+        textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
         return textField
@@ -33,7 +34,7 @@ class OrderCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configmenucCell()
+        setupOrderCell()
 //        configmenuTextField()
     }
     
@@ -41,7 +42,7 @@ class OrderCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configmenucCell () {
+    func setupOrderCell () {
         addSubview(menuView)
         NSLayoutConstraint.activate([
             menuView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
@@ -50,11 +51,11 @@ class OrderCell: UITableViewCell {
             menuView.widthAnchor.constraint(equalTo: menuView.heightAnchor)
         ])
         
-        addSubview(menuTextField)
+        contentView.addSubview(menuTextField)
         NSLayoutConstraint.activate([
             menuTextField.leadingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: 20),
-            menuTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            menuTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            menuTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            menuTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
