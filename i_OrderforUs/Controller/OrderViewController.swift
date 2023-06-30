@@ -10,31 +10,20 @@ import UIKit
 class OrderViewController: UIViewController {
     
     let orderView = OrderView()
+    var data: [String] = ["a", "b", "c"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Order"
         self.view = orderView
+        
+        orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "cell")
+        orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
         
         //add rightBarbutton as Dismiss
         let rightBarButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(buttonTapped))
         navigationItem.rightBarButtonItem = rightBarButton
-
-        
-//        let fullScreenSize = UIScreen.main.bounds.size
-        
-//        let orderTableView = UITableView(frame: CGRect(x: 0, y: 0,width: fullScreenSize.width,height: fullScreenSize.height),style: .grouped)
-        
-//        orderTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-//
-//        orderTableView.delegate = self
-//        orderTableView.dataSource = self
-//
-//        orderTableView.separatorStyle = .singleLine
-//        orderTableView.allowsSelection = true
-//
-//        self.view.addSubview(orderTableView)
     }
     
     @objc func buttonTapped () {
@@ -46,14 +35,21 @@ class OrderViewController: UIViewController {
 extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? OrderCell {
+            cell.textLabel?.text = data[indexPath.row]
+            return cell
+        }
+        fatalError("could not dequeueReusableCell")
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellHeight: CGFloat = 100
+        return cellHeight
+    }
 }
 
 
