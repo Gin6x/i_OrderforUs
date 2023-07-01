@@ -19,7 +19,7 @@ class OrderView: UIView {
     }()
 
     let orderTableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: CGRectZero, style: .grouped)
         tableView.backgroundColor = .white
         tableView.separatorStyle = .singleLine
         tableView.allowsSelection = false
@@ -44,6 +44,7 @@ class OrderView: UIView {
             orderContentView.leftAnchor.constraint(equalTo: leftAnchor),
             orderContentView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
+        
         addSubview(orderTableView)
         NSLayoutConstraint.activate([
             orderTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),

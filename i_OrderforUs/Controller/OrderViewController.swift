@@ -18,6 +18,7 @@ class OrderViewController: UIViewController {
         self.view = orderView
         
         orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "cell")
+        orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
         
@@ -35,7 +36,7 @@ class OrderViewController: UIViewController {
 extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
