@@ -53,7 +53,7 @@ class OrderCell: UITableViewCell {
         
         contentView.addSubview(menuTextField)
         NSLayoutConstraint.activate([
-            menuTextField.leadingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: 20),
+            menuTextField.leadingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: 10),
             menuTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             menuTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])

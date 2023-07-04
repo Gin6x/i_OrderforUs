@@ -8,6 +8,14 @@
 import UIKit
 
 class ItemCell: UITableViewCell {
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Name : "
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
 
     let nameTextField: UITextField = {
         let textField = UITextField()
@@ -16,6 +24,14 @@ class ItemCell: UITableViewCell {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
         return textField
+    }()
+    
+    private let itemLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Item : "
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
     }()
     
     let itemTextField: UITextField = {
@@ -27,6 +43,14 @@ class ItemCell: UITableViewCell {
         return textField
     }()
     
+    private let priceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Price : "
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    
     let priceTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "How much?"
@@ -36,9 +60,17 @@ class ItemCell: UITableViewCell {
         return textField
     }()
     
+    private let emailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Email : "
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    
     let emailTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Company or personal email for future reference"
+        textField.placeholder = "Company / personal email "
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
@@ -56,53 +88,60 @@ class ItemCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        setupOrderCell()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupOrderCell () {
+    func setupOrderCell() {
+        addSubview(nameLabel)
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            nameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+        ])
+        
+        addSubview(itemLabel)
+        NSLayoutConstraint.activate([
+            itemLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            itemLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+        ])
+        
+        addSubview(priceLabel)
+        NSLayoutConstraint.activate([
+            priceLabel.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 8),
+            priceLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+        ])
+        
+        addSubview(emailLabel)
+        NSLayoutConstraint.activate([
+            emailLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8),
+            emailLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+        ])
         
         contentView.addSubview(nameTextField)
         NSLayoutConstraint.activate([
-            nameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            nameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            nameTextField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            nameTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8)
+            nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 8),
+            nameTextField.topAnchor.constraint(equalTo: topAnchor, constant: 10)
         ])
-        
+       
         contentView.addSubview(itemTextField)
         NSLayoutConstraint.activate([
-            itemTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            itemTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            itemTextField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            itemTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8)
+            itemTextField.leadingAnchor.constraint(equalTo: itemLabel.trailingAnchor, constant: 8),
+            itemTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 8),
         ])
-        
+       
         contentView.addSubview(priceTextField)
         NSLayoutConstraint.activate([
-            priceTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            priceTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            priceTextField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            priceTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8)
+            priceTextField.leadingAnchor.constraint(equalTo: priceLabel.trailingAnchor, constant: 8),
+            priceTextField.topAnchor.constraint(equalTo: itemTextField.bottomAnchor, constant: 8),
         ])
-        
+       
         contentView.addSubview(emailTextField)
         NSLayoutConstraint.activate([
-            emailTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            emailTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            emailTextField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            emailTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8)
+            emailTextField.leadingAnchor.constraint(equalTo: emailLabel.trailingAnchor, constant: 8),
+            emailTextField.topAnchor.constraint(equalTo: priceTextField.bottomAnchor, constant: 8),
         ])
-        
-//        contentView.addSubview(nameTextField)
-//        NSLayoutConstraint.activate([
-//            nameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-//            nameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-//            nameTextField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-//            nameTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8)
-//        ])
     }
 }

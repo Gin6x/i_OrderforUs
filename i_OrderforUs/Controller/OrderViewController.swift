@@ -36,22 +36,56 @@ class OrderViewController: UIViewController {
 extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if section == 0 {
+            return data.count
+        } else if section == 1 {
+            return 1
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? OrderCell {
-            cell.textLabel?.text = data[indexPath.row]
+        
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! OrderCell
             cell.menuTextField.delegate = self
             return cell
+        } else if indexPath.section == 1 {
+            let itemCell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
+            itemCell.nameTextField.delegate = self
+            itemCell.itemTextField.delegate = self
+            itemCell.priceTextField.delegate = self
+            itemCell.emailTextField.delegate = self
+            return itemCell
         }
+        fatalError("Can not return cell")
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        fatalError("could not dequeueReusableCell")
+        if section == 1 {
+            return "Item 1"
+        }
+        return ""
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight: CGFloat = 85 
-        return cellHeight
+        
+        if indexPath.section == 0 {
+            let cellHeight: CGFloat = 85
+            return cellHeight
+        } else if indexPath.section == 1 {
+           return CGFloat(300)
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 15.0
     }
 }
 
