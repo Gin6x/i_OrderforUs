@@ -11,8 +11,9 @@ class ItemCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Name : "
+        label.text = "Name :"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
@@ -23,13 +24,24 @@ class ItemCell: UITableViewCell {
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
+        textField.borderStyle = .roundedRect
         return textField
+    }()
+    
+    let nameStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0.1
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     private let itemLabel: UILabel = {
         let label = UILabel()
-        label.text = "Item : "
+        label.text = "Item :"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
@@ -40,13 +52,24 @@ class ItemCell: UITableViewCell {
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
+        textField.borderStyle = .roundedRect
         return textField
+    }()
+    
+    let itemStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0.1
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "Price : "
+        label.text = "Price :"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
@@ -57,13 +80,24 @@ class ItemCell: UITableViewCell {
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
+        textField.borderStyle = .roundedRect
         return textField
+    }()
+    
+    let priceStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0.1
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     private let emailLabel: UILabel = {
         let label = UILabel()
-        label.text = "Email : "
+        label.text = "Email :"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
@@ -74,17 +108,36 @@ class ItemCell: UITableViewCell {
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
+        textField.borderStyle = .roundedRect
         return textField
     }()
     
-    let phoneTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Optional contact number"
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        return textField
+    let emailStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0.1
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
+    
+    let entriesStackView: UIStackView = {
+        let stackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 0, height: 200))
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 5
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+//    let phoneTextField: UITextField = {
+//        let textField = UITextField()
+//        textField.placeholder = "Optional contact number"
+//        textField.isUserInteractionEnabled = true
+//        textField.translatesAutoresizingMaskIntoConstraints = false
+//        textField.font = UIFont.systemFont(ofSize: 20)
+//        return textField
+//    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -96,52 +149,53 @@ class ItemCell: UITableViewCell {
     }
     
     func setupOrderCell() {
-        addSubview(nameLabel)
+        nameStackView.addArrangedSubview(nameLabel)
+        nameStackView.addArrangedSubview(nameTextField)
+        contentView.addSubview(nameStackView)
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            nameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            nameStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            nameStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            nameStackView.topAnchor.constraint(equalTo: topAnchor, constant: 5)
         ])
         
-        addSubview(itemLabel)
+        itemStackView.addArrangedSubview(itemLabel)
+        itemStackView.addArrangedSubview(itemTextField)
+        contentView.addSubview(itemStackView)
         NSLayoutConstraint.activate([
-            itemLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            itemLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            itemStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            itemStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            itemStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 5)
         ])
         
-        addSubview(priceLabel)
+        priceStackView.addArrangedSubview(priceLabel)
+        priceStackView.addArrangedSubview(priceTextField)
+        contentView.addSubview(priceStackView)
         NSLayoutConstraint.activate([
-            priceLabel.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 8),
-            priceLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            priceStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            priceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            priceStackView.topAnchor.constraint(equalTo: itemStackView.bottomAnchor, constant: 5)
         ])
         
-        addSubview(emailLabel)
+        emailStackView.addArrangedSubview(emailLabel)
+        emailStackView.addArrangedSubview(emailTextField)
+        contentView.addSubview(emailStackView)
         NSLayoutConstraint.activate([
-            emailLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8),
-            emailLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            emailStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            emailStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            emailStackView.topAnchor.constraint(equalTo: priceStackView.bottomAnchor, constant: 5)
         ])
         
-        contentView.addSubview(nameTextField)
+        entriesStackView.addArrangedSubview(nameStackView)
+        entriesStackView.addArrangedSubview(itemStackView)
+        entriesStackView.addArrangedSubview(priceStackView)
+        entriesStackView.addArrangedSubview(emailStackView)
+        contentView.addSubview(entriesStackView)
         NSLayoutConstraint.activate([
-            nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 8),
-            nameTextField.topAnchor.constraint(equalTo: topAnchor, constant: 10)
-        ])
-       
-        contentView.addSubview(itemTextField)
-        NSLayoutConstraint.activate([
-            itemTextField.leadingAnchor.constraint(equalTo: itemLabel.trailingAnchor, constant: 8),
-            itemTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 8),
-        ])
-       
-        contentView.addSubview(priceTextField)
-        NSLayoutConstraint.activate([
-            priceTextField.leadingAnchor.constraint(equalTo: priceLabel.trailingAnchor, constant: 8),
-            priceTextField.topAnchor.constraint(equalTo: itemTextField.bottomAnchor, constant: 8),
-        ])
-       
-        contentView.addSubview(emailTextField)
-        NSLayoutConstraint.activate([
-            emailTextField.leadingAnchor.constraint(equalTo: emailLabel.trailingAnchor, constant: 8),
-            emailTextField.topAnchor.constraint(equalTo: priceTextField.bottomAnchor, constant: 8),
+            entriesStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            entriesStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            entriesStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            entriesStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+//            entriesStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 210.0)
         ])
     }
 }

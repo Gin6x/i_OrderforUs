@@ -21,6 +21,8 @@ class OrderViewController: UIViewController {
         orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
+//        orderView.orderTableView.estimatedRowHeight = 300.0
+//        orderView.orderTableView.rowHeight = UITableView.automaticDimension
         
         //add rightBarbutton as Dismiss
         let rightBarButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(buttonTapped))
@@ -41,7 +43,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         } else if section == 1 {
             return 1
         }
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,19 +76,21 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         if indexPath.section == 0 {
-            let cellHeight: CGFloat = 85
-            return cellHeight
+            return 85.0
         } else if indexPath.section == 1 {
-           return CGFloat(300)
+            return 210
         }
-        return 0
+        return 100.0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 15.0
     }
+    
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 300.0
+//    }
 }
 
 extension OrderViewController: UITextFieldDelegate {
