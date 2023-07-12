@@ -31,7 +31,8 @@ class OrderViewController: UIViewController {
     
     @objc func buttonTapped () {
         print("OrderVC dismissed")
-        dismiss(animated: true)
+//        dismiss(animated: true)
+        orderView.orderTableView.insertSections(<#T##sections: IndexSet##IndexSet#>, with: <#T##UITableView.RowAnimation#>)
     }
 }
 
