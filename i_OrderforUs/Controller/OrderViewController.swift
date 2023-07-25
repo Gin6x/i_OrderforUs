@@ -10,7 +10,8 @@ import UIKit
 class OrderViewController: UIViewController {
     
     let orderView = OrderView()
-    var data: [String] = ["a"]
+    var numberOfSection = 2
+    var headerTitle: [String] = ["Item 1"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +26,30 @@ class OrderViewController: UIViewController {
 //        orderView.orderTableView.rowHeight = UITableView.automaticDimension
         
         //add rightBarbutton as Dismiss
-        let rightBarButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(buttonTapped))
+        let leftBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(buttonTapped))
+        navigationItem.leftBarButtonItem = leftBarButton
+        
+        let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    @objc func buttonTapped () {
+    @objc func buttonTapped() {
         print("OrderVC dismissed")
-//        dismiss(animated: true)
-        orderView.orderTableView.insertSections(<#T##sections: IndexSet##IndexSet#>, with: <#T##UITableView.RowAnimation#>)
+        dismiss(animated: true)
+    }
+    
+    @objc func addButtonTapped() {
+        numberOfSection += 1
+        
+        let newTitle = "Item \(headerTitle.count + 1)"
+        headerTitle.append(newTitle)
+        print(headerTitle)
+
+        let indexSet = IndexSet(integer: numberOfSection - 1)
+        orderView.orderTableView.beginUpdates()
+        orderView.orderTableView.insertSections(indexSet, with: .automatic)
+        orderView.orderTableView.endUpdates()
+        print("added new item")
     }
 }
 
@@ -40,8 +57,8 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return data.count
-        } else if section == 1 {
+            return 1
+        } else if section >= 1 {
             return 1
         }
         return 1
@@ -53,7 +70,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! OrderCell
             cell.menuTextField.delegate = self
             return cell
-        } else if indexPath.section == 1 {
+        } else if indexPath.section >= 1 {
             let itemCell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
             itemCell.nameTextField.delegate = self
             itemCell.itemTextField.delegate = self
@@ -66,32 +83,38 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if section == 1 {
-            return "Item 1"
+        if section == 0 {
+            return "Menu"
+        } else if section >= 1 {
+            return headerTitle[section - 1]
         }
         return ""
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return numberOfSection
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 85.0
-        } else if indexPath.section == 1 {
+        } else if indexPath.section >= 1 {
             return 210
         }
+        
         return 100.0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if section == 0 {
+            return 30.0
+        } else if section >= 1 {
+            return 15.0
+        }
+        
         return 15.0
     }
-    
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 300.0
-//    }
 }
 
 extension OrderViewController: UITextFieldDelegate {
