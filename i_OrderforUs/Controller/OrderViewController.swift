@@ -25,15 +25,20 @@ class OrderViewController: UIViewController {
 //        orderView.orderTableView.estimatedRowHeight = 300.0
 //        orderView.orderTableView.rowHeight = UITableView.automaticDimension
         
-        //add rightBarbutton as Dismiss
-        let leftBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(buttonTapped))
+        let leftBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
         navigationItem.leftBarButtonItem = leftBarButton
         
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButton
+        
+        orderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
-    @objc func buttonTapped() {
+    @objc func nextButtonTapped() {
+        print("next button pressed")
+    }
+    
+    @objc func cancelButtonTapped() {
         print("OrderVC dismissed")
         dismiss(animated: true)
     }
