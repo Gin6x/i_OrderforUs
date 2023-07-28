@@ -22,6 +22,7 @@ class OrderViewController: UIViewController {
         orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
+        orderView.shopNameTextField.delegate = self
 //        orderView.orderTableView.estimatedRowHeight = 300.0
 //        orderView.orderTableView.rowHeight = UITableView.automaticDimension
         
@@ -90,6 +91,8 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         
         if section == 0 {
             return "Menu"
+        } else if section == 1 {
+            return "My Item"
         } else if section >= 1 {
             return headerTitle[section - 1]
         }

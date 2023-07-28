@@ -8,14 +8,30 @@
 import UIKit
 
 class OrderView: UIView {
-    
-//    private let fullScreenSize = UIScreen.main.bounds.size
 
     private let orderContentView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemCyan
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private let topView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemTeal
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let shopNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Restaurant Name"
+        textField.textAlignment = .center
+        textField.isUserInteractionEnabled = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = UIFont.systemFont(ofSize: 20)
+        textField.borderStyle = .roundedRect
+        return textField
     }()
 
     let orderTableView: UITableView = {
@@ -27,7 +43,7 @@ class OrderView: UIView {
         return tableView
     }()
     
-    let bottomView: UIView = {
+    private let bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemTeal
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,10 +79,26 @@ class OrderView: UIView {
         
         addSubview(orderTableView)
         NSLayoutConstraint.activate([
-            orderTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            orderTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50),
             orderTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -50),
             orderTableView.leftAnchor.constraint(equalTo: leftAnchor),
             orderTableView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+        
+        addSubview(topView)
+        NSLayoutConstraint.activate([
+            topView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            topView.bottomAnchor.constraint(equalTo: orderTableView.topAnchor),
+            topView.leftAnchor.constraint(equalTo: leftAnchor),
+            topView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+        
+        topView.addSubview(shopNameTextField)
+        NSLayoutConstraint.activate([
+            shopNameTextField.topAnchor.constraint(equalTo: topView.topAnchor, constant: 10),
+            shopNameTextField.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -10),
+            shopNameTextField.leftAnchor.constraint(equalTo: topView.leftAnchor, constant: 50),
+            shopNameTextField.rightAnchor.constraint(equalTo: topView.rightAnchor, constant: -50)
         ])
         
         addSubview(bottomView)
