@@ -17,6 +17,8 @@
 		BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4342A12F465004425B6 /* OrderView.swift */; };
 		BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4382A2A0986004425B6 /* OrderCell.swift */; };
 		BE96416E2A50E23D000B9036 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96416D2A50E23D000B9036 /* ItemCell.swift */; };
+		BE9A060D2A73F4F20035F635 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A060C2A73F4F20035F635 /* RecordViewController.swift */; };
+		BE9A060F2A73F51D0035F635 /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A060E2A73F51D0035F635 /* RecordView.swift */; };
 		F258001EC24DEFCCCDE8409E /* Pods_i_OrderforUs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80654BED43B6DB0566191CEF /* Pods_i_OrderforUs.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		BE7BD4342A12F465004425B6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		BE7BD4382A2A0986004425B6 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		BE96416D2A50E23D000B9036 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		BE9A060C2A73F4F20035F635 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		BE9A060E2A73F51D0035F635 /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +60,6 @@
 				83093C064D572BC27F4CEA54 /* Pods-i_OrderforUs.debug.xcconfig */,
 				AC529712B8903AE624CEFAD4 /* Pods-i_OrderforUs.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -98,6 +101,7 @@
 			children = (
 				BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */,
 				BE7BD4322A12F420004425B6 /* OrderViewController.swift */,
+				BE9A060C2A73F4F20035F635 /* RecordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -116,6 +120,7 @@
 			children = (
 				BE7BD4302A09B141004425B6 /* WelcomeView.swift */,
 				BE7BD4342A12F465004425B6 /* OrderView.swift */,
+				BE9A060E2A73F51D0035F635 /* RecordView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -245,6 +250,8 @@
 				BE96416E2A50E23D000B9036 /* ItemCell.swift in Sources */,
 				BE1B0C382A0940BC0067F492 /* AppDelegate.swift in Sources */,
 				BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */,
+				BE9A060F2A73F51D0035F635 /* RecordView.swift in Sources */,
+				BE9A060D2A73F4F20035F635 /* RecordViewController.swift in Sources */,
 				BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */,
 				BE1B0C3A2A0940BC0067F492 /* SceneDelegate.swift in Sources */,
 				BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */,

@@ -36,7 +36,10 @@ class OrderViewController: UIViewController {
     }
     
     @objc func nextButtonTapped() {
-        print("next button pressed")
+            let recordVC = RecordViewController()
+            recordVC.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(recordVC, animated: true)
+//            self.present(recordVC, animated: true, completion: nil)
     }
     
     @objc func cancelButtonTapped() {

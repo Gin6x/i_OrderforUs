@@ -27,7 +27,6 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
         let orderNavController = UINavigationController(rootViewController: orderVC)
         orderNavController.modalPresentationStyle = .fullScreen
         self.present(orderNavController, animated: true, completion: nil)
-        
     }
     
     func imagePicker(sourceType: UIImagePickerController.SourceType) -> UIImagePickerController {
