@@ -16,12 +16,12 @@ class OrderView: UIView {
         return view
     }()
     
-    private let topView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemTeal
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+//    private let topView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .systemTeal
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
     
     let shopNameTextField: UITextField = {
         let textField = UITextField()
@@ -79,27 +79,27 @@ class OrderView: UIView {
         
         addSubview(orderTableView)
         NSLayoutConstraint.activate([
-            orderTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50),
+            orderTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             orderTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -50),
             orderTableView.leftAnchor.constraint(equalTo: leftAnchor),
             orderTableView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
         
-        addSubview(topView)
-        NSLayoutConstraint.activate([
-            topView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            topView.bottomAnchor.constraint(equalTo: orderTableView.topAnchor),
-            topView.leftAnchor.constraint(equalTo: leftAnchor),
-            topView.rightAnchor.constraint(equalTo: rightAnchor)
-        ])
-        
-        topView.addSubview(shopNameTextField)
-        NSLayoutConstraint.activate([
-            shopNameTextField.topAnchor.constraint(equalTo: topView.topAnchor, constant: 10),
-            shopNameTextField.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -10),
-            shopNameTextField.leftAnchor.constraint(equalTo: topView.leftAnchor, constant: 50),
-            shopNameTextField.rightAnchor.constraint(equalTo: topView.rightAnchor, constant: -50)
-        ])
+//        addSubview(topView)
+//        NSLayoutConstraint.activate([
+//            topView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+//            topView.bottomAnchor.constraint(equalTo: orderTableView.topAnchor),
+//            topView.leftAnchor.constraint(equalTo: leftAnchor),
+//            topView.rightAnchor.constraint(equalTo: rightAnchor)
+//        ])
+//        
+//        topView.addSubview(shopNameTextField)
+//        NSLayoutConstraint.activate([
+//            shopNameTextField.topAnchor.constraint(equalTo: topView.topAnchor, constant: 10),
+//            shopNameTextField.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -10),
+//            shopNameTextField.leftAnchor.constraint(equalTo: topView.leftAnchor, constant: 50),
+//            shopNameTextField.rightAnchor.constraint(equalTo: topView.rightAnchor, constant: -50)
+//        ])
         
         addSubview(bottomView)
         NSLayoutConstraint.activate([

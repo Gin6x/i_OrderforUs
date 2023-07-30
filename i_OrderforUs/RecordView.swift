@@ -16,6 +16,20 @@ class RecordView: UIView {
         return view
     }()
     
+    private let topView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemTeal
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let bottomView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemTeal
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         setupLayout()

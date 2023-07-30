@@ -18,19 +18,12 @@ class OrderCell: UITableViewCell {
     
     let menuTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Add detail for the menu"
+        textField.placeholder = "Restaurant Name"
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
         return textField
     }()
-    
-//    private let dataTextField: UITextField = {
-//        let textField = UITextField()
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        textField.font = UIFont.systemFont(ofSize: 20)
-//        return textField
-//    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -58,9 +51,4 @@ class OrderCell: UITableViewCell {
             menuTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
-    
-//    func configmenuTextField() {
-//
-//    }
-    
 }
