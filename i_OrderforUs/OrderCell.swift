@@ -27,15 +27,14 @@ class OrderCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupOrderCell()
-//        configmenuTextField()
+        setupCell()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupOrderCell () {
+    func setupCell () {
         addSubview(menuView)
         NSLayoutConstraint.activate([
             menuView.topAnchor.constraint(equalTo: topAnchor, constant: 10),

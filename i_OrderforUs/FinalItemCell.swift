@@ -1,31 +1,30 @@
 //
-//  ItemCell.swift
+//  FinalItemCell.swift
 //  i_OrderforUs
 //
-//  Created by Gin on 1/7/2023.
+//  Created by Gin on 31/7/2023.
 //
 
 import UIKit
 
-class ItemCell: UITableViewCell {
+class FinalItemCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Name :"
+        label.text = "Name: "
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
-
-    let nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Who is ordering?"
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
+    
+    private let nameDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Bob"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
     }()
     
     let nameStackView: UIStackView = {
@@ -39,21 +38,20 @@ class ItemCell: UITableViewCell {
     
     private let itemLabel: UILabel = {
         let label = UILabel()
-        label.text = "Item :"
+        label.text = "item: "
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let itemTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "What have been ordered?"
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
+    private let itemDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "XXX noodles"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
     }()
     
     let itemStackView: UIStackView = {
@@ -67,52 +65,23 @@ class ItemCell: UITableViewCell {
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "Price :"
+        label.text = "Price: "
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let priceTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "How much?"
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
+    private let priceDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "$22"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
     }()
     
     let priceStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 0.1
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private let emailLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Email :"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20)
-        return label
-    }()
-    
-    let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Company / personal email "
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
-    }()
-    
-    let emailStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -130,15 +99,6 @@ class ItemCell: UITableViewCell {
         return stackView
     }()
     
-//    let phoneTextField: UITextField = {
-//        let textField = UITextField()
-//        textField.placeholder = "Optional contact number"
-//        textField.isUserInteractionEnabled = true
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        textField.font = UIFont.systemFont(ofSize: 20)
-//        return textField
-//    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCell()
@@ -150,7 +110,7 @@ class ItemCell: UITableViewCell {
     
     func setupCell() {
         nameStackView.addArrangedSubview(nameLabel)
-        nameStackView.addArrangedSubview(nameTextField)
+        nameStackView.addArrangedSubview(nameDataLabel)
         contentView.addSubview(nameStackView)
         NSLayoutConstraint.activate([
             nameStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -159,36 +119,26 @@ class ItemCell: UITableViewCell {
         ])
         
         itemStackView.addArrangedSubview(itemLabel)
-        itemStackView.addArrangedSubview(itemTextField)
+        itemStackView.addArrangedSubview(itemDataLabel)
         contentView.addSubview(itemStackView)
         NSLayoutConstraint.activate([
             itemStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             itemStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            itemStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 5)
+            itemStackView.topAnchor.constraint(equalTo: nameStackView.topAnchor, constant: 5)
         ])
         
         priceStackView.addArrangedSubview(priceLabel)
-        priceStackView.addArrangedSubview(priceTextField)
+        priceStackView.addArrangedSubview(priceDataLabel)
         contentView.addSubview(priceStackView)
         NSLayoutConstraint.activate([
             priceStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             priceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            priceStackView.topAnchor.constraint(equalTo: itemStackView.bottomAnchor, constant: 5)
-        ])
-        
-        emailStackView.addArrangedSubview(emailLabel)
-        emailStackView.addArrangedSubview(emailTextField)
-        contentView.addSubview(emailStackView)
-        NSLayoutConstraint.activate([
-            emailStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            emailStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            emailStackView.topAnchor.constraint(equalTo: priceStackView.bottomAnchor, constant: 5)
+            priceStackView.topAnchor.constraint(equalTo: itemStackView.topAnchor, constant: 5)
         ])
         
         entriesStackView.addArrangedSubview(nameStackView)
         entriesStackView.addArrangedSubview(itemStackView)
         entriesStackView.addArrangedSubview(priceStackView)
-        entriesStackView.addArrangedSubview(emailStackView)
         contentView.addSubview(entriesStackView)
         NSLayoutConstraint.activate([
             entriesStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -197,4 +147,5 @@ class ItemCell: UITableViewCell {
             entriesStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
         ])
     }
+
 }

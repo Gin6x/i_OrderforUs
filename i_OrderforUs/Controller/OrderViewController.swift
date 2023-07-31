@@ -18,11 +18,10 @@ class OrderViewController: UIViewController {
         title = "Order"
         self.view = orderView
         
-        orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "cell")
+        orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
         orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
-//        orderView.shopNameTextField.delegate = self
 //        orderView.orderTableView.estimatedRowHeight = 300.0
 //        orderView.orderTableView.rowHeight = UITableView.automaticDimension
         
@@ -36,9 +35,9 @@ class OrderViewController: UIViewController {
     }
     
     @objc func nextButtonTapped() {
-            let recordVC = RecordViewController()
-            recordVC.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(recordVC, animated: true)
+        let recordVC = RecordViewController()
+        recordVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(recordVC, animated: true)
 //            self.present(recordVC, animated: true, completion: nil)
     }
     
@@ -76,7 +75,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! OrderCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
             cell.menuTextField.delegate = self
             return cell
         } else if indexPath.section >= 1 {

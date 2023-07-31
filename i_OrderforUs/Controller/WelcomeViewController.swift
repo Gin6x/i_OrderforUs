@@ -26,6 +26,7 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
         let orderVC = OrderViewController()
         let orderNavController = UINavigationController(rootViewController: orderVC)
         orderNavController.modalPresentationStyle = .fullScreen
+//        orderNavController.navigationBar.prefersLargeTitles = true
         self.present(orderNavController, animated: true, completion: nil)
     }
     

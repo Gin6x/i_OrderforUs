@@ -11,16 +11,18 @@ class RecordView: UIView {
     
     private let recordContentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .systemCyan
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let topView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemTeal
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    let recordTableView: UITableView = {
+        let tableView = UITableView(frame: CGRectZero, style: .grouped)
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .singleLine
+        tableView.allowsSelection = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     private let bottomView: UIView = {
@@ -47,6 +49,23 @@ class RecordView: UIView {
             recordContentView.leftAnchor.constraint(equalTo: leftAnchor),
             recordContentView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
+        
+        addSubview(recordTableView)
+        NSLayoutConstraint.activate([
+            recordTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            recordTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            recordTableView.leftAnchor.constraint(equalTo: leftAnchor),
+            recordTableView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+        
+        addSubview(bottomView)
+        NSLayoutConstraint.activate([
+            bottomView.topAnchor.constraint(equalTo: recordTableView.bottomAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            bottomView.leftAnchor.constraint(equalTo: leftAnchor),
+            bottomView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+        
     }
 
 }
