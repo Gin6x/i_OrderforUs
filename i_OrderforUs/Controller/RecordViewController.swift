@@ -21,6 +21,13 @@ class RecordViewController: UIViewController {
         recordView.recordTableView.register(FinalItemCell.self, forCellReuseIdentifier: "finalitemCell")
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
+        
+        recordView.savebutton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc func saveButtonPressed() {
+        print("save button pressed")
+        dismiss(animated: true)
     }
 }
 

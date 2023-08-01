@@ -23,16 +23,16 @@ class OrderView: UIView {
 //        return view
 //    }()
     
-    let shopNameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Restaurant Name"
-        textField.textAlignment = .center
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
-    }()
+//    let shopNameTextField: UITextField = {
+//        let textField = UITextField()
+//        textField.placeholder = "Restaurant Name"
+//        textField.textAlignment = .center
+//        textField.isUserInteractionEnabled = true
+//        textField.translatesAutoresizingMaskIntoConstraints = false
+//        textField.font = UIFont.systemFont(ofSize: 20)
+//        textField.borderStyle = .roundedRect
+//        return textField
+//    }()
 
     let orderTableView: UITableView = {
         let tableView = UITableView(frame: CGRectZero, style: .grouped)

@@ -12,16 +12,24 @@ class OrderViewController: UIViewController {
     let orderView = OrderView()
     var numberOfSection = 2
     var headerTitle: [String] = ["Item 1"]
+    //OrderData
+    var shopname: String = ""
+    var orderDate = Date()
+    var names: [String] = []
+    var items: [String] = []
+    var prices: [Double] = []
+    var emails: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Order"
         self.view = orderView
         
-        orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
-        orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
+        orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
+        orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
+       
 //        orderView.orderTableView.estimatedRowHeight = 300.0
 //        orderView.orderTableView.rowHeight = UITableView.automaticDimension
         
@@ -36,9 +44,10 @@ class OrderViewController: UIViewController {
     
     @objc func nextButtonTapped() {
         let recordVC = RecordViewController()
+        var newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, email: emails)
+        print(newOrder)
         recordVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(recordVC, animated: true)
-//            self.present(recordVC, animated: true, completion: nil)
     }
     
     @objc func cancelButtonTapped() {
@@ -77,6 +86,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
             cell.menuTextField.delegate = self
+            cell.menuTextField.tag = 1
             return cell
         } else if indexPath.section >= 1 {
             let itemCell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
@@ -84,6 +94,10 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
             itemCell.itemTextField.delegate = self
             itemCell.priceTextField.delegate = self
             itemCell.emailTextField.delegate = self
+            itemCell.nameTextField.tag = 2
+            itemCell.itemTextField.tag = 3
+            itemCell.priceTextField.tag = 4
+            itemCell.emailTextField.tag = 5
             return itemCell
         }
         fatalError("Can not return cell")
@@ -130,11 +144,51 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
 extension OrderViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
+     
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        switch textField.tag {
+        case 1:
+            if let restaurantName = textField.text {
+                shopname = restaurantName
+                print(shopname)
+            }
+            break
+            
+        case 2:
+            if let name = textField.text {
+                names.append(name)
+                print(names)
+            }
+            break
+            
+        case 3:
+            if let item = textField.text {
+                items.append(item)
+                print(items)
+            }
+            break
+            
+        case 4:
+            if let price = textField.text {
+                if let priceDouble = Double(price) {
+                    prices.append(priceDouble)
+                    print(prices)
+                }
+            }
+            break
+            
+        case 5:
+            if let email = textField.text {
+                emails.append(email)
+                print(emails)
+            }
+            break
+            
+        default:
+            fatalError("No value")
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

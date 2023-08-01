@@ -32,6 +32,15 @@ class RecordView: UIView {
         return view
     }()
     
+    let savebutton: UIButton = {
+        let button = UIButton(frame:CGRectZero)
+        button.setTitle("Save", for: .normal)
+        button.backgroundColor = .systemTeal
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         setupLayout()
@@ -66,6 +75,12 @@ class RecordView: UIView {
             bottomView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
         
+        bottomView.addSubview(savebutton)
+        NSLayoutConstraint.activate([
+            savebutton.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 10),
+            savebutton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -10),
+            savebutton.leftAnchor.constraint(equalTo: bottomView.leftAnchor, constant: 50),
+            savebutton.rightAnchor.constraint(equalTo: bottomView.rightAnchor, constant: -50)
+        ])
     }
-
 }
