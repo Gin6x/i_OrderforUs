@@ -11,7 +11,6 @@ class RecordViewController: UIViewController {
     
     let recordView = RecordView()
     let orderVC = OrderViewController()
-    var numberOfSection = 2
 
     //OrderData
     var shopname: [String] = []
@@ -44,6 +43,13 @@ class RecordViewController: UIViewController {
         print("\(items)")
         print("\(prices)")
         print("\(totalPrice)")
+        
+//        let totalNumberOfElements = names.count + 1
+//                    var newArray: [String] = []
+//
+//        for i in 2...totalNumberOfElements {
+//            newArray.append("Item \(i)")
+//            print(newArray)}
 //        dismiss(animated: true)
     }
 }
@@ -68,9 +74,9 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section >= 1 {
             let finalitemCell = tableView.dequeueReusableCell(withIdentifier: "finalitemCell", for: indexPath) as! FinalItemCell
             finalitemCell.nameDataLabel.text = names[indexPath.section - 1]
-            finalitemCell.itemDataLabel.text = items[indexPath.section - 1]
-            let pricesInStr = prices.map{String($0)}
-            finalitemCell.priceDataLabel.text = pricesInStr[indexPath.section - 1]
+//            finalitemCell.itemDataLabel.text = items[indexPath.section - 1]
+//            let pricesInStr = prices.map{String($0)}
+//            finalitemCell.priceDataLabel.text = pricesInStr[indexPath.section - 1]
             return finalitemCell
         }
         fatalError("Can not return cell")
@@ -84,10 +90,18 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
 
         if section == 0 {
             return "Summary"
-        } else if section >= 1 {
-            return "Item"
+        } else if section == 1 {
+            return "Your item"
+        } else if section > 1 {
+            let totalNumberOfElements = names.count + 1
+            var headerTitleArray: [String] = []
+
+            for i in 2...totalNumberOfElements {
+                headerTitleArray.append("Item \(i)")
+            }
+            return headerTitleArray[section - 2]
         }
-        return ""
+        return " "
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
