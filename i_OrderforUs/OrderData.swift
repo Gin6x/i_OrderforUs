@@ -13,5 +13,5 @@ struct OrderData {
     var name: [String]
     var item: [String]
     var price: [Double]
-    var email: [String]
+    var email: [String]                                               
 }

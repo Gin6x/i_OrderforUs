@@ -18,16 +18,15 @@ class FinalItemCell: UITableViewCell {
         return label
     }()
     
-    private let nameDataLabel: UILabel = {
+    let nameDataLabel: UILabel = {
         let label = UILabel()
-        label.text = "Bob"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let nameStackView: UIStackView = {
+    private let nameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -45,16 +44,15 @@ class FinalItemCell: UITableViewCell {
         return label
     }()
     
-    private let itemDataLabel: UILabel = {
+    let itemDataLabel: UILabel = {
         let label = UILabel()
-        label.text = "XXX noodles"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let itemStackView: UIStackView = {
+    private let itemStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -72,16 +70,15 @@ class FinalItemCell: UITableViewCell {
         return label
     }()
     
-    private let priceDataLabel: UILabel = {
+    let priceDataLabel: UILabel = {
         let label = UILabel()
-        label.text = "$22"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let priceStackView: UIStackView = {
+    private let priceStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally

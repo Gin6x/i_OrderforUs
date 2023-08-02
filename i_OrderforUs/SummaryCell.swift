@@ -18,16 +18,15 @@ class SummaryCell: UITableViewCell {
         return label
     }()
     
-    private let shopDataLabel: UILabel = {
+    var shopDataLabel: UILabel = {
         let label = UILabel()
-        label.text = "ABC"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let shopNameStackView: UIStackView = {
+    private let shopNameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -45,16 +44,15 @@ class SummaryCell: UITableViewCell {
         return label
     }()
     
-    private let priceDataLabel: UILabel = {
+    let priceDataLabel: UILabel = {
         let label = UILabel()
-        label.text = "$52"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let priceStackView: UIStackView = {
+    private let priceStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally

@@ -10,7 +10,18 @@ import UIKit
 class RecordViewController: UIViewController {
     
     let recordView = RecordView()
+    let orderVC = OrderViewController()
     var numberOfSection = 2
+
+    //OrderData
+    var shopname: [String] = []
+    var orderDate = Date()
+    var names: [String] = []
+    var items: [String] = []
+    var prices: [Double] = []
+    var totalPrice: [String] = []
+    var emails: [String] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +33,18 @@ class RecordViewController: UIViewController {
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
         
+        //save/email/exit button
         recordView.savebutton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
     }
     
     @objc func saveButtonPressed() {
         print("save button pressed")
-        dismiss(animated: true)
+        print("\(shopname)")
+        print("\(names)")
+        print("\(items)")
+        print("\(prices)")
+        print("\(totalPrice)")
+//        dismiss(animated: true)
     }
 }
 
@@ -45,24 +62,30 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "summaryCell", for: indexPath) as! SummaryCell
+            cell.shopDataLabel.text = shopname[indexPath.row]
+            cell.priceDataLabel.text = totalPrice[indexPath.row]
             return cell
         } else if indexPath.section >= 1 {
             let finalitemCell = tableView.dequeueReusableCell(withIdentifier: "finalitemCell", for: indexPath) as! FinalItemCell
+            finalitemCell.nameDataLabel.text = names[indexPath.section - 1]
+            finalitemCell.itemDataLabel.text = items[indexPath.section - 1]
+            let pricesInStr = prices.map{String($0)}
+            finalitemCell.priceDataLabel.text = pricesInStr[indexPath.section - 1]
             return finalitemCell
         }
         fatalError("Can not return cell")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return numberOfSection
+        return names.count + 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
         if section == 0 {
             return "Summary"
-        } else if section == 1 {
-            return "Item 1"
+        } else if section >= 1 {
+            return "Item"
         }
         return ""
     }

@@ -11,13 +11,14 @@ class OrderViewController: UIViewController {
     
     let orderView = OrderView()
     var numberOfSection = 2
-    var headerTitle: [String] = ["Item 1"]
+    var headerTitle = ["Item 1"]
     //OrderData
-    var shopname: String = ""
+    var shopname: [String] = []
     var orderDate = Date()
     var names: [String] = []
     var items: [String] = []
     var prices: [Double] = []
+    var totalPrice: [String] = []
     var emails: [String] = []
 
     override func viewDidLoad() {
@@ -44,8 +45,15 @@ class OrderViewController: UIViewController {
     
     @objc func nextButtonTapped() {
         let recordVC = RecordViewController()
-        var newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, email: emails)
-        print(newOrder)
+//        let newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, email: emails)
+//        print(newOrder)
+        recordVC.shopname = self.shopname
+        recordVC.names = self.names
+        recordVC.items = self.items
+        recordVC.prices = self.prices
+        calTotalPrice()
+        recordVC.emails = self.emails
+        recordVC.totalPrice = self.totalPrice
         recordVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(recordVC, animated: true)
     }
@@ -67,6 +75,14 @@ class OrderViewController: UIViewController {
         orderView.orderTableView.insertSections(indexSet, with: .automatic)
         orderView.orderTableView.endUpdates()
         print("added new item")
+    }
+    
+    func calTotalPrice() {
+        let recordVC = RecordViewController()
+        let total = prices.reduce(0, +)
+        let totalInStr = String(total)
+        totalPrice.append(totalInStr)
+        print(totalInStr)
     }
 }
 
@@ -151,7 +167,7 @@ extension OrderViewController: UITextFieldDelegate {
         switch textField.tag {
         case 1:
             if let restaurantName = textField.text {
-                shopname = restaurantName
+                shopname.append(restaurantName)
                 print(shopname)
             }
             break
@@ -192,8 +208,14 @@ extension OrderViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard.
+            textField.resignFirstResponder()
+        }
+        // Do not add a line break
+        return false
     }
 }
 
