@@ -11,7 +11,7 @@ class OrderCell: UITableViewCell {
     
     private let menuView: UIView = {
         let view = UIView()
-        view.backgroundColor = .brown
+        view.backgroundColor = .systemMint
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

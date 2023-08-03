@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class RecordViewController: UIViewController {
+class RecordViewController: UIViewController, UINavigationControllerDelegate {
     
     let recordView = RecordView()
     let orderVC = OrderViewController()
@@ -43,14 +44,23 @@ class RecordViewController: UIViewController {
         print("\(items)")
         print("\(prices)")
         print("\(totalPrice)")
-        
-//        let totalNumberOfElements = names.count + 1
-//                    var newArray: [String] = []
-//
-//        for i in 2...totalNumberOfElements {
-//            newArray.append("Item \(i)")
-//            print(newArray)}
 //        dismiss(animated: true)
+        //display mail composer
+        displayMailComposer()
+    }
+    
+    func displayMailComposer() {
+        guard MFMailComposeViewController.canSendMail() else {
+            // Show error alert informing the user their devices cannot use the mail composer
+            return
+        }
+        let mailcompserVC = MFMailComposeViewController()
+        mailcompserVC.delegate = self
+        //set field
+        mailcompserVC.setToRecipients(["123@gmail.com"])
+        mailcompserVC.setSubject("Testing")
+        mailcompserVC.setMessageBody("", isHTML: false)
+        self.present(mailcompserVC, animated: true, completion: nil)
     }
 }
 
@@ -74,9 +84,9 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section >= 1 {
             let finalitemCell = tableView.dequeueReusableCell(withIdentifier: "finalitemCell", for: indexPath) as! FinalItemCell
             finalitemCell.nameDataLabel.text = names[indexPath.section - 1]
-//            finalitemCell.itemDataLabel.text = items[indexPath.section - 1]
-//            let pricesInStr = prices.map{String($0)}
-//            finalitemCell.priceDataLabel.text = pricesInStr[indexPath.section - 1]
+            finalitemCell.itemDataLabel.text = items[indexPath.section - 1]
+            let pricesInStr = prices.map{String($0)}
+            finalitemCell.priceDataLabel.text = pricesInStr[indexPath.section - 1]
             return finalitemCell
         }
         fatalError("Can not return cell")
@@ -93,12 +103,13 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         } else if section == 1 {
             return "Your item"
         } else if section > 1 {
-            let totalNumberOfElements = names.count + 1
+            let numberOfSections = names.count + 1
             var headerTitleArray: [String] = []
-
-            for i in 2...totalNumberOfElements {
+            for i in 2...numberOfSections {
                 headerTitleArray.append("Item \(i)")
+                print(headerTitleArray)
             }
+            print(headerTitleArray)
             return headerTitleArray[section - 2]
         }
         return " "
@@ -123,6 +134,31 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return 15.0
+    }
+}
+
+extension RecordViewController: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        if let _ = error {
+            //Show error alert to user
+            return
+            dismiss(animated: true)
+        }
+        
+        switch result {
+        case .cancelled:
+            print("cancel pressed")
+        case .saved:
+            print("save pressed")
+        case .sent:
+            print("Mail sent")
+        case .failed:
+            print("failed to send")
+        @unknown default:
+            dismiss(animated: true)
+        }
+        controller.dismiss(animated: true)
     }
 }
 
