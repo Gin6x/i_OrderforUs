@@ -44,9 +44,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate {
         print("\(items)")
         print("\(prices)")
         print("\(totalPrice)")
-//        dismiss(animated: true)
         //display mail composer
         displayMailComposer()
+//        dismiss(animated: true)
     }
     
     func displayMailComposer() {
@@ -56,10 +56,21 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate {
         }
         let mailcompserVC = MFMailComposeViewController()
         mailcompserVC.delegate = self
+        mailcompserVC.mailComposeDelegate = self
         //set field
-        mailcompserVC.setToRecipients(["123@gmail.com"])
-        mailcompserVC.setSubject("Testing")
-        mailcompserVC.setMessageBody("", isHTML: false)
+        mailcompserVC.setToRecipients(emails)
+        mailcompserVC.setSubject("Your order in \(shopname[0])")
+        let mailGreeting = "Greeting everyone, \n\n \(names[0]) have paid a total of \(totalPrice[0]) for the order in \(shopname[0]), order detail are as follow: \n \n"
+        var orderListBody = ""
+        let mailEnding = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(names[0])"
+        for index in 0..<names.count {
+            let name = names[index]
+            let item = items[index]
+            let price = prices[index]
+            orderListBody += "\(name) ordered \(item) for \(price)\n"
+        }
+        let mailTemplate = mailGreeting + orderListBody + mailEnding
+        mailcompserVC.setMessageBody(mailTemplate, isHTML: false)
         self.present(mailcompserVC, animated: true, completion: nil)
     }
 }
@@ -143,18 +154,21 @@ extension RecordViewController: MFMailComposeViewControllerDelegate {
         if let _ = error {
             //Show error alert to user
             return
-            dismiss(animated: true)
         }
         
         switch result {
         case .cancelled:
             print("cancel pressed")
+            break
         case .saved:
             print("save pressed")
+            break
         case .sent:
             print("Mail sent")
+            break
         case .failed:
             print("failed to send")
+            break
         @unknown default:
             dismiss(animated: true)
         }
