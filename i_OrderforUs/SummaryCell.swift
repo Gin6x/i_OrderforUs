@@ -44,7 +44,7 @@ class SummaryCell: UITableViewCell {
         return label
     }()
     
-    let priceDataLabel: UILabel = {
+    let totalPriceDataLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -90,7 +90,7 @@ class SummaryCell: UITableViewCell {
         ])
         
         priceStackView.addArrangedSubview(priceLabel)
-        priceStackView.addArrangedSubview(priceDataLabel)
+        priceStackView.addArrangedSubview(totalPriceDataLabel)
         contentView.addSubview(priceStackView)
         NSLayoutConstraint.activate([
             priceStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),

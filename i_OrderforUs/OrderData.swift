@@ -9,9 +9,9 @@ import Foundation
 
 struct OrderData {
     var shopName: String
-//    var date: Date
     var name: [String]
     var item: [String]
     var price: [Double]
-    var email: [String]                                               
+    var totalPrice: String
+    var email: [String]
 }

@@ -11,16 +11,17 @@ import MessageUI
 class RecordViewController: UIViewController, UINavigationControllerDelegate {
     
     let recordView = RecordView()
-    let orderVC = OrderViewController()
-
+    
     //OrderData
-    var shopname: [String] = []
-    var orderDate = Date()
-    var names: [String] = []
-    var items: [String] = []
-    var prices: [Double] = []
-    var totalPrice: [String] = []
-    var emails: [String] = []
+//    var shopname: [String] = []
+//    var orderDate = Date()
+//    var names: [String] = []
+//    var items: [String] = []
+//    var prices: [Double] = []
+//    var totalPrice: [String] = []
+//    var emails: [String] = []
+    
+    var newOrderData: OrderData?
     
 
     override func viewDidLoad() {
@@ -39,11 +40,11 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate {
     
     @objc func saveButtonPressed() {
         print("save button pressed")
-        print("\(shopname)")
-        print("\(names)")
-        print("\(items)")
-        print("\(prices)")
-        print("\(totalPrice)")
+//        print("\(shopname)")
+//        print("\(names)")
+//        print("\(items)")
+//        print("\(prices)")
+//        print("\(totalPrice)")
         //display mail composer
         displayMailComposer()
 //        dismiss(animated: true)
@@ -58,15 +59,15 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate {
         mailcompserVC.delegate = self
         mailcompserVC.mailComposeDelegate = self
         //set field
-        mailcompserVC.setToRecipients(emails)
-        mailcompserVC.setSubject("Your order in \(shopname[0])")
-        let mailGreeting = "Greeting everyone, \n\n \(names[0]) have paid a total of \(totalPrice[0]) for the order in \(shopname[0]), order detail are as follow: \n \n"
+        mailcompserVC.setToRecipients(newOrderData?.email)
+        mailcompserVC.setSubject("Your order in \(newOrderData?.shopName)")
+        let mailGreeting = "Greeting everyone, \n\n \(newOrderData?.name[0]) have paid a total of \(newOrderData?.totalPrice) for the order in \(newOrderData?.shopName), order detail are as follow: \n \n"
         var orderListBody = ""
-        let mailEnding = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(names[0])"
-        for index in 0..<names.count {
-            let name = names[index]
-            let item = items[index]
-            let price = prices[index]
+        let mailEnding = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(newOrderData?.name[0])"
+        for index in 0..<(newOrderData?.name.count)! {
+            let name = newOrderData?.name[index]
+            let item = newOrderData?.item[index]
+            let price = newOrderData?.price[index]
             orderListBody += "\(name) ordered \(item) for \(price)\n"
         }
         let mailTemplate = mailGreeting + orderListBody + mailEnding
@@ -89,22 +90,23 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "summaryCell", for: indexPath) as! SummaryCell
-            cell.shopDataLabel.text = shopname[indexPath.row]
-            cell.priceDataLabel.text = totalPrice[indexPath.row]
+            cell.shopDataLabel.text = newOrderData?.shopName
+            cell.totalPriceDataLabel.text = newOrderData?.totalPrice
             return cell
         } else if indexPath.section >= 1 {
             let finalitemCell = tableView.dequeueReusableCell(withIdentifier: "finalitemCell", for: indexPath) as! FinalItemCell
-            finalitemCell.nameDataLabel.text = names[indexPath.section - 1]
-            finalitemCell.itemDataLabel.text = items[indexPath.section - 1]
-            let pricesInStr = prices.map{String($0)}
-            finalitemCell.priceDataLabel.text = pricesInStr[indexPath.section - 1]
+            finalitemCell.nameDataLabel.text = newOrderData?.name[indexPath.section - 1]
+            finalitemCell.itemDataLabel.text = newOrderData?.item[indexPath.section - 1]
+            if let pricesInStr = newOrderData?.price.map({String($0)}) {
+                finalitemCell.priceDataLabel.text = pricesInStr[indexPath.section - 1]
+            }
             return finalitemCell
         }
         fatalError("Can not return cell")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return names.count + 1
+        return (newOrderData?.name.count)! + 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -114,7 +116,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         } else if section == 1 {
             return "Your item"
         } else if section > 1 {
-            let numberOfSections = names.count + 1
+            let numberOfSections = (newOrderData?.name.count)! + 1
             var headerTitleArray: [String] = []
             for i in 2...numberOfSections {
                 headerTitleArray.append("Item \(i)")

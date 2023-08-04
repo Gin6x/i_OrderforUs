@@ -13,13 +13,15 @@ class OrderViewController: UIViewController {
     var numberOfSection = 2
     var headerTitle = ["Item 1"]
     //OrderData
-    var shopname: [String] = []
+    var shopname: String = ""
     var orderDate = Date()
     var names: [String] = []
     var items: [String] = []
     var prices: [Double] = []
-    var totalPrice: [String] = []
+    var totalPrice: String = ""
     var emails: [String] = []
+    
+    var newOrder: OrderData?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,15 +47,27 @@ class OrderViewController: UIViewController {
     
     @objc func nextButtonTapped() {
         let recordVC = RecordViewController()
-//        let newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, email: emails)
-//        print(newOrder)
-        recordVC.shopname = self.shopname
-        recordVC.names = self.names
-        recordVC.items = self.items
-        recordVC.prices = self.prices
+//        newOrder?.shopName = shopname
+//        newOrder?.name = names
+//        newOrder?.item = items
+//        newOrder?.email = emails
+//        newOrder?.price = prices
         calTotalPrice()
-        recordVC.emails = self.emails
-        recordVC.totalPrice = self.totalPrice
+//        newOrder?.totalPrice = totalPrice
+        newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, totalPrice: totalPrice, email: emails)
+        print(newOrder?.shopName)
+        print(newOrder?.name)
+        print(newOrder?.item)
+        print(newOrder?.email)
+        print(newOrder?.price)
+        print(newOrder?.totalPrice)
+        recordVC.newOrderData = newOrder
+//        recordVC.shopname = self.shopname
+//        recordVC.names = self.names
+//        recordVC.items = self.items
+//        recordVC.prices = self.prices
+//        recordVC.emails = self.emails
+//        recordVC.totalPrice = self.totalPrice
         recordVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(recordVC, animated: true)
     }
@@ -78,11 +92,10 @@ class OrderViewController: UIViewController {
     }
     
     func calTotalPrice() {
-        let recordVC = RecordViewController()
         let total = prices.reduce(0, +)
         let totalInStr = String(total)
-        totalPrice.append(totalInStr)
-        print(totalInStr)
+        totalPrice = totalInStr
+        print(totalPrice)
     }
 }
 
@@ -167,7 +180,8 @@ extension OrderViewController: UITextFieldDelegate {
         switch textField.tag {
         case 1:
             if let restaurantName = textField.text {
-                shopname.append(restaurantName)
+                shopname = restaurantName
+//                shopname.append(restaurantName)
                 print(shopname)
             }
             break
