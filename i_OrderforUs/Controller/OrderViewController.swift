@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NotificationCenter
 
 class OrderViewController: UIViewController {
     
@@ -13,13 +14,13 @@ class OrderViewController: UIViewController {
     var numberOfSection = 2
     var headerTitle = ["Item 1"]
     //OrderData
-    var shopname: String = ""
-    var orderDate = Date()
-    var names: [String] = []
-    var items: [String] = []
-    var prices: [Double] = []
-    var totalPrice: String = ""
-    var emails: [String] = []
+    private var shopname: String = ""
+    private var orderDate = Date()
+    private var names: [String] = []
+    private var items: [String] = []
+    private var prices: [Double] = []
+    private var totalPrice: String = ""
+    private var emails: [String] = []
     
     var newOrder: OrderData?
 
@@ -32,7 +33,8 @@ class OrderViewController: UIViewController {
         orderView.orderTableView.dataSource = self
         orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
         orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
-       
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
 //        orderView.orderTableView.estimatedRowHeight = 300.0
 //        orderView.orderTableView.rowHeight = UITableView.automaticDimension
         
@@ -47,27 +49,10 @@ class OrderViewController: UIViewController {
     
     @objc func nextButtonTapped() {
         let recordVC = RecordViewController()
-//        newOrder?.shopName = shopname
-//        newOrder?.name = names
-//        newOrder?.item = items
-//        newOrder?.email = emails
-//        newOrder?.price = prices
         calTotalPrice()
-//        newOrder?.totalPrice = totalPrice
         newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, totalPrice: totalPrice, email: emails)
-        print(newOrder?.shopName)
-        print(newOrder?.name)
-        print(newOrder?.item)
-        print(newOrder?.email)
-        print(newOrder?.price)
-        print(newOrder?.totalPrice)
+        print("\(String(describing: newOrder))")
         recordVC.newOrderData = newOrder
-//        recordVC.shopname = self.shopname
-//        recordVC.names = self.names
-//        recordVC.items = self.items
-//        recordVC.prices = self.prices
-//        recordVC.emails = self.emails
-//        recordVC.totalPrice = self.totalPrice
         recordVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(recordVC, animated: true)
     }
@@ -96,6 +81,21 @@ class OrderViewController: UIViewController {
         let totalInStr = String(total)
         totalPrice = totalInStr
         print(totalPrice)
+    }
+    
+    @objc func showKeyboard(notification: Notification) {
+        
+        if let userInfo = notification.userInfo,
+           let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height - 20, right: 0)
+            orderView.orderTableView.contentInset = contentInsets
+            orderView.orderTableView.scrollIndicatorInsets = contentInsets
+        }
+    }
+    
+    @objc func hideKeyboard(notification: Notification) {
+        orderView.orderTableView.contentInset = .zero
+        orderView.orderTableView.scrollIndicatorInsets = .zero
     }
 }
 
@@ -173,7 +173,6 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
 extension OrderViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-     
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -181,7 +180,6 @@ extension OrderViewController: UITextFieldDelegate {
         case 1:
             if let restaurantName = textField.text {
                 shopname = restaurantName
-//                shopname.append(restaurantName)
                 print(shopname)
             }
             break
@@ -222,14 +220,7 @@ extension OrderViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
-            nextField.becomeFirstResponder()
-        } else {
-            // Not found, so remove keyboard.
-            textField.resignFirstResponder()
-        }
-        // Do not add a line break
-        return false
+        textField.resignFirstResponder()
     }
 }
 

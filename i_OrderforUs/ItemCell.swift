@@ -129,7 +129,6 @@ class ItemCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
 //    let phoneTextField: UITextField = {
 //        let textField = UITextField()
 //        textField.placeholder = "Optional contact number"

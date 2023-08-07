@@ -11,18 +11,8 @@ import MessageUI
 class RecordViewController: UIViewController, UINavigationControllerDelegate {
     
     let recordView = RecordView()
-    
-    //OrderData
-//    var shopname: [String] = []
-//    var orderDate = Date()
-//    var names: [String] = []
-//    var items: [String] = []
-//    var prices: [Double] = []
-//    var totalPrice: [String] = []
-//    var emails: [String] = []
-    
+    //OrderData from OrderVC
     var newOrderData: OrderData?
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,21 +23,14 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate {
         recordView.recordTableView.register(FinalItemCell.self, forCellReuseIdentifier: "finalitemCell")
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
-        
         //save/email/exit button
         recordView.savebutton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
     }
     
     @objc func saveButtonPressed() {
         print("save button pressed")
-//        print("\(shopname)")
-//        print("\(names)")
-//        print("\(items)")
-//        print("\(prices)")
-//        print("\(totalPrice)")
-        //display mail composer
+        
         displayMailComposer()
-//        dismiss(animated: true)
     }
     
     func displayMailComposer() {
@@ -60,15 +43,15 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate {
         mailcompserVC.mailComposeDelegate = self
         //set field
         mailcompserVC.setToRecipients(newOrderData?.email)
-        mailcompserVC.setSubject("Your order in \(newOrderData?.shopName)")
-        let mailGreeting = "Greeting everyone, \n\n \(newOrderData?.name[0]) have paid a total of \(newOrderData?.totalPrice) for the order in \(newOrderData?.shopName), order detail are as follow: \n \n"
+        mailcompserVC.setSubject("Your order in \(String(describing: newOrderData?.shopName))")
+        let mailGreeting = "Greeting everyone, \n\n \(String(describing: newOrderData?.name[0]))) have paid a total of \(String(describing: newOrderData?.totalPrice)) for the order in \(String(describing: newOrderData?.shopName)), order detail are as follow: \n \n"
         var orderListBody = ""
-        let mailEnding = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(newOrderData?.name[0])"
+        let mailEnding = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(String(describing: newOrderData?.name[0]))"
         for index in 0..<(newOrderData?.name.count)! {
             let name = newOrderData?.name[index]
             let item = newOrderData?.item[index]
             let price = newOrderData?.price[index]
-            orderListBody += "\(name) ordered \(item) for \(price)\n"
+            orderListBody += "\(String(describing: name)) ordered \(String(describing: item)) for \(String(describing: price))\n"
         }
         let mailTemplate = mailGreeting + orderListBody + mailEnding
         mailcompserVC.setMessageBody(mailTemplate, isHTML: false)
@@ -134,18 +117,15 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section >= 1 {
             return 100
         }
-        
         return 100.0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
         if section == 0 {
             return 30.0
         } else if section >= 1 {
             return 15.0
         }
-        
         return 15.0
     }
 }
@@ -157,7 +137,6 @@ extension RecordViewController: MFMailComposeViewControllerDelegate {
             //Show error alert to user
             return
         }
-        
         switch result {
         case .cancelled:
             print("cancel pressed")

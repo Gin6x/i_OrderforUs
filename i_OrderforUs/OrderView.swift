@@ -33,6 +33,13 @@ class OrderView: UIView {
 //        textField.borderStyle = .roundedRect
 //        return textField
 //    }()
+    
+//    let orderScrollView: UIScrollView = {
+//        let scrollView = UIScrollView()
+//        scrollView.backgroundColor = .systemMint
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        return scrollView
+//    }()
 
     let orderTableView: UITableView = {
         let tableView = UITableView(frame: CGRectZero, style: .grouped)
@@ -77,6 +84,16 @@ class OrderView: UIView {
             orderContentView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
         
+        
+//        addSubview(orderScrollView)
+//        NSLayoutConstraint.activate([
+//            orderScrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+//            orderScrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -50),
+//            orderScrollView.leftAnchor.constraint(equalTo: leftAnchor),
+//            orderScrollView.rightAnchor.constraint(equalTo: rightAnchor)
+//        ])
+        
+//        orderScrollView.addSubview(orderTableView)
         addSubview(orderTableView)
         NSLayoutConstraint.activate([
             orderTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
