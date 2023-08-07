@@ -43,15 +43,15 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate {
         mailcompserVC.mailComposeDelegate = self
         //set field
         mailcompserVC.setToRecipients(newOrderData?.email)
-        mailcompserVC.setSubject("Your order in \(String(describing: newOrderData?.shopName))")
-        let mailGreeting = "Greeting everyone, \n\n \(String(describing: newOrderData?.name[0]))) have paid a total of \(String(describing: newOrderData?.totalPrice)) for the order in \(String(describing: newOrderData?.shopName)), order detail are as follow: \n \n"
+        mailcompserVC.setSubject("Your order in \(newOrderData!.shopName)")
+        let mailGreeting = "Greeting everyone, \n\n \(newOrderData!.name[0]) have paid a total of \(newOrderData!.totalPrice) for the order in \(newOrderData!.shopName)), order detail are as follow: \n \n"
         var orderListBody = ""
-        let mailEnding = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(String(describing: newOrderData?.name[0]))"
+        let mailEnding = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(newOrderData!.name[0])"
         for index in 0..<(newOrderData?.name.count)! {
-            let name = newOrderData?.name[index]
-            let item = newOrderData?.item[index]
-            let price = newOrderData?.price[index]
-            orderListBody += "\(String(describing: name)) ordered \(String(describing: item)) for \(String(describing: price))\n"
+            let name = newOrderData!.name[index]
+            let item = newOrderData!.item[index]
+            let price = newOrderData!.price[index]
+            orderListBody += "\(name) ordered \(item) for \(price)\n"
         }
         let mailTemplate = mailGreeting + orderListBody + mailEnding
         mailcompserVC.setMessageBody(mailTemplate, isHTML: false)

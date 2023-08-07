@@ -48,6 +48,7 @@ class OrderViewController: UIViewController {
     }
     
     @objc func nextButtonTapped() {
+        
         let recordVC = RecordViewController()
         calTotalPrice()
         newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, totalPrice: totalPrice, email: emails)
@@ -58,11 +59,13 @@ class OrderViewController: UIViewController {
     }
     
     @objc func cancelButtonTapped() {
+        
         print("OrderVC dismissed")
         dismiss(animated: true)
     }
     
     @objc func addButtonTapped() {
+        
         numberOfSection += 1
         
         let newTitle = "Item \(headerTitle.count + 1)"
@@ -220,7 +223,14 @@ extension OrderViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        
+        if let next = orderView.orderTableView.viewWithTag(textField.tag + 1) {
+            next.becomeFirstResponder()
+        }
+        else{
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
 
