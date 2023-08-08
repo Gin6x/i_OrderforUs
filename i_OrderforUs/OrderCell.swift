@@ -9,11 +9,18 @@ import UIKit
 
 class OrderCell: UITableViewCell {
     
-    private let menuView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemMint
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    let photoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "camera.svg")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    let setImageButton: UIButton = {
+        let button = UIButton(frame: CGRectZero)
+        button.setTitle(" ", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     let menuTextField: UITextField = {
@@ -35,17 +42,26 @@ class OrderCell: UITableViewCell {
     }
     
     func setupCell () {
-        addSubview(menuView)
+        addSubview(photoImageView)
         NSLayoutConstraint.activate([
-            menuView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            menuView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            menuView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-            menuView.widthAnchor.constraint(equalTo: menuView.heightAnchor)
+            photoImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            photoImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            photoImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            photoImageView.widthAnchor.constraint(equalTo: photoImageView.heightAnchor)
+        ])
+        
+        photoImageView.addSubview(setImageButton)
+        contentView.addSubview(setImageButton)
+        NSLayoutConstraint.activate([
+            setImageButton.topAnchor.constraint(equalTo: photoImageView.topAnchor),
+            setImageButton.bottomAnchor.constraint(equalTo: photoImageView.bottomAnchor),
+            setImageButton.leftAnchor.constraint(equalTo: photoImageView.leftAnchor),
+            setImageButton.rightAnchor.constraint(equalTo: photoImageView.rightAnchor)
         ])
         
         contentView.addSubview(menuTextField)
         NSLayoutConstraint.activate([
-            menuTextField.leadingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: 10),
+            menuTextField.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 10),
             menuTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             menuTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])

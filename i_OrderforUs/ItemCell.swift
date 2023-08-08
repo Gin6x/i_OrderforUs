@@ -77,6 +77,7 @@ class ItemCell: UITableViewCell {
     let priceTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "How much?"
+        textField.keyboardType = .numbersAndPunctuation
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
@@ -105,6 +106,7 @@ class ItemCell: UITableViewCell {
     let emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Company / personal email "
+        textField.keyboardType = .emailAddress
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)

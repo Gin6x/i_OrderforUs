@@ -21,6 +21,7 @@ class OrderViewController: UIViewController {
     private var prices: [Double] = []
     private var totalPrice: String = ""
     private var emails: [String] = []
+    private var selectedImage: UIImage?
     
     var newOrder: OrderData?
 
@@ -28,6 +29,8 @@ class OrderViewController: UIViewController {
         super.viewDidLoad()
         title = "Order"
         self.view = orderView
+//        orderView.nextButton.isEnabled = false
+//        print("next button is now disable")
         
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
@@ -50,12 +53,20 @@ class OrderViewController: UIViewController {
     @objc func nextButtonTapped() {
         
         let recordVC = RecordViewController()
-        calTotalPrice()
-        newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, totalPrice: totalPrice, email: emails)
-        print("\(String(describing: newOrder))")
-        recordVC.newOrderData = newOrder
-        recordVC.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(recordVC, animated: true)
+        if !(shopname.isEmpty || names.isEmpty || items.isEmpty || prices.isEmpty || emails.isEmpty) {
+            print("All arrays have valid inputs.")
+//            orderView.nextButton.isEnabled = true
+            calTotalPrice()
+            newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, totalPrice: totalPrice, email: emails)
+            print("\(newOrder)")
+            recordVC.newOrderData = newOrder
+            recordVC.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(recordVC, animated: true)
+        } else {
+//            orderView.nextButton.backgroundColor = .systemRed
+//            orderView.nextButton.isEnabled = false
+            print("next button is now disable")
+        }
     }
     
     @objc func cancelButtonTapped() {
@@ -119,6 +130,10 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
             cell.menuTextField.delegate = self
             cell.menuTextField.tag = 1
+            cell.setImageButton.addTarget(self, action: #selector(setImageButtonPressed), for: .touchUpInside)
+            if let userPhoto = selectedImage {
+                cell.photoImageView.image = userPhoto
+            }
             return cell
         } else if indexPath.section >= 1 {
             let itemCell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
@@ -138,7 +153,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
         if section == 0 {
-            return "Menu"
+            return "Menu / Receipt"
         } else if section == 1 {
             return "Your Item"
         } else if section >= 1 {
@@ -168,58 +183,93 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         } else if section >= 1 {
             return 15.0
         }
-        
         return 15.0
     }
 }
 
 extension OrderViewController: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField.tag {
         case 1:
-            if let restaurantName = textField.text {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                print("shop name is empty or only contain whitespace")
+            } else if let restaurantName = textField.text {
                 shopname = restaurantName
                 print(shopname)
+            } else if shopname.count > 1 {
+                if let newInput = textField.text {
+                    shopname = newInput
+                    print(shopname)
+                }
             }
             break
-            
+
         case 2:
-            if let name = textField.text {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                print("name is empty or only contain whitespace")
+            } else if let name = textField.text {
                 names.append(name)
                 print(names)
             }
             break
-            
+
         case 3:
-            if let item = textField.text {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                print("item is empty or only contain whitespace")
+            } else if let item = textField.text {
                 items.append(item)
                 print(items)
             }
             break
-            
+
         case 4:
-            if let price = textField.text {
-                if let priceDouble = Double(price) {
-                    prices.append(priceDouble)
-                    print(prices)
+
+            if let price = textField.text, let priceDouble = Double(price) {
+                prices.append(priceDouble)
+                print(prices)
+            } else {
+                print("content cannot be convert to a double")
+            }
+            break
+
+        case 5:
+
+            func isValidEmail(email: String) -> Bool {
+                // Regular expression pattern for email validation
+                let emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+
+                do {
+                    let regex = try NSRegularExpression(pattern: emailRegex)
+                    let range = NSRange(location: 0, length: email.utf16.count)
+                    let matches = regex.numberOfMatches(in: email, range: range)
+                    return matches > 0
+                } catch {
+                    return false
+                }
+            }
+
+            if let email = textField.text {
+                if isValidEmail(email: email) {
+                    emails.append(email)
+                    print(emails)
+                } else {
+                    print("input is not a valid email address")
                 }
             }
             break
-            
-        case 5:
-            if let email = textField.text {
-                emails.append(email)
-                print(emails)
-            }
-            break
-            
+
         default:
             fatalError("No value")
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -231,6 +281,60 @@ extension OrderViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+}
+
+extension OrderViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePicker(sourceType: UIImagePickerController.SourceType) -> UIImagePickerController {
+        
+        let imagePickerVC = UIImagePickerController()
+        imagePickerVC.sourceType = sourceType
+        imagePickerVC.delegate = self
+        return imagePickerVC
+    }
+    
+    @objc func setImageButtonPressed() {
+        
+        let pickPhotoAlertVC = UIAlertController(title: "Menu upload", message: "Please choose a photo for the menu / receipt", preferredStyle: .actionSheet)
+        
+        let pickCamera = UIAlertAction(title: "Camera", style: .default) { (action) in
+            
+            let cameraPhotoPicker = self.imagePicker(sourceType: .camera)
+            self.present(cameraPhotoPicker, animated: true) {
+                print("Picked camera as photo source")
+            }
+        }
+        
+        let pickLibrary = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+            
+            let libraryPhotoPicker = self.imagePicker(sourceType: .savedPhotosAlbum)
+            self.present(libraryPhotoPicker, animated: true){
+                print("Picked photo album as photo source")
+            }
+        }
+        
+//        let pickNoMenu = UIAlertAction(title: "I don't have a menu", style: .default) { (action) in
+//            self.navigateToOrderVC()
+//        }
+        
+        let cancelPhotoSelection = UIAlertAction(title: "cancel", style: .cancel)
+        
+        pickPhotoAlertVC.addAction(pickCamera)
+        pickPhotoAlertVC.addAction(pickLibrary)
+//        pickPhotoAlertVC.addAction(pickNoMenu)
+        pickPhotoAlertVC.addAction(cancelPhotoSelection)
+        
+        self.present(pickPhotoAlertVC, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+        if let selectedPhoto = info[.originalImage] as? UIImage {
+            selectedImage = selectedPhoto
+            orderView.orderTableView.reloadData()
+            picker.dismiss(animated: true)
+        }
     }
 }
 

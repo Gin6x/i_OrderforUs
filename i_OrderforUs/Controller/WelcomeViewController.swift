@@ -68,7 +68,6 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
         pickPhotoAlertVC.addAction(pickNoMenu)
         pickPhotoAlertVC.addAction(cancelPhotoSelection)
         
-        
         self.present(pickPhotoAlertVC, animated: true, completion: nil)
     }
 
