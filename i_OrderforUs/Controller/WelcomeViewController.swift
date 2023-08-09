@@ -23,11 +23,22 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
     
     // Directly navigate to OrderNavigationController when there's no menu
     func navigateToOrderVC() {
-        let orderVC = OrderViewController()
-        let orderNavController = UINavigationController(rootViewController: orderVC)
-        orderNavController.modalPresentationStyle = .fullScreen
+//        let orderVC = OrderViewController()
+        
+//        orderNavController.modalPresentationStyle = .fullScreen
 //        orderNavController.navigationBar.prefersLargeTitles = true
-        self.present(orderNavController, animated: true, completion: nil)
+        let tabBarVC = UITabBarController()
+        let orderVC = OrderViewController()
+        let historyVC = HistoryViewController()
+        let orderNavController = UINavigationController(rootViewController: orderVC)
+        let historyNavcontroller = UINavigationController(rootViewController: historyVC)
+        orderNavController.navigationBar.prefersLargeTitles = true
+        historyNavcontroller.navigationBar.prefersLargeTitles = true
+        tabBarVC.viewControllers = [orderNavController, historyNavcontroller]
+        orderVC.tabBarItem = UITabBarItem(title: "Order", image: UIImage(systemName: "house"), tag: 0)
+        historyVC.tabBarItem = UITabBarItem(title: "History", image: UIImage(systemName: "list.clipboard"), tag: 1)
+        tabBarVC.modalPresentationStyle = .fullScreen
+        self.present(tabBarVC, animated: true, completion: nil)
     }
     
     func imagePicker(sourceType: UIImagePickerController.SourceType) -> UIImagePickerController {

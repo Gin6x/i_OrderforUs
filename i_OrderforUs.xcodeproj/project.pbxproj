@@ -12,6 +12,8 @@
 		BE1B0C412A0940BD0067F492 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE1B0C402A0940BD0067F492 /* Assets.xcassets */; };
 		BE1B0C442A0940BD0067F492 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE1B0C422A0940BD0067F492 /* LaunchScreen.storyboard */; };
 		BE1B0C4C2A0943260067F492 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */; };
+		BE2500A52A83AB1C00E52F55 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2500A42A83AB1C00E52F55 /* HistoryViewController.swift */; };
+		BE2500A72A83AB4B00E52F55 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2500A62A83AB4B00E52F55 /* HistoryView.swift */; };
 		BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4302A09B141004425B6 /* WelcomeView.swift */; };
 		BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4322A12F420004425B6 /* OrderViewController.swift */; };
 		BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4342A12F465004425B6 /* OrderView.swift */; };
@@ -32,6 +34,8 @@
 		BE1B0C432A0940BD0067F492 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE1B0C452A0940BD0067F492 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		BE2500A42A83AB1C00E52F55 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		BE2500A62A83AB4B00E52F55 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		BE7BD4302A09B141004425B6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BE7BD4322A12F420004425B6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		BE7BD4342A12F465004425B6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */,
 				BE7BD4322A12F420004425B6 /* OrderViewController.swift */,
 				BE9A060C2A73F4F20035F635 /* RecordViewController.swift */,
+				BE2500A42A83AB1C00E52F55 /* HistoryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -122,6 +127,7 @@
 				BE7BD4302A09B141004425B6 /* WelcomeView.swift */,
 				BE7BD4342A12F465004425B6 /* OrderView.swift */,
 				BE9A060E2A73F51D0035F635 /* RecordView.swift */,
+				BE2500A62A83AB4B00E52F55 /* HistoryView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -201,7 +207,9 @@
 				BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */,
 				BEC988072A7803C80028E926 /* FinalItemCell.swift in Sources */,
 				BE9A060F2A73F51D0035F635 /* RecordView.swift in Sources */,
+				BE2500A52A83AB1C00E52F55 /* HistoryViewController.swift in Sources */,
 				BEC988052A77EA430028E926 /* SummaryCell.swift in Sources */,
+				BE2500A72A83AB4B00E52F55 /* HistoryView.swift in Sources */,
 				BE9A060D2A73F4F20035F635 /* RecordViewController.swift in Sources */,
 				BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */,
 				BE1B0C3A2A0940BC0067F492 /* SceneDelegate.swift in Sources */,

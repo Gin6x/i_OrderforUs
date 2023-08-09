@@ -47,6 +47,7 @@ class OrderViewController: UIViewController {
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButton
         
+        
         orderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     

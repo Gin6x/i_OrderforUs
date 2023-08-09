@@ -12,6 +12,7 @@ class OrderCell: UITableViewCell {
     let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "camera.svg")
+//        imageView.image = UIImage(systemName: "camera.svg")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
