@@ -9,7 +9,7 @@ import UIKit
 
 class ItemCell: UITableViewCell {
     
-    private let nameLabel: UILabel = {
+    private let customerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name :"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -17,18 +17,17 @@ class ItemCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
-
-    let nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Who is ordering?"
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
+    
+    var customerNameDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Gin"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
     }()
     
-    let nameStackView: UIStackView = {
+    let customerNameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -46,14 +45,13 @@ class ItemCell: UITableViewCell {
         return label
     }()
     
-    let itemTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "What have been ordered?"
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
+    var itemDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Americano"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
     }()
     
     let itemStackView: UIStackView = {
@@ -74,15 +72,13 @@ class ItemCell: UITableViewCell {
         return label
     }()
     
-    let priceTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "How much?"
-        textField.keyboardType = .numbersAndPunctuation
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
+    var priceDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "5"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
     }()
     
     let priceStackView: UIStackView = {
@@ -103,15 +99,13 @@ class ItemCell: UITableViewCell {
         return label
     }()
     
-    let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Company / personal email "
-        textField.keyboardType = .emailAddress
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        return textField
+    var emailDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "123123123123@gmail.com"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
     }()
     
     let emailStackView: UIStackView = {
@@ -131,14 +125,6 @@ class ItemCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-//    let phoneTextField: UITextField = {
-//        let textField = UITextField()
-//        textField.placeholder = "Optional contact number"
-//        textField.isUserInteractionEnabled = true
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        textField.font = UIFont.systemFont(ofSize: 20)
-//        return textField
-//    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -150,26 +136,26 @@ class ItemCell: UITableViewCell {
     }
     
     func setupCell() {
-        nameStackView.addArrangedSubview(nameLabel)
-        nameStackView.addArrangedSubview(nameTextField)
-        contentView.addSubview(nameStackView)
+        customerNameStackView.addArrangedSubview(customerNameLabel)
+        customerNameStackView.addArrangedSubview(customerNameDataLabel)
+        contentView.addSubview(customerNameStackView)
         NSLayoutConstraint.activate([
-            nameStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            nameStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            nameStackView.topAnchor.constraint(equalTo: topAnchor, constant: 5)
+            customerNameStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            customerNameStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            customerNameStackView.topAnchor.constraint(equalTo: topAnchor, constant: 5)
         ])
         
         itemStackView.addArrangedSubview(itemLabel)
-        itemStackView.addArrangedSubview(itemTextField)
+        itemStackView.addArrangedSubview(itemDataLabel)
         contentView.addSubview(itemStackView)
         NSLayoutConstraint.activate([
             itemStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             itemStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            itemStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 5)
+            itemStackView.topAnchor.constraint(equalTo: customerNameStackView.bottomAnchor, constant: 5)
         ])
         
         priceStackView.addArrangedSubview(priceLabel)
-        priceStackView.addArrangedSubview(priceTextField)
+        priceStackView.addArrangedSubview(priceDataLabel)
         contentView.addSubview(priceStackView)
         NSLayoutConstraint.activate([
             priceStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -178,7 +164,7 @@ class ItemCell: UITableViewCell {
         ])
         
         emailStackView.addArrangedSubview(emailLabel)
-        emailStackView.addArrangedSubview(emailTextField)
+        emailStackView.addArrangedSubview(emailDataLabel)
         contentView.addSubview(emailStackView)
         NSLayoutConstraint.activate([
             emailStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -186,7 +172,7 @@ class ItemCell: UITableViewCell {
             emailStackView.topAnchor.constraint(equalTo: priceStackView.bottomAnchor, constant: 5)
         ])
         
-        entriesStackView.addArrangedSubview(nameStackView)
+        entriesStackView.addArrangedSubview(customerNameStackView)
         entriesStackView.addArrangedSubview(itemStackView)
         entriesStackView.addArrangedSubview(priceStackView)
         entriesStackView.addArrangedSubview(emailStackView)

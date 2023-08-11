@@ -11,33 +11,31 @@ import NotificationCenter
 class OrderViewController: UIViewController {
     
     let orderView = OrderView()
-    var numberOfSection = 2
-    var headerTitle = ["Item 1"]
-    //OrderData
-    private var shopname: String = ""
-    private var orderDate = Date()
-    private var names: [String] = []
-    private var items: [String] = []
-    private var prices: [Double] = []
-    private var totalPrice: String = ""
-    private var emails: [String] = []
+    var numberOfSection = 1
+    var headerTitle = ["Your Item"]
+//    var orderCell: OrderCell?
+
     private var selectedImage: UIImage?
-    
-    var newOrder: OrderData?
+    private var displayShopName: String = ""
+    private var displayCustomerName: String = ""
+    private var displayItem: String = ""
+    private var displayPrice: String = ""
+    private var displayEmail: String = ""
+//
+//    var photoData: UIImage?
+//    var shopNameData: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Order"
         self.view = orderView
-//        orderView.nextButton.isEnabled = false
-//        print("next button is now disable")
         
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
         orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
         orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
-        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
 //        orderView.orderTableView.estimatedRowHeight = 300.0
 //        orderView.orderTableView.rowHeight = UITableView.automaticDimension
         
@@ -47,28 +45,28 @@ class OrderViewController: UIViewController {
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButton
         
-        
-        orderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+
+//        orderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
-    @objc func nextButtonTapped() {
-        
-        let recordVC = RecordViewController()
-        if !(shopname.isEmpty || names.isEmpty || items.isEmpty || prices.isEmpty || emails.isEmpty) {
-            print("All arrays have valid inputs.")
+//    @objc func nextButtonTapped() {
+//
+//        let recordVC = RecordViewController()
+//        if !(shopname.isEmpty || names.isEmpty || items.isEmpty || prices.isEmpty || emails.isEmpty) {
+//            print("All arrays have valid inputs.")
 //            orderView.nextButton.isEnabled = true
-            calTotalPrice()
-            newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, totalPrice: totalPrice, email: emails)
-            print("\(newOrder)")
-            recordVC.newOrderData = newOrder
-            recordVC.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(recordVC, animated: true)
-        } else {
+//            calTotalPrice()
+//            newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, totalPrice: totalPrice, email: emails)
+//            print("\(newOrder)")
+////            recordVC.newOrderData = newOrder
+//            recordVC.modalPresentationStyle = .fullScreen
+//            self.navigationController?.pushViewController(recordVC, animated: true)
+//        } else {
 //            orderView.nextButton.backgroundColor = .systemRed
 //            orderView.nextButton.isEnabled = false
-            print("next button is now disable")
-        }
-    }
+//            print("next button is now disable")
+//        }
+//    }
     
     @objc func cancelButtonTapped() {
         
@@ -78,41 +76,109 @@ class OrderViewController: UIViewController {
     
     @objc func addButtonTapped() {
         
-        numberOfSection += 1
+        let addItemAC = UIAlertController(title: "Add new item", message: "Please add the following data for future usage", preferredStyle: .alert)
         
-        let newTitle = "Item \(headerTitle.count + 1)"
-        headerTitle.append(newTitle)
-        print(headerTitle)
-
-        let indexSet = IndexSet(integer: numberOfSection - 1)
-        orderView.orderTableView.beginUpdates()
-        orderView.orderTableView.insertSections(indexSet, with: .automatic)
-        orderView.orderTableView.endUpdates()
-        print("added new item")
-    }
-    
-    func calTotalPrice() {
-        let total = prices.reduce(0, +)
-        let totalInStr = String(total)
-        totalPrice = totalInStr
-        print(totalPrice)
-    }
-    
-    @objc func showKeyboard(notification: Notification) {
-        
-        if let userInfo = notification.userInfo,
-           let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height - 20, right: 0)
-            orderView.orderTableView.contentInset = contentInsets
-            orderView.orderTableView.scrollIndicatorInsets = contentInsets
+        if displayShopName.isEmpty {
+            addItemAC.addTextField { textfield in
+                textfield.placeholder = "Restaurant name"
+                textfield.tag = 0
+            }
         }
-    }
-    
-    @objc func hideKeyboard(notification: Notification) {
-        orderView.orderTableView.contentInset = .zero
-        orderView.orderTableView.scrollIndicatorInsets = .zero
+            addItemAC.addTextField { textfield in
+                textfield.placeholder = "Your name"
+                textfield.tag = 1
+            }
+            addItemAC.addTextField { textfield in
+                textfield.placeholder = "Item"
+                textfield.tag = 2
+            }
+            addItemAC.addTextField { textfield in
+                textfield.placeholder = "Price"
+                textfield.tag = 3
+            }
+            addItemAC.addTextField { textfield in
+                textfield.placeholder = "Company / personal mail"
+                textfield.tag = 4
+            }
+     
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [self] _ in
+            
+            if displayShopName.isEmpty {
+                if let shopNameTextField = addItemAC.textFields?.first(where: { $0.tag == 0 }),
+                   let shopName = shopNameTextField.text {
+                    displayShopName = shopName
+                }
+            }
+            
+            if let customerNameTextField = addItemAC.textFields?.first(where: { $0.tag == 1 }),
+               let itemTextField = addItemAC.textFields?.first(where: { $0.tag == 2 }),
+               let priceTextField = addItemAC.textFields?.first(where: { $0.tag == 3 }),
+               let emailTextField = addItemAC.textFields?.first(where: { $0.tag == 4 }),
+               let customerName = customerNameTextField.text,
+               let item = itemTextField.text,
+               let price = priceTextField.text,
+               let email = emailTextField.text {
+                
+                //Populate display variables
+                displayCustomerName = customerName
+                displayItem = item
+                displayPrice = price
+                displayEmail = email
+                
+                print(displayShopName)
+                print(displayCustomerName)
+                print(displayItem)
+                print(displayPrice)
+                print(displayEmail)
+                
+                
+                numberOfSection += 1
+                print(numberOfSection)
+                let newTitle = "Item \(headerTitle.count + 1)"
+                headerTitle.append(newTitle)
+                print(headerTitle)
+                
+                let indexSet = IndexSet(integer: numberOfSection - 1)
+                orderView.orderTableView.beginUpdates()
+                orderView.orderTableView.insertSections(indexSet, with: .automatic)
+                orderView.orderTableView.endUpdates()
+                print("added new item")
+                
+                
+                //add new order and save to userDefault
+                if let decimalPrice = Decimal(string: price){
+                    let newOrderItem = OrderItem(customerName: customerName, item: item, price: decimalPrice, email: email)
+                    var newOrder: Order?
+                    newOrder?.orderItems.append(newOrderItem)
+                    print(newOrderItem)
+                }
+                orderView.orderTableView.reloadData()
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        addItemAC.addAction(saveAction)
+        addItemAC.addAction(cancelAction)
+        present(addItemAC, animated: true)
     }
 }
+    
+//    @objc func showKeyboard(notification: Notification) {
+//
+//        if let userInfo = notification.userInfo,
+//           let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height - 20, right: 0)
+//            orderView.orderTableView.contentInset = contentInsets
+//            orderView.orderTableView.scrollIndicatorInsets = contentInsets
+//        }
+//    }
+//
+//    @objc func hideKeyboard(notification: Notification) {
+//        orderView.orderTableView.contentInset = .zero
+//        orderView.orderTableView.scrollIndicatorInsets = .zero
+//    }
+
 
 extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -123,48 +189,6 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
             return 1
         }
         return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
-            cell.menuTextField.delegate = self
-            cell.menuTextField.tag = 1
-            cell.setImageButton.addTarget(self, action: #selector(setImageButtonPressed), for: .touchUpInside)
-            if let userPhoto = selectedImage {
-                cell.photoImageView.image = userPhoto
-            }
-            return cell
-        } else if indexPath.section >= 1 {
-            let itemCell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
-            itemCell.nameTextField.delegate = self
-            itemCell.itemTextField.delegate = self
-            itemCell.priceTextField.delegate = self
-            itemCell.emailTextField.delegate = self
-            itemCell.nameTextField.tag = 2
-            itemCell.itemTextField.tag = 3
-            itemCell.priceTextField.tag = 4
-            itemCell.emailTextField.tag = 5
-            return itemCell
-        }
-        fatalError("Can not return cell")
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
-        if section == 0 {
-            return "Menu / Receipt"
-        } else if section == 1 {
-            return "Your Item"
-        } else if section >= 1 {
-            return headerTitle[section - 1]
-        }
-        return ""
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return numberOfSection
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -186,90 +210,57 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return 15.0
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+        if section == 0 {
+            return "Menu / Receipt"
+        } else if section == 1 {
+            return "Your Item"
+        } else if section >= 1 {
+            return headerTitle[section - 1]
+        }
+        return ""
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return numberOfSection
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            let cell = orderView.orderTableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
+            cell.isUserInteractionEnabled = true
+            if !displayShopName.isEmpty {
+                cell.shopDataLabel.text = displayShopName
+            }
+            cell.setImageButton.addTarget(self, action: #selector(setImageButtonPressed), for: .touchUpInside)
+            if let displayImage = selectedImage {
+                cell.photoImageView.image = displayImage
+            }
+            return cell
+        } else if indexPath.section >= 1 {
+            let itemCell = orderView.orderTableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
+            itemCell.isUserInteractionEnabled = true
+            itemCell.customerNameDataLabel.text = displayCustomerName
+            itemCell.itemDataLabel.text = displayItem
+            itemCell.priceDataLabel.text = displayPrice
+            itemCell.emailDataLabel.text = displayEmail
+            return itemCell
+        }
+        fatalError("cell are not in display")
+    }
 }
 
 extension OrderViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 1:
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
-                print("shop name is empty or only contain whitespace")
-            } else if let restaurantName = textField.text {
-                shopname = restaurantName
-                print(shopname)
-            } else if shopname.count > 1 {
-                if let newInput = textField.text {
-                    shopname = newInput
-                    print(shopname)
-                }
-            }
-            break
-
-        case 2:
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
-                print("name is empty or only contain whitespace")
-            } else if let name = textField.text {
-                names.append(name)
-                print(names)
-            }
-            break
-
-        case 3:
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
-                print("item is empty or only contain whitespace")
-            } else if let item = textField.text {
-                items.append(item)
-                print(items)
-            }
-            break
-
-        case 4:
-
-            if let price = textField.text, let priceDouble = Double(price) {
-                prices.append(priceDouble)
-                print(prices)
-            } else {
-                print("content cannot be convert to a double")
-            }
-            break
-
-        case 5:
-
-            func isValidEmail(email: String) -> Bool {
-                // Regular expression pattern for email validation
-                let emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-
-                do {
-                    let regex = try NSRegularExpression(pattern: emailRegex)
-                    let range = NSRange(location: 0, length: email.utf16.count)
-                    let matches = regex.numberOfMatches(in: email, range: range)
-                    return matches > 0
-                } catch {
-                    return false
-                }
-            }
-
-            if let email = textField.text {
-                if isValidEmail(email: email) {
-                    emails.append(email)
-                    print(emails)
-                } else {
-                    print("input is not a valid email address")
-                }
-            }
-            break
-
-        default:
-            fatalError("No value")
-        }
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
         
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
         return true
     }
     
@@ -282,6 +273,10 @@ extension OrderViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
     }
 }
 

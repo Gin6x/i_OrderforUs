@@ -7,12 +7,18 @@
 
 import UIKit
 
+//protocol OrderCellDelagate: AnyObject {
+//    func updatePhotoData(_ cell:OrderCell, photo: UIImage)
+//    func updateShopNameData(_ cell: OrderCell, shopName: String)
+//}
+
 class OrderCell: UITableViewCell {
+    
+//    weak var delegate: OrderCellDelagate?
     
     let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "camera.svg")
-//        imageView.image = UIImage(systemName: "camera.svg")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -24,13 +30,31 @@ class OrderCell: UITableViewCell {
         return button
     }()
     
-    let menuTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Restaurant Name"
-        textField.isUserInteractionEnabled = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.systemFont(ofSize: 20)
-        return textField
+    private let shopNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Shop: "
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    
+    var shopDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Empty"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    
+    private let shopNameStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+//        stackView.distribution = .equalCentering
+        stackView.spacing = 0.01
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -60,11 +84,22 @@ class OrderCell: UITableViewCell {
             setImageButton.rightAnchor.constraint(equalTo: photoImageView.rightAnchor)
         ])
         
-        contentView.addSubview(menuTextField)
+        shopNameStackView.addArrangedSubview(shopNameLabel)
+        shopNameStackView.addArrangedSubview(shopDataLabel)
+        contentView.addSubview(shopNameStackView)
         NSLayoutConstraint.activate([
-            menuTextField.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 10),
-            menuTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            menuTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
+            shopNameStackView.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 8),
+            shopNameStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            shopNameStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+        
+//        contentView.addSubview(menuTextField)
+//        NSLayoutConstraint.activate([
+//            menuTextField.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 10),
+//            menuTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+//            menuTextField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+//            menuTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+//            menuTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
+//        ])
     }
 }
