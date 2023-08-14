@@ -23,10 +23,7 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
     
     // Directly navigate to OrderNavigationController when there's no menu
     func navigateToOrderVC() {
-//        let orderVC = OrderViewController()
-        
-//        orderNavController.modalPresentationStyle = .fullScreen
-//        orderNavController.navigationBar.prefersLargeTitles = true
+
         let tabBarVC = UITabBarController()
         let orderVC = OrderViewController()
         let historyVC = HistoryViewController()

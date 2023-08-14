@@ -13,14 +13,16 @@ class OrderViewController: UIViewController {
     let orderView = OrderView()
     var numberOfSection = 1
     var headerTitle = ["Your Item"]
-//    var orderCell: OrderCell?
 
+    let defaults = UserDefaults()
     private var selectedImage: UIImage?
+    var photoURL: URL?
     private var displayShopName: String = ""
-    private var displayCustomerName: String = ""
-    private var displayItem: String = ""
-    private var displayPrice: String = ""
-    private var displayEmail: String = ""
+    private var displayCustomerName: [String] = []
+    private var displayItem: [String] = []
+    private var displayPrice: [String] = []
+    private var displayEmail: [String] = []
+    private var displayItemsArray: [OrderItem] = []
 //
 //    var photoData: UIImage?
 //    var shopNameData: String?
@@ -46,27 +48,32 @@ class OrderViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
         
 
-//        orderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        orderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
-//    @objc func nextButtonTapped() {
-//
-//        let recordVC = RecordViewController()
-//        if !(shopname.isEmpty || names.isEmpty || items.isEmpty || prices.isEmpty || emails.isEmpty) {
-//            print("All arrays have valid inputs.")
-//            orderView.nextButton.isEnabled = true
-//            calTotalPrice()
-//            newOrder = OrderData(shopName: shopname, name: names, item: items, price: prices, totalPrice: totalPrice, email: emails)
-//            print("\(newOrder)")
-////            recordVC.newOrderData = newOrder
-//            recordVC.modalPresentationStyle = .fullScreen
-//            self.navigationController?.pushViewController(recordVC, animated: true)
-//        } else {
-//            orderView.nextButton.backgroundColor = .systemRed
-//            orderView.nextButton.isEnabled = false
-//            print("next button is now disable")
-//        }
-//    }
+    @objc func nextButtonTapped() {
+        
+        if let photo = selectedImage {
+            photoURL = saveImageToDisk(image: photo, name: "orderPhoto")
+        }
+        
+        //Create new Order object and save to userDefault
+        
+        let newOrder = Order(menuImage: photoURL, shopName: displayShopName, orderItems: displayItemsArray)
+        print(newOrder)
+        print(newOrder.totalPrice)
+        
+        do {
+            let encoder = JSONEncoder()
+            let encodedData = try encoder.encode(newOrder)
+            
+        // Save the encoded data to userDefault
+            defaults.set(encodedData, forKey: "savedOrder")
+            print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
+        } catch {
+            print("Error encoding the order:", error)
+        }
+    }
     
     @objc func cancelButtonTapped() {
         
@@ -120,10 +127,10 @@ class OrderViewController: UIViewController {
                let email = emailTextField.text {
                 
                 //Populate display variables
-                displayCustomerName = customerName
-                displayItem = item
-                displayPrice = price
-                displayEmail = email
+                displayCustomerName.append(customerName)
+                displayItem.append(item)
+                displayPrice.append(price)
+                displayEmail.append(email)
                 
                 print(displayShopName)
                 print(displayCustomerName)
@@ -143,14 +150,14 @@ class OrderViewController: UIViewController {
                 orderView.orderTableView.insertSections(indexSet, with: .automatic)
                 orderView.orderTableView.endUpdates()
                 print("added new item")
-                
+                print("There are \(numberOfSection)")
                 
                 //add new order and save to userDefault
                 if let decimalPrice = Decimal(string: price){
                     let newOrderItem = OrderItem(customerName: customerName, item: item, price: decimalPrice, email: email)
-                    var newOrder: Order?
-                    newOrder?.orderItems.append(newOrderItem)
+                    displayItemsArray.append(newOrderItem)
                     print(newOrderItem)
+                    print(displayItemsArray)
                 }
                 orderView.orderTableView.reloadData()
             }
@@ -162,6 +169,21 @@ class OrderViewController: UIViewController {
         addItemAC.addAction(cancelAction)
         present(addItemAC, animated: true)
     }
+}
+
+//save image to disk
+func saveImageToDisk (image: UIImage, name: String) -> URL? {
+    if let data = image.jpegData(compressionQuality: 1.0),
+       let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(name + ".jpeg") {
+        do {
+            try data.write(to: url)
+            return url
+        } catch {
+            print("Error in saving image:", error)
+            return nil
+        }
+    }
+    return nil
 }
     
 //    @objc func showKeyboard(notification: Notification) {
@@ -243,12 +265,13 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section >= 1 {
             let itemCell = orderView.orderTableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
             itemCell.isUserInteractionEnabled = true
-            itemCell.customerNameDataLabel.text = displayCustomerName
-            itemCell.itemDataLabel.text = displayItem
-            itemCell.priceDataLabel.text = displayPrice
-            itemCell.emailDataLabel.text = displayEmail
+            itemCell.customerNameDataLabel.text = displayCustomerName[indexPath.section - 1]
+            itemCell.itemDataLabel.text = displayItem[indexPath.section - 1]
+            itemCell.priceDataLabel.text = displayPrice[indexPath.section - 1]
+            itemCell.emailDataLabel.text = displayEmail[indexPath.section - 1]
             return itemCell
         }
+        
         fatalError("cell are not in display")
     }
 }
