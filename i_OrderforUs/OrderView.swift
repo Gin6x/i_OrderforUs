@@ -33,13 +33,6 @@ class OrderView: UIView {
 //        textField.borderStyle = .roundedRect
 //        return textField
 //    }()
-    
-//    let orderScrollView: UIScrollView = {
-//        let scrollView = UIScrollView()
-//        scrollView.backgroundColor = .systemMint
-//        scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        return scrollView
-//    }()
 
     let orderTableView: UITableView = {
         let tableView = UITableView(frame: CGRectZero, style: .grouped)

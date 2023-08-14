@@ -7,14 +7,8 @@
 
 import UIKit
 
-//protocol OrderCellDelagate: AnyObject {
-//    func updatePhotoData(_ cell:OrderCell, photo: UIImage)
-//    func updateShopNameData(_ cell: OrderCell, shopName: String)
-//}
 
 class OrderCell: UITableViewCell {
-    
-//    weak var delegate: OrderCellDelagate?
     
     let photoImageView: UIImageView = {
         let imageView = UIImageView()

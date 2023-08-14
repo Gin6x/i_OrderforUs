@@ -11,9 +11,18 @@ class HistoryView: UIView {
     
     private let historyContentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .systemCyan
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    let historyTableView: UITableView = {
+        let tableView = UITableView(frame: CGRectZero, style: .grouped)
+        tableView.backgroundColor = .systemCyan
+        tableView.separatorStyle = .singleLine
+        tableView.allowsSelection = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     override init(frame: CGRect) {
@@ -32,6 +41,14 @@ class HistoryView: UIView {
             historyContentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             historyContentView.leftAnchor.constraint(equalTo: leftAnchor),
             historyContentView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+        
+        addSubview(historyTableView)
+        NSLayoutConstraint.activate([
+            historyTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            historyTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            historyTableView.leftAnchor.constraint(equalTo: leftAnchor),
+            historyTableView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
     }
 
