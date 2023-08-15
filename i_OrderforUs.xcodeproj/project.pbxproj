@@ -25,6 +25,9 @@
 		BEC988052A77EA430028E926 /* SummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC988042A77EA430028E926 /* SummaryCell.swift */; };
 		BEC988072A7803C80028E926 /* FinalItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC988062A7803C80028E926 /* FinalItemCell.swift */; };
 		BEDACD2D2A8A7700006D6E34 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */; };
+		BEDACD2F2A8C150A006D6E34 /* DetailHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */; };
+		BEDACD312A8C1523006D6E34 /* DetailHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */; };
+		BEDACD332A8C18AE006D6E34 /* DetailHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD322A8C18AE006D6E34 /* DetailHistoryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +51,9 @@
 		BEC988042A77EA430028E926 /* SummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCell.swift; sourceTree = "<group>"; };
 		BEC988062A7803C80028E926 /* FinalItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalItemCell.swift; sourceTree = "<group>"; };
 		BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryViewController.swift; sourceTree = "<group>"; };
+		BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryView.swift; sourceTree = "<group>"; };
+		BEDACD322A8C18AE006D6E34 /* DetailHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +111,9 @@
 			children = (
 				BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */,
 				BE7BD4322A12F420004425B6 /* OrderViewController.swift */,
-				BE9A060C2A73F4F20035F635 /* RecordViewController.swift */,
 				BE2500A42A83AB1C00E52F55 /* HistoryViewController.swift */,
+				BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */,
+				BE9A060C2A73F4F20035F635 /* RecordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -117,9 +124,10 @@
 				BE7BD4382A2A0986004425B6 /* OrderCell.swift */,
 				BE96416D2A50E23D000B9036 /* ItemCell.swift */,
 				BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */,
+				BEDACD322A8C18AE006D6E34 /* DetailHistoryCell.swift */,
+				BE2500AA2A850F9400E52F55 /* Order.swift */,
 				BEC988042A77EA430028E926 /* SummaryCell.swift */,
 				BEC988062A7803C80028E926 /* FinalItemCell.swift */,
-				BE2500AA2A850F9400E52F55 /* Order.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -129,8 +137,9 @@
 			children = (
 				BE7BD4302A09B141004425B6 /* WelcomeView.swift */,
 				BE7BD4342A12F465004425B6 /* OrderView.swift */,
-				BE9A060E2A73F51D0035F635 /* RecordView.swift */,
 				BE2500A62A83AB4B00E52F55 /* HistoryView.swift */,
+				BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */,
+				BE9A060E2A73F51D0035F635 /* RecordView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -205,6 +214,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEDACD2F2A8C150A006D6E34 /* DetailHistoryViewController.swift in Sources */,
+				BEDACD332A8C18AE006D6E34 /* DetailHistoryCell.swift in Sources */,
 				BE96416E2A50E23D000B9036 /* ItemCell.swift in Sources */,
 				BE1B0C382A0940BC0067F492 /* AppDelegate.swift in Sources */,
 				BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */,
@@ -220,6 +231,7 @@
 				BE2500AB2A850F9400E52F55 /* Order.swift in Sources */,
 				BE1B0C4C2A0943260067F492 /* WelcomeViewController.swift in Sources */,
 				BEDACD2D2A8A7700006D6E34 /* HistoryCell.swift in Sources */,
+				BEDACD312A8C1523006D6E34 /* DetailHistoryView.swift in Sources */,
 				BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

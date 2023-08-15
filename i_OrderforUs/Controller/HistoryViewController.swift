@@ -21,6 +21,7 @@ class HistoryViewController: UIViewController {
         historyView.historyTableView.delegate = self
         historyView.historyTableView.dataSource = self
         historyView.historyTableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
+        historyView.historyTableView.allowsSelection = true
         orderKey = getOrderKey()
         loadDataFromUserDefault()
         historyView.historyTableView.reloadData()
@@ -94,5 +95,12 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         cell.totalPriceLabel.text = "\(order.totalPrice)"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell = displayOrder[indexPath.section]
+        let detailHistoryVC = DetailHistoryViewController()
+        print("Selected cell of \(selectedCell)")
+        present(detailHistoryVC, animated: true)
     }
 }

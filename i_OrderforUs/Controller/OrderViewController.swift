@@ -34,6 +34,7 @@ class OrderViewController: UIViewController {
         
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
+        orderView.orderTableView.allowsSelection = true
         orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
         orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
 //        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
