@@ -10,6 +10,7 @@ import UIKit
 class HistoryViewController: UIViewController {
     
     let historyView = HistoryView()
+    var orderKey: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,11 +20,42 @@ class HistoryViewController: UIViewController {
         historyView.historyTableView.delegate = self
         historyView.historyTableView.dataSource = self
         historyView.historyTableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
+        let orderKey = getOrderKey()
+        print(orderKey)
     }
     
-
-  
-
+    func getOrderKey() -> [String] {
+        
+        var uniqueKeys: [String] = []
+        var counter = 1
+        
+        while true {
+            let key = "savedOrder\(counter)"
+            
+            if UserDefaults.standard.object(forKey: key) == nil {
+                break
+            }
+            
+            uniqueKeys.append(key)
+            counter += 1
+        }
+        
+        return uniqueKeys
+    }
+//    func loadDataFromUserDefault() {
+//
+//        let uniqueOrderKey = getUniqueOrderKey()
+//
+//        if let savedData = UserDefaults.standard.data(forKey: uniqueOrderKey) {
+//            let decoder = JSONDecoder()
+//            do {
+//                let loadedOrder = try decoder.decode(Order.self, from: savedData)
+//                print(loadedOrder)
+//            } catch {
+//                print("Error decoding the order:", error)
+//            }
+//        }
+//    }
 }
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {

@@ -51,10 +51,23 @@ class OrderViewController: UIViewController {
         orderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
+    func getUniqueOrderKey() -> String {
+        var counter = 1
+        var uniqueKey = "savedOrder\(counter)"
+        
+        while UserDefaults.standard.object(forKey: uniqueKey) != nil {
+            counter += 1
+            uniqueKey = "savedOrder\(counter)"
+        }
+        
+        return uniqueKey
+    }
+    
     @objc func nextButtonTapped() {
+        let uniqueOrderKey = getUniqueOrderKey()
         
         if let photo = selectedImage {
-            photoURL = saveImageToDisk(image: photo, name: "orderPhoto")
+            var photoURL = saveImageToDisk(image: photo, name: "\(uniqueOrderKey)photo")
         }
         
         //Create new Order object and save to userDefault
@@ -68,7 +81,7 @@ class OrderViewController: UIViewController {
             let encodedData = try encoder.encode(newOrder)
             
         // Save the encoded data to userDefault
-            defaults.set(encodedData, forKey: "savedOrder")
+            defaults.set(encodedData, forKey: uniqueOrderKey)
             print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
         } catch {
             print("Error encoding the order:", error)
@@ -150,7 +163,7 @@ class OrderViewController: UIViewController {
                 orderView.orderTableView.insertSections(indexSet, with: .automatic)
                 orderView.orderTableView.endUpdates()
                 print("added new item")
-                print("There are \(numberOfSection)")
+                print("There are \(numberOfSection) section")
                 
                 //add new order and save to userDefault
                 if let decimalPrice = Decimal(string: price){
