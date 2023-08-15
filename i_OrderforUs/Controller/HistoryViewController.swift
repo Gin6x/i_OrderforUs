@@ -11,6 +11,7 @@ class HistoryViewController: UIViewController {
     
     let historyView = HistoryView()
     var orderKey: [String] = []
+    var displayOrder: [Order] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +21,15 @@ class HistoryViewController: UIViewController {
         historyView.historyTableView.delegate = self
         historyView.historyTableView.dataSource = self
         historyView.historyTableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
-        let orderKey = getOrderKey()
-        print(orderKey)
+        orderKey = getOrderKey()
+        loadDataFromUserDefault()
+        historyView.historyTableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        orderKey = getOrderKey()
+        loadDataFromUserDefault()
+        historyView.historyTableView.reloadData()
     }
     
     func getOrderKey() -> [String] {
@@ -35,27 +43,29 @@ class HistoryViewController: UIViewController {
             if UserDefaults.standard.object(forKey: key) == nil {
                 break
             }
-            
             uniqueKeys.append(key)
             counter += 1
         }
-        
+        print(uniqueKeys)
         return uniqueKeys
     }
-//    func loadDataFromUserDefault() {
-//
-//        let uniqueOrderKey = getUniqueOrderKey()
-//
-//        if let savedData = UserDefaults.standard.data(forKey: uniqueOrderKey) {
-//            let decoder = JSONDecoder()
-//            do {
-//                let loadedOrder = try decoder.decode(Order.self, from: savedData)
-//                print(loadedOrder)
-//            } catch {
-//                print("Error decoding the order:", error)
-//            }
-//        }
-//    }
+
+    func loadDataFromUserDefault() {
+        
+        for order in orderKey {
+            if let savedData = UserDefaults.standard.data(forKey: order) {
+                let decoder = JSONDecoder()
+                do {
+                    let loadedOrder = try decoder.decode(Order.self, from: savedData)
+                    displayOrder.append(loadedOrder)
+                } catch {
+                    print("Error decoding the order:", error)
+                }
+                print(displayOrder)
+                historyView.historyTableView.reloadData()
+            }
+        }
+    }
 }
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -64,14 +74,25 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return orderKey.count
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = historyView.historyTableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryCell
+        let order = displayOrder[indexPath.section]
+        cell.shopNameLabel.text = order.shopName
+        // Set the desired format
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let formattedDate = dateFormatter.string(from: order.orderDate)
+        cell.dateLabel.text = formattedDate
+        cell.totalPriceLabel.text = "\(order.totalPrice)"
+        
         return cell
     }
-    
-    
 }

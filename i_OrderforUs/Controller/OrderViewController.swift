@@ -67,14 +67,14 @@ class OrderViewController: UIViewController {
         let uniqueOrderKey = getUniqueOrderKey()
         
         if let photo = selectedImage {
-            var photoURL = saveImageToDisk(image: photo, name: "\(uniqueOrderKey)photo")
+            photoURL = saveImageToDisk(image: photo, name: "\(uniqueOrderKey)photo")
         }
         
         //Create new Order object and save to userDefault
         
         let newOrder = Order(menuImage: photoURL, shopName: displayShopName, orderItems: displayItemsArray)
         print(newOrder)
-        print(newOrder.totalPrice)
+        print("The total price is \(newOrder.totalPrice)")
         
         do {
             let encoder = JSONEncoder()
@@ -153,10 +153,8 @@ class OrderViewController: UIViewController {
                 
                 
                 numberOfSection += 1
-                print(numberOfSection)
                 let newTitle = "Item \(headerTitle.count + 1)"
                 headerTitle.append(newTitle)
-                print(headerTitle)
                 
                 let indexSet = IndexSet(integer: numberOfSection - 1)
                 orderView.orderTableView.beginUpdates()
@@ -169,7 +167,6 @@ class OrderViewController: UIViewController {
                 if let decimalPrice = Decimal(string: price){
                     let newOrderItem = OrderItem(customerName: customerName, item: item, price: decimalPrice, email: email)
                     displayItemsArray.append(newOrderItem)
-                    print(newOrderItem)
                     print(displayItemsArray)
                 }
                 orderView.orderTableView.reloadData()
