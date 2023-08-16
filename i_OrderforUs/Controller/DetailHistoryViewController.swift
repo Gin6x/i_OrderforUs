@@ -26,6 +26,25 @@ class DetailHistoryViewController: UIViewController {
         detailHistoryView.detailHistoryTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        func loadImageFromURL(_ url: URL) -> UIImage? {
+            guard let display = photo else {
+                print("No photo data")
+                return nil
+            }
+            do {
+                let data = try Data(contentsOf: display)
+                return UIImage(data: data)
+            } catch {
+                print("Error loading image:", error)
+                        return nil
+            }
+        }
+        
+        detailHistoryView.detailHistoryTableView.reloadData()
+    }
+    
     func loadImageFromURL(_ url: URL) -> UIImage? {
         guard let display = photo else {
             print("No photo data")
@@ -38,6 +57,22 @@ class DetailHistoryViewController: UIViewController {
             print("Error loading image:", error)
                     return nil
         }
+    }
+    
+    func getItemHeaderTitle() -> [String] {
+        var itemTitle: [String] = []
+        var counter = 1
+        
+        while true {
+            let title = "Item\(counter)"
+            
+            if counter > items!.count {
+                break
+            }
+            itemTitle.append(title)
+            counter += 1
+        }
+        return itemTitle
     }
 }
 
@@ -78,11 +113,13 @@ extension DetailHistoryViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let displayItemTitle = getItemHeaderTitle()
 
         if section == 0 {
             return "Menu / Receipt"
         } else if section >= 1 {
-            return "Item"
+            return displayItemTitle[section - 1]
         }
         return ""
     }

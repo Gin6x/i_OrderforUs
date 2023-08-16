@@ -7,6 +7,7 @@
 
 import UIKit
 import NotificationCenter
+import MessageUI
 
 class OrderViewController: UIViewController {
     
@@ -88,6 +89,8 @@ class OrderViewController: UIViewController {
         } catch {
             print("Error encoding the order:", error)
         }
+        
+        displayMailComposer()
     }
     
     @objc func cancelButtonTapped() {
@@ -181,22 +184,52 @@ class OrderViewController: UIViewController {
         addItemAC.addAction(cancelAction)
         present(addItemAC, animated: true)
     }
+    
+    func displayMailComposer() {
+        guard MFMailComposeViewController.canSendMail() else {
+            // Show error alert informing the user their devices cannot use the mail composer
+            return
+        }
+        //turn price in array of String into array of Int
+        let priceIntArray = displayPrice.compactMap { Int($0) }
+        let totalPrice = priceIntArray.reduce(0) { $0 + $1 }
+        
+        let mailcompserVC = MFMailComposeViewController()
+        mailcompserVC.delegate = self
+        mailcompserVC.mailComposeDelegate = self
+        //set field
+        mailcompserVC.setToRecipients(displayEmail)
+        mailcompserVC.setSubject("Your order in \(displayShopName)")
+        let mailGreeting = "Greeting everyone, \n\n \(displayCustomerName[0]) have paid a total of \(totalPrice) for the order in \(displayShopName)), order detail are as follow: \n \n"
+        var orderListBody = ""
+        let mailEnding = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(displayCustomerName[0])"
+        for index in 0..<(displayCustomerName.count) {
+            let name = displayCustomerName[index]
+            let item = displayItem[index]
+            let price = displayPrice[index]
+            orderListBody += "\(name) ordered \(item) for \(price)\n"
+        }
+        let mailTemplate = mailGreeting + orderListBody + mailEnding
+        mailcompserVC.setMessageBody(mailTemplate, isHTML: false)
+        self.present(mailcompserVC, animated: true, completion: nil)
+    }
+    
+    func saveImageToDisk (image: UIImage, name: String) -> URL? {
+        if let data = image.jpegData(compressionQuality: 1.0),
+           let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(name + ".jpeg") {
+            do {
+                try data.write(to: url)
+                return url
+            } catch {
+                print("Error in saving image:", error)
+                return nil
+            }
+        }
+        return nil
+    }
 }
 
-//save image to disk
-func saveImageToDisk (image: UIImage, name: String) -> URL? {
-    if let data = image.jpegData(compressionQuality: 1.0),
-       let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(name + ".jpeg") {
-        do {
-            try data.write(to: url)
-            return url
-        } catch {
-            print("Error in saving image:", error)
-            return nil
-        }
-    }
-    return nil
-}
+
     
 //    @objc func showKeyboard(notification: Notification) {
 //
@@ -261,11 +294,42 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         return numberOfSection
     }
     
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.section >= 1 {
+            return .delete
+        }
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if indexPath.section >= 1 {
+                let adjustedIndex = indexPath.section - 1
+    
+                displayCustomerName.remove(at: adjustedIndex)
+                displayItem.remove(at: adjustedIndex)
+                displayPrice.remove(at: adjustedIndex)
+                displayEmail.remove(at: adjustedIndex)
+                displayItemsArray.remove(at: adjustedIndex)
+                numberOfSection -= 1
+                print(displayCustomerName)
+                print(displayItem)
+                print(displayPrice)
+                print(displayEmail)
+                print(displayItemsArray)
+                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
             let cell = orderView.orderTableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
-            cell.isUserInteractionEnabled = true
             if !displayShopName.isEmpty {
                 cell.shopDataLabel.text = displayShopName
             }
@@ -276,7 +340,6 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else if indexPath.section >= 1 {
             let itemCell = orderView.orderTableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
-            itemCell.isUserInteractionEnabled = true
             itemCell.customerNameDataLabel.text = displayCustomerName[indexPath.section - 1]
             itemCell.itemDataLabel.text = displayItem[indexPath.section - 1]
             itemCell.priceDataLabel.text = displayPrice[indexPath.section - 1]
@@ -366,6 +429,33 @@ extension OrderViewController: UIImagePickerControllerDelegate, UINavigationCont
             orderView.orderTableView.reloadData()
             picker.dismiss(animated: true)
         }
+    }
+}
+
+extension OrderViewController: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        if let _ = error {
+            //Show error alert to user
+            return
+        }
+        switch result {
+        case .cancelled:
+            print("cancel pressed")
+            break
+        case .saved:
+            print("save pressed")
+            break
+        case .sent:
+            print("Mail sent")
+            break
+        case .failed:
+            print("failed to send")
+            break
+        @unknown default:
+            dismiss(animated: true)
+        }
+        controller.dismiss(animated: true)
     }
 }
 
