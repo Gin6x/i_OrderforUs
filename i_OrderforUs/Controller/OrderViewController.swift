@@ -69,6 +69,7 @@ class OrderViewController: UIViewController {
         
         if let photo = selectedImage {
             photoURL = saveImageToDisk(image: photo, name: "\(uniqueOrderKey)photo")
+            print(photoURL)
         }
         
         //Create new Order object and save to userDefault

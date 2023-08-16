@@ -100,6 +100,12 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = displayOrder[indexPath.section]
         let detailHistoryVC = DetailHistoryViewController()
+        detailHistoryVC.photo = selectedCell.menuImage
+        detailHistoryVC.shopName = selectedCell.shopName
+        detailHistoryVC.date = selectedCell.orderDate
+        detailHistoryVC.totalPrice = selectedCell.totalPrice
+        detailHistoryVC.items = selectedCell.orderItems
+        
         print("Selected cell of \(selectedCell)")
         present(detailHistoryVC, animated: true)
     }

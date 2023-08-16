@@ -27,7 +27,7 @@ class ItemCell: UITableViewCell {
         return label
     }()
     
-    let customerNameStackView: UIStackView = {
+    private let customerNameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -54,7 +54,7 @@ class ItemCell: UITableViewCell {
         return label
     }()
     
-    let itemStackView: UIStackView = {
+    private let itemStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -81,7 +81,7 @@ class ItemCell: UITableViewCell {
         return label
     }()
     
-    let priceStackView: UIStackView = {
+    private let priceStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -90,7 +90,7 @@ class ItemCell: UITableViewCell {
         return stackView
     }()
     
-    private let emailLabel: UILabel = {
+    let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email :"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +108,7 @@ class ItemCell: UITableViewCell {
         return label
     }()
     
-    let emailStackView: UIStackView = {
+    private let emailStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -117,7 +117,7 @@ class ItemCell: UITableViewCell {
         return stackView
     }()
     
-    let entriesStackView: UIStackView = {
+    private let entriesStackView: UIStackView = {
         let stackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
