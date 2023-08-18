@@ -9,16 +9,17 @@ import UIKit
 import NotificationCenter
 import MessageUI
 
-class OrderViewController: UIViewController {
-    
+class OrderViewController: UIViewController, FormViewControllerDelegate {
+
     let orderView = OrderView()
     var numberOfSection = 1
-    var headerTitle = ["Your Item"]
+    var headerTitle = ["Item 1"]
 
     let defaults = UserDefaults()
     private var selectedImage: UIImage?
     var photoURL: URL?
     private var displayShopName: String = ""
+    private var displayCurrency: String = ""
     private var displayCustomerName: [String] = []
     private var displayItem: [String] = []
     private var displayPrice: [String] = []
@@ -75,7 +76,7 @@ class OrderViewController: UIViewController {
         
         //Create new Order object and save to userDefault
         
-        let newOrder = Order(menuImage: photoURL, shopName: displayShopName, orderItems: displayItemsArray)
+        let newOrder = Order(menuImage: photoURL, shopName: displayShopName, currency: displayCurrency, orderItems: displayItemsArray)
         print(newOrder)
         print("The total price is \(newOrder.totalPrice)")
         
@@ -90,100 +91,154 @@ class OrderViewController: UIViewController {
             print("Error encoding the order:", error)
         }
         
-        displayMailComposer()
+//        displayMailComposer()
+    }
+    
+    @objc func addButtonTapped() {
+        let formVC = FormViewController()
+        formVC.delegate = self
+        formVC.haveShopName = doesShopNameExist()
+        let formNavController = UINavigationController(rootViewController: formVC)
+        present(formNavController, animated: true)
+    }
+    
+    func doesShopNameExist() -> Bool {
+        if !displayShopName.isEmpty {
+            return true
+        }
+        return false
+    }
+    
+    func userDidInputData(restaurantName: String?, customerName: String, item: String, currency: String, price: String, email: String) {
+        
+        if displayShopName.isEmpty {
+            if let shopName = restaurantName{
+                displayShopName = shopName
+            }
+        }
+        displayCustomerName.append(customerName)
+        displayItem.append(item)
+        displayPrice.append(price)
+        displayEmail.append(email)
+        displayCurrency = currency
+        print(displayShopName)
+        print(displayCustomerName)
+        print(displayItem)
+        print(displayCurrency)
+        print(displayPrice)
+        print(displayEmail)
+
+//        Insert new cell
+        numberOfSection += 1
+        let newTitle = "Item \(headerTitle.count + 1)"
+        headerTitle.append(newTitle)
+
+        let indexSet = IndexSet(integer: numberOfSection - 1)
+        orderView.orderTableView.beginUpdates()
+        orderView.orderTableView.insertSections(indexSet, with: .automatic)
+        orderView.orderTableView.endUpdates()
+        print("added new item")
+        print("There are \(numberOfSection) section")
+
+        //add new order and save to userDefault
+        if let decimalPrice = Decimal(string: price){
+            let newOrderItem = OrderItem(customerName: customerName, item: item, currency: displayCurrency, price: decimalPrice, email: email)
+            displayItemsArray.append(newOrderItem)
+            print(displayItemsArray)
+        }
+        orderView.orderTableView.reloadData()
     }
     
     @objc func cancelButtonTapped() {
-        
         print("OrderVC dismissed")
         dismiss(animated: true)
     }
     
-    @objc func addButtonTapped() {
-        
-        let addItemAC = UIAlertController(title: "Add new item", message: "Please add the following data for future usage", preferredStyle: .alert)
-        
-        if displayShopName.isEmpty {
-            addItemAC.addTextField { textfield in
-                textfield.placeholder = "Restaurant name"
-                textfield.tag = 0
-            }
-        }
-            addItemAC.addTextField { textfield in
-                textfield.placeholder = "Your name"
-                textfield.tag = 1
-            }
-            addItemAC.addTextField { textfield in
-                textfield.placeholder = "Item"
-                textfield.tag = 2
-            }
-            addItemAC.addTextField { textfield in
-                textfield.placeholder = "Price"
-                textfield.tag = 3
-            }
-            addItemAC.addTextField { textfield in
-                textfield.placeholder = "Company / personal mail"
-                textfield.tag = 4
-            }
-     
-        let saveAction = UIAlertAction(title: "Save", style: .default) { [self] _ in
-            
-            if displayShopName.isEmpty {
-                if let shopNameTextField = addItemAC.textFields?.first(where: { $0.tag == 0 }),
-                   let shopName = shopNameTextField.text {
-                    displayShopName = shopName
-                }
-            }
-            
-            if let customerNameTextField = addItemAC.textFields?.first(where: { $0.tag == 1 }),
-               let itemTextField = addItemAC.textFields?.first(where: { $0.tag == 2 }),
-               let priceTextField = addItemAC.textFields?.first(where: { $0.tag == 3 }),
-               let emailTextField = addItemAC.textFields?.first(where: { $0.tag == 4 }),
-               let customerName = customerNameTextField.text,
-               let item = itemTextField.text,
-               let price = priceTextField.text,
-               let email = emailTextField.text {
-                
-                //Populate display variables
-                displayCustomerName.append(customerName)
-                displayItem.append(item)
-                displayPrice.append(price)
-                displayEmail.append(email)
-                
-                print(displayShopName)
-                print(displayCustomerName)
-                print(displayItem)
-                print(displayPrice)
-                print(displayEmail)
-                
-                
-                numberOfSection += 1
-                let newTitle = "Item \(headerTitle.count + 1)"
-                headerTitle.append(newTitle)
-                
-                let indexSet = IndexSet(integer: numberOfSection - 1)
-                orderView.orderTableView.beginUpdates()
-                orderView.orderTableView.insertSections(indexSet, with: .automatic)
-                orderView.orderTableView.endUpdates()
-                print("added new item")
-                print("There are \(numberOfSection) section")
-                
-                //add new order and save to userDefault
-                if let decimalPrice = Decimal(string: price){
-                    let newOrderItem = OrderItem(customerName: customerName, item: item, price: decimalPrice, email: email)
-                    displayItemsArray.append(newOrderItem)
-                    print(displayItemsArray)
-                }
-                orderView.orderTableView.reloadData()
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        addItemAC.addAction(saveAction)
-        addItemAC.addAction(cancelAction)
-        present(addItemAC, animated: true)
-    }
+//    @objc func addButtonTapped() {
+//
+//        let addItemAC = UIAlertController(title: "Add new item", message: "Please add the following data for future usage", preferredStyle: .alert)
+//
+//        if displayShopName.isEmpty {
+//            addItemAC.addTextField { textfield in
+//                textfield.placeholder = "Restaurant name"
+//                textfield.tag = 0
+//            }
+//        }
+//            addItemAC.addTextField { textfield in
+//                textfield.placeholder = "Your name"
+//                textfield.tag = 1
+//            }
+//            addItemAC.addTextField { textfield in
+//                textfield.placeholder = "Item"
+//                textfield.tag = 2
+//            }
+//            addItemAC.addTextField { textfield in
+//                textfield.placeholder = "Price"
+//                textfield.tag = 3
+//            }
+//            addItemAC.addTextField { textfield in
+//                textfield.placeholder = "Company / personal mail"
+//                textfield.tag = 4
+//            }
+//
+//        let saveAction = UIAlertAction(title: "Save", style: .default) { [self] _ in
+//
+//            if displayShopName.isEmpty {
+//                if let shopNameTextField = addItemAC.textFields?.first(where: { $0.tag == 0 }),
+//                   let shopName = shopNameTextField.text {
+//                    displayShopName = shopName
+//                }
+//            }
+//
+//            if let customerNameTextField = addItemAC.textFields?.first(where: { $0.tag == 1 }),
+//               let itemTextField = addItemAC.textFields?.first(where: { $0.tag == 2 }),
+//               let priceTextField = addItemAC.textFields?.first(where: { $0.tag == 3 }),
+//               let emailTextField = addItemAC.textFields?.first(where: { $0.tag == 4 }),
+//               let customerName = customerNameTextField.text,
+//               let item = itemTextField.text,
+//               let price = priceTextField.text,
+//               let email = emailTextField.text {
+//
+//                //Populate display variables
+//                displayCustomerName.append(customerName)
+//                displayItem.append(item)
+//                displayPrice.append(price)
+//                displayEmail.append(email)
+//
+//                print(displayShopName)
+//                print(displayCustomerName)
+//                print(displayItem)
+//                print(displayPrice)
+//                print(displayEmail)
+//
+//
+//                numberOfSection += 1
+//                let newTitle = "Item \(headerTitle.count + 1)"
+//                headerTitle.append(newTitle)
+//
+//                let indexSet = IndexSet(integer: numberOfSection - 1)
+//                orderView.orderTableView.beginUpdates()
+//                orderView.orderTableView.insertSections(indexSet, with: .automatic)
+//                orderView.orderTableView.endUpdates()
+//                print("added new item")
+//                print("There are \(numberOfSection) section")
+//
+//                //add new order and save to userDefault
+//                if let decimalPrice = Decimal(string: price){
+//                    let newOrderItem = OrderItem(customerName: customerName, item: item, price: decimalPrice, email: email)
+//                    displayItemsArray.append(newOrderItem)
+//                    print(displayItemsArray)
+//                }
+//                orderView.orderTableView.reloadData()
+//            }
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//
+//        addItemAC.addAction(saveAction)
+//        addItemAC.addAction(cancelAction)
+//        present(addItemAC, animated: true)
+//    }
     
     func displayMailComposer() {
         guard MFMailComposeViewController.canSendMail() else {
@@ -282,8 +337,6 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
 
         if section == 0 {
             return "Menu / Receipt"
-        } else if section == 1 {
-            return "Your Item"
         } else if section >= 1 {
             return headerTitle[section - 1]
         }
@@ -293,10 +346,6 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return numberOfSection
     }
-    
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if indexPath.section >= 1 {
@@ -322,6 +371,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
                 print(displayEmail)
                 print(displayItemsArray)
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
+                orderView.orderTableView.reloadData()
             }
         }
     }
@@ -343,38 +393,12 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
             itemCell.customerNameDataLabel.text = displayCustomerName[indexPath.section - 1]
             itemCell.itemDataLabel.text = displayItem[indexPath.section - 1]
             itemCell.priceDataLabel.text = displayPrice[indexPath.section - 1]
+            itemCell.currencyLabel.text = displayCurrency
             itemCell.emailDataLabel.text = displayEmail[indexPath.section - 1]
             return itemCell
         }
         
         fatalError("cell are not in display")
-    }
-}
-
-extension OrderViewController: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if let next = orderView.orderTableView.viewWithTag(textField.tag + 1) {
-            next.becomeFirstResponder()
-        }
-        else{
-            textField.resignFirstResponder()
-        }
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
     }
 }
 

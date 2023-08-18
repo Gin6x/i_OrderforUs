@@ -19,11 +19,18 @@ class DetailHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = detailHistoryView
+        title = "Order Detail"
         
         detailHistoryView.detailHistoryTableView.delegate = self
         detailHistoryView.detailHistoryTableView.dataSource = self
         detailHistoryView.detailHistoryTableView.register(DetailHistoryCell.self, forCellReuseIdentifier: "detailHistoryCell")
         detailHistoryView.detailHistoryTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
+        
+//        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonPressed))
+        
+        
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
+        self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +80,10 @@ class DetailHistoryViewController: UIViewController {
             counter += 1
         }
         return itemTitle
+    }
+    
+    @objc func cancelButtonPressed() {
+        dismiss(animated: true)
     }
 }
 
@@ -147,9 +158,10 @@ extension DetailHistoryViewController: UITableViewDelegate, UITableViewDataSourc
             itemCell.emailDataLabel.isHidden = true
             if let displayItems = items {
                 let sectionItem = displayItems[indexPath.section - 1]
-                    itemCell.customerNameDataLabel.text = sectionItem.customerName
-                    itemCell.itemDataLabel.text = sectionItem.item
-                    itemCell.priceDataLabel.text = "\(sectionItem.price)"
+                itemCell.customerNameDataLabel.text = sectionItem.customerName
+                itemCell.itemDataLabel.text = sectionItem.item
+                itemCell.priceDataLabel.text = "\(sectionItem.price)"
+                itemCell.currencyLabel.text = sectionItem.currency
             }
             return itemCell
         }

@@ -72,6 +72,15 @@ class ItemCell: UITableViewCell {
         return label
     }()
     
+    var currencyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "('£')"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
     var priceDataLabel: UILabel = {
         let label = UILabel()
         label.text = "5"
@@ -155,6 +164,7 @@ class ItemCell: UITableViewCell {
         ])
         
         priceStackView.addArrangedSubview(priceLabel)
+        priceStackView.addArrangedSubview(currencyLabel)
         priceStackView.addArrangedSubview(priceDataLabel)
         contentView.addSubview(priceStackView)
         NSLayoutConstraint.activate([

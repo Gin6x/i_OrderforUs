@@ -35,13 +35,30 @@ class HistoryCell: UITableViewCell {
         return stackView
     }()
     
-    var totalPriceLabel: UILabel = {
+    var currencyLabel: UILabel = {
         let label = UILabel()
-        label.text = "$48"
+        label.text = "£"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 15)
         return label
+    }()
+    
+    var totalPriceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "48"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    private let priceStackView: UIStackView = {
+        let stackView = UIStackView(frame: CGRectZero)
+        stackView.axis = .horizontal
+        stackView.spacing = 0
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -64,11 +81,13 @@ class HistoryCell: UITableViewCell {
             orderSummaryStackView.topAnchor.constraint(equalTo: topAnchor, constant: 5)
         ])
         
-        addSubview(totalPriceLabel)
+        priceStackView.addArrangedSubview(currencyLabel)
+        priceStackView.addArrangedSubview(totalPriceLabel)
+        contentView.addSubview(priceStackView)
         NSLayoutConstraint.activate([
-            totalPriceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            totalPriceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            totalPriceLabel.topAnchor.constraint(equalTo: orderSummaryStackView.bottomAnchor),
+            priceStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            priceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            priceStackView.topAnchor.constraint(equalTo: orderSummaryStackView.bottomAnchor, constant: 5)
         ])
     }
 

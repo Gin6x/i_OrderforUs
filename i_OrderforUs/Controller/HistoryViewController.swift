@@ -24,7 +24,6 @@ class HistoryViewController: UIViewController {
         historyView.historyTableView.allowsSelection = true
         orderKey = getOrderKey()
         loadDataFromUserDefault()
-        historyView.historyTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,6 +91,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let formattedDate = dateFormatter.string(from: order.orderDate)
         cell.dateLabel.text = formattedDate
+        cell.currencyLabel.text = order.currency
         cell.totalPriceLabel.text = "\(order.totalPrice)"
         
         return cell
@@ -107,6 +107,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         detailHistoryVC.items = selectedCell.orderItems
         
         print("Selected cell of \(selectedCell)")
-        present(detailHistoryVC, animated: true)
+        let detailHistoryNavController = UINavigationController(rootViewController: detailHistoryVC)
+        present(detailHistoryNavController, animated: true)
     }
 }

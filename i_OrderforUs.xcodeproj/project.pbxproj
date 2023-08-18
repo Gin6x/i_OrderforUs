@@ -28,6 +28,8 @@
 		BEDACD2F2A8C150A006D6E34 /* DetailHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */; };
 		BEDACD312A8C1523006D6E34 /* DetailHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */; };
 		BEDACD332A8C18AE006D6E34 /* DetailHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD322A8C18AE006D6E34 /* DetailHistoryCell.swift */; };
+		BEDACD372A8F928F006D6E34 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD362A8F928F006D6E34 /* FormViewController.swift */; };
+		BEDACD392A8F92CE006D6E34 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD382A8F92CE006D6E34 /* FormView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryViewController.swift; sourceTree = "<group>"; };
 		BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryView.swift; sourceTree = "<group>"; };
 		BEDACD322A8C18AE006D6E34 /* DetailHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryCell.swift; sourceTree = "<group>"; };
+		BEDACD362A8F928F006D6E34 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		BEDACD382A8F92CE006D6E34 /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 			children = (
 				BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */,
 				BE7BD4322A12F420004425B6 /* OrderViewController.swift */,
+				BEDACD362A8F928F006D6E34 /* FormViewController.swift */,
 				BE2500A42A83AB1C00E52F55 /* HistoryViewController.swift */,
 				BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */,
 				BE9A060C2A73F4F20035F635 /* RecordViewController.swift */,
@@ -137,6 +142,7 @@
 			children = (
 				BE7BD4302A09B141004425B6 /* WelcomeView.swift */,
 				BE7BD4342A12F465004425B6 /* OrderView.swift */,
+				BEDACD382A8F92CE006D6E34 /* FormView.swift */,
 				BE2500A62A83AB4B00E52F55 /* HistoryView.swift */,
 				BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */,
 				BE9A060E2A73F51D0035F635 /* RecordView.swift */,
@@ -223,6 +229,8 @@
 				BE9A060F2A73F51D0035F635 /* RecordView.swift in Sources */,
 				BE2500A52A83AB1C00E52F55 /* HistoryViewController.swift in Sources */,
 				BEC988052A77EA430028E926 /* SummaryCell.swift in Sources */,
+				BEDACD392A8F92CE006D6E34 /* FormView.swift in Sources */,
+				BEDACD372A8F928F006D6E34 /* FormViewController.swift in Sources */,
 				BE2500A72A83AB4B00E52F55 /* HistoryView.swift in Sources */,
 				BE9A060D2A73F4F20035F635 /* RecordViewController.swift in Sources */,
 				BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */,
