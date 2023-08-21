@@ -24,6 +24,7 @@ class HistoryViewController: UIViewController {
         historyView.historyTableView.allowsSelection = true
         orderKey = getOrderKey()
         loadDataFromUserDefault()
+        historyView.historyTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {

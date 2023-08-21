@@ -12,12 +12,12 @@ protocol FormViewControllerDelegate {
 }
 
 class FormViewController: UIViewController {
-    let formView = FormView()
-    let currencies = ["£", "$", "€"]
-    var selectedCurrency = "£"
-    var shopname: String?
+    private let formView = FormView()
+    private let currencies = ["£", "$", "€"]
+    private var selectedCurrency = "£"
+    private var shopname: String?
     var haveShopName: Bool?
-    var savedUsers: User?
+    private var savedUsers: User?
         
     var delegate:FormViewControllerDelegate?
 

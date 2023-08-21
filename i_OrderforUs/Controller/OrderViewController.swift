@@ -25,7 +25,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
     private var displayPrice: [String] = []
     private var displayEmail: [String] = []
     private var displayItemsArray: [OrderItem] = []
-    private var newUsers: [String: String] = [:]
+    private var savedUsers: [String: String] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +69,6 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         }
         
         //Create new Order object and save to userDefault
-        
         let newOrder = Order(menuImage: photoURL, shopName: displayShopName, currency: displayCurrency, orderItems: displayItemsArray)
         print(newOrder)
         print("The total price is \(newOrder.totalPrice)")
@@ -85,29 +84,30 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
             print("Error encoding the order:", error)
         }
         
-        //need to create savedUser in userDefaults with struct of User
-        for i in 0..<displayCustomerName.count {
-
-            newUsers[displayCustomerName[i]] = displayEmail[i]
-            print(newUsers)
-            print("There are \(newUsers.count) new users in the dictionary")
+        //Create user list or updating the list in userDefault
+        var savedUser = User()
+        
+        if let savedData = defaults.data(forKey: "savedUsers"),
+            let decodedUser = try? JSONDecoder().decode(User.self, from: savedData) {
+            savedUsers = decodedUser.userInfo
         }
         
-        var savedUser = User()
-        savedUser.userInfo = newUsers
-        
+        // Update the dictionary with new data
+        for i in 0..<displayCustomerName.count {
+            savedUsers[displayCustomerName[i]] = displayEmail[i]
+        }
+
+        // Save the updated dictionary back to UserDefaults
         do {
+            let updatedUser = User(userInfo: savedUsers)
             let encoder = JSONEncoder()
-            let encodedData = try encoder.encode(savedUser)
+            let encodedData = try encoder.encode(updatedUser)
             
-            // Save the encoded data to userDefault
             defaults.set(encodedData, forKey: "savedUsers")
             print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
         } catch {
             print("Error encoding the order:", error)
         }
-        
-        
 //        displayMailComposer()
     }
     
@@ -126,6 +126,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         return false
     }
     
+    //Delegate from FormVC
     func userDidInputData(restaurantName: String?, customerName: String, item: String, currency: String, price: String, email: String) {
         
         if displayShopName.isEmpty {
