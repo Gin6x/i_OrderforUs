@@ -51,7 +51,7 @@ class HistoryViewController: UIViewController {
     }
 
     func loadDataFromUserDefault() {
-        
+
         for order in orderKey {
             if let savedData = UserDefaults.standard.data(forKey: order) {
                 let decoder = JSONDecoder()

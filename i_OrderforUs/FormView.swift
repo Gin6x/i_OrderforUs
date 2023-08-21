@@ -58,7 +58,7 @@ class FormView: UIView {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.placeholder = "Price"
-        textField.keyboardType = .numberPad
+        textField.keyboardType = .decimalPad
         textField.tag = 3
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField

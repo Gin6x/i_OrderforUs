@@ -138,6 +138,9 @@ extension DetailHistoryViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = detailHistoryView.detailHistoryTableView.dequeueReusableCell(withIdentifier: "detailHistoryCell", for: indexPath) as! DetailHistoryCell
+            DispatchQueue.main.async {
+                cell.photoImageView.image = UIImage(named: "camera.svg")
+            }
             if let displayphoto = photo {
                 DispatchQueue.main.async {
                     cell.photoImageView.image = self.loadImageFromURL(displayphoto)

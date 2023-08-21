@@ -17,7 +17,8 @@ class FormViewController: UIViewController {
     var selectedCurrency = "£"
     var shopname: String?
     var haveShopName: Bool?
-    
+    var savedUsers: User?
+        
     var delegate:FormViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -27,6 +28,7 @@ class FormViewController: UIViewController {
         
         formView.currencyPickerView.delegate = self
         formView.currencyPickerView.dataSource = self
+        formView.customerNameTextField.delegate = self
         
         let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         navigationItem.leftBarButtonItem = cancelBarButton
@@ -43,6 +45,7 @@ class FormViewController: UIViewController {
     
     @objc func cancelButtonTapped() {
         dismiss(animated: true)
+//        loadUserDataFromUserDefault()
     }
     
     @objc func saveButtonTapped() {
@@ -67,6 +70,23 @@ class FormViewController: UIViewController {
         
         dismiss(animated: true)
     }
+    
+    func loadUserDataFromUserDefault() {
+
+        if let savedUserData = UserDefaults.standard.data(forKey: "savedUsers") {
+            let decoder = JSONDecoder()
+            do {
+                let loadedUser = try decoder.decode(User.self, from: savedUserData)
+                print(loadedUser)
+                print(loadedUser.userInfo.count)
+                savedUsers = loadedUser
+                print("Saved user is \(savedUsers)")
+            } catch {
+                print("Error decoding the order:", error)
+            }
+        }
+    }
+    
 }
 
 extension FormViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -87,6 +107,19 @@ extension FormViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         return selectedCurrency = currencies[row]
     }
+}
+
+extension FormViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 1 {
+            loadUserDataFromUserDefault()
+            if let userEmail = savedUsers?.userInfo[textField.text!] {
+                formView.emailTextField.text = userEmail
+            }
+        }
+    }
+    
 }
 
 

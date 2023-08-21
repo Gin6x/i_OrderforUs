@@ -48,22 +48,22 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
     func imageOption() {
         
         let pickPhotoAlertVC = UIAlertController(title: "Menu upload", message: "Please choose a photo for the menu", preferredStyle: .actionSheet)
-        
-        let pickCamera = UIAlertAction(title: "Camera", style: .default) { (action) in
-            
-            let cameraPhotoPicker = self.imagePicker(sourceType: .camera)
-            self.present(cameraPhotoPicker, animated: true) {
-                print("Picked camera as photo source")
-            }
-        }
-        
-        let pickLibrary = UIAlertAction(title: "Photo Library", style: .default) { (action) in
-            
-            let libraryPhotoPicker = self.imagePicker(sourceType: .photoLibrary)
-            self.present(libraryPhotoPicker, animated: true){
-                print("Picked photo library as photo source")
-            }
-        }
+//
+//        let pickCamera = UIAlertAction(title: "Camera", style: .default) { (action) in
+//
+//            let cameraPhotoPicker = self.imagePicker(sourceType: .camera)
+//            self.present(cameraPhotoPicker, animated: true) {
+//                print("Picked camera as photo source")
+//            }
+//        }
+//
+//        let pickLibrary = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+//
+//            let libraryPhotoPicker = self.imagePicker(sourceType: .photoLibrary)
+//            self.present(libraryPhotoPicker, animated: true){
+//                print("Picked photo library as photo source")
+//            }
+//        }
         
         let pickNoMenu = UIAlertAction(title: "I don't have a menu", style: .default) { (action) in
             self.navigateToOrderVC()
@@ -71,8 +71,8 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
         
         let cancelPhotoSelection = UIAlertAction(title: "cancel", style: .cancel)
         
-        pickPhotoAlertVC.addAction(pickCamera)
-        pickPhotoAlertVC.addAction(pickLibrary)
+//        pickPhotoAlertVC.addAction(pickCamera)
+//        pickPhotoAlertVC.addAction(pickLibrary)
         pickPhotoAlertVC.addAction(pickNoMenu)
         pickPhotoAlertVC.addAction(cancelPhotoSelection)
         

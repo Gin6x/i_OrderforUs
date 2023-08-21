@@ -25,9 +25,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
     private var displayPrice: [String] = []
     private var displayEmail: [String] = []
     private var displayItemsArray: [OrderItem] = []
-//
-//    var photoData: UIImage?
-//    var shopNameData: String?
+    private var newUsers: [String: String] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +37,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         orderView.orderTableView.allowsSelection = true
         orderView.orderTableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
         orderView.orderTableView.register(ItemCell.self, forCellReuseIdentifier: "itemCell")
-//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        orderView.orderTableView.estimatedRowHeight = 300.0
-//        orderView.orderTableView.rowHeight = UITableView.automaticDimension
-        
+
         let leftBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
         navigationItem.leftBarButtonItem = leftBarButton
         
@@ -91,6 +85,29 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
             print("Error encoding the order:", error)
         }
         
+        //need to create savedUser in userDefaults with struct of User
+        for i in 0..<displayCustomerName.count {
+
+            newUsers[displayCustomerName[i]] = displayEmail[i]
+            print(newUsers)
+            print("There are \(newUsers.count) new users in the dictionary")
+        }
+        
+        var savedUser = User()
+        savedUser.userInfo = newUsers
+        
+        do {
+            let encoder = JSONEncoder()
+            let encodedData = try encoder.encode(savedUser)
+            
+            // Save the encoded data to userDefault
+            defaults.set(encodedData, forKey: "savedUsers")
+            print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
+        } catch {
+            print("Error encoding the order:", error)
+        }
+        
+        
 //        displayMailComposer()
     }
     
@@ -127,7 +144,6 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         print(displayCurrency)
         print(displayPrice)
         print(displayEmail)
-
 //        Insert new cell
         numberOfSection += 1
         let newTitle = "Item \(headerTitle.count + 1)"
@@ -140,11 +156,13 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         print("added new item")
         print("There are \(numberOfSection) section")
 
-        //add new order and save to userDefault
+        //add new order and use next button to save to userDefault
         if let decimalPrice = Decimal(string: price){
             let newOrderItem = OrderItem(customerName: customerName, item: item, currency: displayCurrency, price: decimalPrice, email: email)
             displayItemsArray.append(newOrderItem)
+
             print(displayItemsArray)
+//            print(user)
         }
         orderView.orderTableView.reloadData()
     }
@@ -154,93 +172,8 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         dismiss(animated: true)
     }
     
-//    @objc func addButtonTapped() {
-//
-//        let addItemAC = UIAlertController(title: "Add new item", message: "Please add the following data for future usage", preferredStyle: .alert)
-//
-//        if displayShopName.isEmpty {
-//            addItemAC.addTextField { textfield in
-//                textfield.placeholder = "Restaurant name"
-//                textfield.tag = 0
-//            }
-//        }
-//            addItemAC.addTextField { textfield in
-//                textfield.placeholder = "Your name"
-//                textfield.tag = 1
-//            }
-//            addItemAC.addTextField { textfield in
-//                textfield.placeholder = "Item"
-//                textfield.tag = 2
-//            }
-//            addItemAC.addTextField { textfield in
-//                textfield.placeholder = "Price"
-//                textfield.tag = 3
-//            }
-//            addItemAC.addTextField { textfield in
-//                textfield.placeholder = "Company / personal mail"
-//                textfield.tag = 4
-//            }
-//
-//        let saveAction = UIAlertAction(title: "Save", style: .default) { [self] _ in
-//
-//            if displayShopName.isEmpty {
-//                if let shopNameTextField = addItemAC.textFields?.first(where: { $0.tag == 0 }),
-//                   let shopName = shopNameTextField.text {
-//                    displayShopName = shopName
-//                }
-//            }
-//
-//            if let customerNameTextField = addItemAC.textFields?.first(where: { $0.tag == 1 }),
-//               let itemTextField = addItemAC.textFields?.first(where: { $0.tag == 2 }),
-//               let priceTextField = addItemAC.textFields?.first(where: { $0.tag == 3 }),
-//               let emailTextField = addItemAC.textFields?.first(where: { $0.tag == 4 }),
-//               let customerName = customerNameTextField.text,
-//               let item = itemTextField.text,
-//               let price = priceTextField.text,
-//               let email = emailTextField.text {
-//
-//                //Populate display variables
-//                displayCustomerName.append(customerName)
-//                displayItem.append(item)
-//                displayPrice.append(price)
-//                displayEmail.append(email)
-//
-//                print(displayShopName)
-//                print(displayCustomerName)
-//                print(displayItem)
-//                print(displayPrice)
-//                print(displayEmail)
-//
-//
-//                numberOfSection += 1
-//                let newTitle = "Item \(headerTitle.count + 1)"
-//                headerTitle.append(newTitle)
-//
-//                let indexSet = IndexSet(integer: numberOfSection - 1)
-//                orderView.orderTableView.beginUpdates()
-//                orderView.orderTableView.insertSections(indexSet, with: .automatic)
-//                orderView.orderTableView.endUpdates()
-//                print("added new item")
-//                print("There are \(numberOfSection) section")
-//
-//                //add new order and save to userDefault
-//                if let decimalPrice = Decimal(string: price){
-//                    let newOrderItem = OrderItem(customerName: customerName, item: item, price: decimalPrice, email: email)
-//                    displayItemsArray.append(newOrderItem)
-//                    print(displayItemsArray)
-//                }
-//                orderView.orderTableView.reloadData()
-//            }
-//        }
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-//
-//        addItemAC.addAction(saveAction)
-//        addItemAC.addAction(cancelAction)
-//        present(addItemAC, animated: true)
-//    }
-    
     func displayMailComposer() {
+        
         guard MFMailComposeViewController.canSendMail() else {
             // Show error alert informing the user their devices cannot use the mail composer
             return
@@ -284,24 +217,6 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
     }
 }
 
-
-    
-//    @objc func showKeyboard(notification: Notification) {
-//
-//        if let userInfo = notification.userInfo,
-//           let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height - 20, right: 0)
-//            orderView.orderTableView.contentInset = contentInsets
-//            orderView.orderTableView.scrollIndicatorInsets = contentInsets
-//        }
-//    }
-//
-//    @objc func hideKeyboard(notification: Notification) {
-//        orderView.orderTableView.contentInset = .zero
-//        orderView.orderTableView.scrollIndicatorInsets = .zero
-//    }
-
-
 extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -337,7 +252,9 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
 
         if section == 0 {
             return "Menu / Receipt"
-        } else if section >= 1 {
+        } else if section == 1{
+            return "Your item"
+        } else if section > 1 {
             return headerTitle[section - 1]
         }
         return ""
@@ -432,15 +349,10 @@ extension OrderViewController: UIImagePickerControllerDelegate, UINavigationCont
             }
         }
         
-//        let pickNoMenu = UIAlertAction(title: "I don't have a menu", style: .default) { (action) in
-//            self.navigateToOrderVC()
-//        }
-        
         let cancelPhotoSelection = UIAlertAction(title: "cancel", style: .cancel)
         
         pickPhotoAlertVC.addAction(pickCamera)
         pickPhotoAlertVC.addAction(pickLibrary)
-//        pickPhotoAlertVC.addAction(pickNoMenu)
         pickPhotoAlertVC.addAction(cancelPhotoSelection)
         
         self.present(pickPhotoAlertVC, animated: true, completion: nil)
@@ -482,7 +394,3 @@ extension OrderViewController: MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true)
     }
 }
-
-
-
-

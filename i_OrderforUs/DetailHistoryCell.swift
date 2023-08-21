@@ -100,7 +100,7 @@ class DetailHistoryCell: UITableViewCell {
         priceStackView.addArrangedSubview(totalPriceLabel)
         contentView.addSubview(priceStackView)
         NSLayoutConstraint.activate([
-            priceStackView.leadingAnchor.constraint(equalTo: photoImageView.leadingAnchor, constant: 8),
+            priceStackView.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 8),
             priceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             priceStackView.topAnchor.constraint(equalTo: orderSummaryStackView.bottomAnchor, constant: 5)
         ])
