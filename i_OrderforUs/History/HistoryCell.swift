@@ -9,56 +9,31 @@ import UIKit
 
 class HistoryCell: UITableViewCell {
     
-    var shopNameLabel: UILabel = {
+    let shopNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Briki"
+        label.text = "Shop:"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = .monospacedSystemFont(ofSize: 18, weight: .ultraLight)
         return label
     }()
     
-    var dateLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "15-08"
+        label.text = "Date"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = .monospacedSystemFont(ofSize: 18, weight: .ultraLight)
         return label
     }()
     
-    let orderSummaryStackView: UIStackView = {
-        let stackView = UIStackView(frame: CGRectZero)
-        stackView.axis = .horizontal
-        stackView.spacing = 0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    var currencyLabel: UILabel = {
+    let totalPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "£"
+        label.text = "Price"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = .monospacedSystemFont(ofSize: 18, weight: .ultraLight)
         return label
-    }()
-    
-    var totalPriceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "48"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 15)
-        return label
-    }()
-    
-    private let priceStackView: UIStackView = {
-        let stackView = UIStackView(frame: CGRectZero)
-        stackView.axis = .horizontal
-        stackView.spacing = 0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -72,23 +47,25 @@ class HistoryCell: UITableViewCell {
     
     func setupCell() {
         
-        orderSummaryStackView.addArrangedSubview(shopNameLabel)
-        orderSummaryStackView.addArrangedSubview(dateLabel)
-        contentView.addSubview(orderSummaryStackView)
+        contentView.addSubview(shopNameLabel)
         NSLayoutConstraint.activate([
-            orderSummaryStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            orderSummaryStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            orderSummaryStackView.topAnchor.constraint(equalTo: topAnchor, constant: 5)
+            shopNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            shopNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            shopNameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 200)
         ])
         
-        priceStackView.addArrangedSubview(currencyLabel)
-        priceStackView.addArrangedSubview(totalPriceLabel)
-        contentView.addSubview(priceStackView)
+        contentView.addSubview(dateLabel)
         NSLayoutConstraint.activate([
-            priceStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            priceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            priceStackView.topAnchor.constraint(equalTo: orderSummaryStackView.bottomAnchor, constant: 5)
+            dateLabel.topAnchor.constraint(equalTo: shopNameLabel.bottomAnchor, constant: 8),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            dateLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150)
+        ])
+        
+        contentView.addSubview(totalPriceLabel)
+        NSLayoutConstraint.activate([
+            totalPriceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
+            totalPriceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -35),
+            totalPriceLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120)
         ])
     }
-
 }

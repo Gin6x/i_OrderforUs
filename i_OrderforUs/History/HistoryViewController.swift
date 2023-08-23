@@ -9,47 +9,109 @@ import UIKit
 
 class HistoryViewController: UIViewController {
     
-    let historyView = HistoryView()
-    var orderKey: [String] = []
-    var displayOrder: [Order] = []
-
+    private let historyView = HistoryView()
+    private var savedOrdersArray: [Order]?
+    private let defaults = UserDefaults()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "History"
         self.view = historyView
-        
         historyView.historyTableView.delegate = self
         historyView.historyTableView.dataSource = self
-        historyView.historyTableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
-        historyView.historyTableView.allowsSelection = true
-        orderKey = getOrderKey()
-//        loadDataFromUserDefault()
-        historyView.historyTableView.reloadData()
+        loadOrder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        orderKey = getOrderKey()
-//        loadDataFromUserDefault()
-        historyView.historyTableView.reloadData()
+        loadOrder()
     }
     
-    func getOrderKey() -> [String] {
+    func loadOrder() {
         
-        var uniqueKeys: [String] = []
-        var counter = 1
-        
-        while true {
-            let key = "savedOrder\(counter)"
-            
-            if UserDefaults.standard.object(forKey: key) == nil {
-                break
+        //Check if there are any saved orders and load the saved order array
+        if let savedOrders = defaults.data(forKey: "savedOrders"),
+           let decodedOrders = try? JSONDecoder().decode([Order].self, from: savedOrders) {
+            savedOrdersArray = decodedOrders
+            if savedOrdersArray!.count >= 1 {
+                historyView.noDataLabel.isHidden = true
+                historyView.historyTableView.reloadData()
             }
-            uniqueKeys.append(key)
-            counter += 1
+            print("saved orders loaded")
         }
-        print(uniqueKeys)
-        return uniqueKeys
     }
+}
+
+extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return savedOrdersArray?.count ?? 0
+    }
+    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return savedOrdersArray?.count ?? 1
+//    }
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "Item \(section + 1)"
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if section == 0 {
+//            return 33.0
+//        } else if section >= 1 {
+//            return 15.0
+//        }
+//        return 15.0
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let historyCell = historyView.historyTableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryCell
+        if let orders = savedOrdersArray {
+            let order = orders[indexPath.row]
+            historyCell.shopNameLabel.text = order.shopName
+            //Convert data
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            historyCell.dateLabel.text = formatter.string(from: order.orderDate)
+            //Convert decimal to string
+            let totalPriceInString = String(describing: order.totalPrice)
+            historyCell.totalPriceLabel.text = "£\(totalPriceInString)"
+        }
+        return historyCell
+    }
+
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//    }
+}
+//
+//    override func viewWillAppear(_ animated: Bool) {
+//        orderKey = getOrderKey()
+////        loadDataFromUserDefault()
+//        historyView.historyTableView.reloadData()
+//    }
+//
+//    func getOrderKey() -> [String] {
+//
+//        var uniqueKeys: [String] = []
+//        var counter = 1
+//
+//        while true {
+//            let key = "savedOrder\(counter)"
+//
+//            if UserDefaults.standard.object(forKey: key) == nil {
+//                break
+//            }
+//            uniqueKeys.append(key)
+//            counter += 1
+//        }
+//        print(uniqueKeys)
+//        return uniqueKeys
+//    }
 
 //    func loadDataFromUserDefault() {
 //
@@ -67,47 +129,3 @@ class HistoryViewController: UIViewController {
 //            }
 //        }
 //    }
-}
-
-extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return orderKey.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = historyView.historyTableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryCell
-        let order = displayOrder[indexPath.section]
-        cell.shopNameLabel.text = order.shopName
-        // Set the desired format
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let formattedDate = dateFormatter.string(from: order.orderDate)
-        cell.dateLabel.text = formattedDate
-        cell.totalPriceLabel.text = "\(order.totalPrice)"
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = displayOrder[indexPath.section]
-        let detailHistoryVC = DetailHistoryViewController()
-        detailHistoryVC.photo = selectedCell.menuImage
-        detailHistoryVC.shopName = selectedCell.shopName
-        detailHistoryVC.date = selectedCell.orderDate
-        detailHistoryVC.totalPrice = selectedCell.totalPrice
-        detailHistoryVC.items = selectedCell.orderItems
-        
-        print("Selected cell of \(selectedCell)")
-        let detailHistoryNavController = UINavigationController(rootViewController: detailHistoryVC)
-        present(detailHistoryNavController, animated: true)
-    }
-}

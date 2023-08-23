@@ -17,12 +17,23 @@ class HistoryView: UIView {
     }()
     
     let historyTableView: UITableView = {
-        let tableView = UITableView(frame: CGRectZero, style: .grouped)
-        tableView.backgroundColor = .systemCyan
+        let tableView = UITableView(frame: CGRectZero, style: .plain)
+        tableView.backgroundColor = .white
         tableView.separatorStyle = .singleLine
         tableView.allowsSelection = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
         return tableView
+    }()
+    
+    let noDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No order is currently available, please add order record in 'Order' section."
+        label.numberOfLines = 3
+        label.font = .monospacedSystemFont(ofSize: 16, weight: .ultraLight)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -43,12 +54,20 @@ class HistoryView: UIView {
             historyContentView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
         
-        addSubview(historyTableView)
+        historyContentView.addSubview(historyTableView)
         NSLayoutConstraint.activate([
             historyTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            historyTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            historyTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
             historyTableView.leftAnchor.constraint(equalTo: leftAnchor),
             historyTableView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+        
+        historyTableView.addSubview(noDataLabel)
+        NSLayoutConstraint.activate([
+            noDataLabel.centerXAnchor.constraint(equalTo: historyTableView.centerXAnchor),
+            noDataLabel.centerYAnchor.constraint(equalTo: historyTableView.centerYAnchor),
+            noDataLabel.leadingAnchor.constraint(equalTo: historyTableView.leadingAnchor, constant: 10),
+            noDataLabel.trailingAnchor.constraint(equalTo: historyTableView.trailingAnchor, constant: -10)
         ])
     }
 

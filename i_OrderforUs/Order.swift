@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Order: Encodable {
+struct Order: Codable {
     var orderDate = Date()
     var menuImage: URL?
     var shopName: String
@@ -23,7 +23,7 @@ struct Order: Encodable {
     }
 }
 
-struct OrderItem: Encodable {
+struct OrderItem: Codable {
     var customerName: String
     var item: String
     var price: Decimal

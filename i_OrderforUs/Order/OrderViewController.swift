@@ -23,6 +23,9 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         orderView.orderTableView.delegate = self
         orderView.orderTableView.dataSource = self
         
+        let leftBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        navigationItem.leftBarButtonItem = leftBarButton
+        
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveOrder))
         navigationItem.rightBarButtonItem = rightBarButton
         
@@ -30,15 +33,25 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         orderView.setImageButton.addTarget(self, action: #selector(setImage), for: .touchUpInside)
     }
     
+    @objc func cancel() {
+        dismiss(animated: true)
+    }
+    
     @objc func saveOrder() {
+        
+        guard let shopName = orderView.shopNameTextField.text else {
+            print("There is no shop name, can't write new order")
+            return
+        }
+        
         var imageURL: URL?
+        var savedOrdersArray: [Order]
         
         // Convert image to Data
         if let data = orderView.photoImageView.image?.pngData() {
             // Create URL
             let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let url = documents.appendingPathComponent("orderImage")
-            
+            let url = documents.appendingPathComponent("\(String(describing: orderView.shopNameTextField.text)).png")
             do {
                 // Write to Disk
                 try data.write(to: url)
@@ -47,27 +60,44 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
                 print("Unable to Write Data to Disk (\(error))")
             }
         }
-
-        guard let shopName = orderView.shopNameTextField.text else {
-            print("There is no shop name, can't write new order")
-            return
-        }
         
-        let newOrder = Order(menuImage: imageURL, shopName: shopName, orderItems: newOrderItems)
-        var orderArray: [Order] = []
-        orderArray.append(newOrder)
-        print("Order array contain: \(orderArray)")
-        
-        do {
-            let encoder = JSONEncoder()
-            let encodedData = try encoder.encode(orderArray)
-        // Save the encoded data to userDefault
-            defaults.set(encodedData, forKey: "savedOrders")
-            print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
-        } catch {
-            print("Error encoding the order:", error)
+        //Check if there are any saved orders and load the saved order array
+        if let savedOrders = defaults.data(forKey: "savedOrders"),
+           let decodedOrders = try? JSONDecoder().decode([Order].self, from: savedOrders) {
+            savedOrdersArray = decodedOrders
+            
+            //Create new order object and save into saved orders
+            let newOrder = Order(menuImage: imageURL, shopName: shopName, orderItems: newOrderItems)
+            savedOrdersArray.append(newOrder)
+            print("Updated saved orders are as following: \(savedOrdersArray)")
+            do { // Save the updated saved order array to userDefault
+                
+                let encoder = JSONEncoder()
+                let encodedData = try encoder.encode(savedOrdersArray)
+                defaults.set(encodedData, forKey: "savedOrders")
+            } catch {
+                print("Error encoding the order:", error)
+            }
+            print("Saved orders updated")
+        } else { //if there is no saved order, create new saved order array and save it into userDefaults
+            if !newOrderItems.isEmpty {
+                let newOrder = Order(menuImage: imageURL, shopName: shopName, orderItems: newOrderItems)
+                var orderArray: [Order] = []
+                orderArray.append(newOrder)
+                print("Order array contain: \(orderArray)")
+                do {
+                    let encoder = JSONEncoder()
+                    let encodedData = try encoder.encode(orderArray)
+                // Save the encoded data to userDefault
+                    defaults.set(encodedData, forKey: "savedOrders")
+                    print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
+                } catch {
+                    print("Error encoding the order:", error)
+                }
+                print("Order saved")
+            }
+            print("No order item")
         }
-        print("Order saved")
     }
     
     @objc func addItem() {
@@ -106,7 +136,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Item \(newOrderItems.count)"
+        return "Item \(section + 1)"
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -124,13 +154,13 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let itemCell = orderView.orderTableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
-            let item = newOrderItems[indexPath.section]
-            itemCell.customerNameLabel.text = item.customerName
-            itemCell.itemLabel.text = item.item
-            let priceInString = String(describing: item.price)
-            itemCell.priceLabel.text = "£\(priceInString)"
-            itemCell.emailLabel.text = item.email
-            return itemCell
+        let item = newOrderItems[indexPath.section]
+        itemCell.customerNameLabel.text = item.customerName
+        itemCell.itemLabel.text = item.item
+        let priceInString = String(describing: item.price)
+        itemCell.priceLabel.text = "£\(priceInString)"
+        itemCell.emailLabel.text = item.email
+        return itemCell
     }
 }
 
