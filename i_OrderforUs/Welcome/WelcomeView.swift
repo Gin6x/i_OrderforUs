@@ -17,11 +17,24 @@ class WelcomeView: UIView {
     }()
     
     private let welcomeLabel: UILabel = {
-        let textLabel = UILabel(frame: CGRect(x: 100, y: 100, width: 200, height: 150))
-        textLabel.text = "I: Order for Us"
+        let textLabel = UILabel(frame: CGRect(x: 100, y: 100, width: 200, height: 80))
+        textLabel.text = "i: Order for Us"
         textLabel.textAlignment = .center
         textLabel.textColor = .darkGray
-        textLabel.backgroundColor = .white
+        textLabel.font = .monospacedSystemFont(ofSize: 20, weight: .ultraLight)
+        textLabel.backgroundColor = .systemCyan
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        return textLabel
+    }()
+    
+    private let welcomeSubLabel: UILabel = {
+        let textLabel = UILabel(frame: CGRect(x: 100, y: 100, width: 350, height: 50))
+        textLabel.text = "Easy orders recording and notify your working companions"
+        textLabel.numberOfLines = 2
+        textLabel.textAlignment = .center
+        textLabel.textColor = .darkGray
+        textLabel.font = .monospacedSystemFont(ofSize: 16, weight: .ultraLight)
+        textLabel.backgroundColor = .systemCyan
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         return textLabel
     }()
@@ -37,24 +50,14 @@ class WelcomeView: UIView {
         let button = UIButton()
         button.layer.cornerRadius = 25
         button.backgroundColor = .white
-        button.setTitle("Start your order", for: .normal)
+        button.setTitle("START", for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
+        button.titleLabel?.font = UIFont.monospacedSystemFont(ofSize: 16, weight: .heavy)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = true
         return button
     }()
-    
-//    let testButton: UIButton = {
-//        let button = UIButton()
-//        button.layer.cornerRadius = 25
-//        button.backgroundColor = .white
-//        button.setTitle("Go orderVC", for: .normal)
-//        button.setTitleColor(.darkGray, for: .normal)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.isUserInteractionEnabled = true
-//        return button
-//    }()
-    
+
     override init(frame: CGRect) {
         super.init(frame:frame)
         setupLayout()
@@ -76,26 +79,33 @@ class WelcomeView: UIView {
         ])
         
         welcomeContentView.addSubview(welcomeLabel)
-        let safeArea = welcomeContentView.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            welcomeLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10),
-            welcomeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            welcomeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            welcomeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             welcomeLabel.widthAnchor.constraint(equalToConstant: 200),
-            welcomeLabel.heightAnchor.constraint(equalToConstant: 100)
+            welcomeLabel.heightAnchor.constraint(equalToConstant: 80)
+        ])
+        
+        welcomeContentView.addSubview(welcomeSubLabel)
+        NSLayoutConstraint.activate([
+            welcomeSubLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor),
+            welcomeSubLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            welcomeSubLabel.widthAnchor.constraint(equalToConstant: 350),
+            welcomeSubLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         welcomeContentView.addSubview(welcomeIconView)
         NSLayoutConstraint.activate([
-            welcomeIconView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 30),
-            welcomeIconView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            welcomeIconView.widthAnchor.constraint(equalToConstant: 200),
-            welcomeIconView.heightAnchor.constraint(equalToConstant: 200)
+            welcomeIconView.topAnchor.constraint(equalTo: welcomeSubLabel.bottomAnchor, constant: 30),
+            welcomeIconView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            welcomeIconView.widthAnchor.constraint(equalToConstant: 300),
+            welcomeIconView.heightAnchor.constraint(equalToConstant: 350)
         ])
         
         welcomeContentView.addSubview(startOrderButton)
         NSLayoutConstraint.activate([
             startOrderButton.topAnchor.constraint(equalTo: welcomeIconView.bottomAnchor, constant: 50),
-            startOrderButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            startOrderButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             startOrderButton.widthAnchor.constraint(equalToConstant: 200),
             startOrderButton.heightAnchor.constraint(equalToConstant: 50)
         ])

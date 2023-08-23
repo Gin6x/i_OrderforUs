@@ -28,28 +28,31 @@ class OrderCell: UITableViewCell {
         let label = UILabel()
         label.text = "Shop: "
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20)
-        return label
-    }()
-    
-    var shopDataLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Empty"
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
+    let shopNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "ABC Restaurant"
+        return textField
+    }()
+    
     private let shopNameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-//        stackView.distribution = .equalCentering
-        stackView.spacing = 0.01
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
+        self.backgroundColor = .white
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -78,22 +81,20 @@ class OrderCell: UITableViewCell {
             setImageButton.rightAnchor.constraint(equalTo: photoImageView.rightAnchor)
         ])
         
-        shopNameStackView.addArrangedSubview(shopNameLabel)
-        shopNameStackView.addArrangedSubview(shopDataLabel)
-        contentView.addSubview(shopNameStackView)
-        NSLayoutConstraint.activate([
-            shopNameStackView.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 8),
-            shopNameStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            shopNameStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-        ])
-        
-//        contentView.addSubview(menuTextField)
+//        shopNameStackView.addArrangedSubview(shopNameLabel)
 //        NSLayoutConstraint.activate([
-//            menuTextField.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 10),
-//            menuTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-//            menuTextField.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-//            menuTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-//            menuTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
+//            shopNameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 55)
+//        ])
+//        shopNameStackView.addArrangedSubview(shopNameTextField)
+//        NSLayoutConstraint.activate([
+//            shopNameTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
+//        ])
+//        
+//        addSubview(shopNameStackView)
+//        NSLayoutConstraint.activate([
+//            shopNameStackView.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 15),
+//            shopNameStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+//            shopNameStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 //        ])
     }
 }

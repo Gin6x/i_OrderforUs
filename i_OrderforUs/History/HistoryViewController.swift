@@ -23,13 +23,13 @@ class HistoryViewController: UIViewController {
         historyView.historyTableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
         historyView.historyTableView.allowsSelection = true
         orderKey = getOrderKey()
-        loadDataFromUserDefault()
+//        loadDataFromUserDefault()
         historyView.historyTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         orderKey = getOrderKey()
-        loadDataFromUserDefault()
+//        loadDataFromUserDefault()
         historyView.historyTableView.reloadData()
     }
     
@@ -51,22 +51,22 @@ class HistoryViewController: UIViewController {
         return uniqueKeys
     }
 
-    func loadDataFromUserDefault() {
-
-        for order in orderKey {
-            if let savedData = UserDefaults.standard.data(forKey: order) {
-                let decoder = JSONDecoder()
-                do {
-                    let loadedOrder = try decoder.decode(Order.self, from: savedData)
-                    displayOrder.append(loadedOrder)
-                } catch {
-                    print("Error decoding the order:", error)
-                }
-                print(displayOrder)
-                historyView.historyTableView.reloadData()
-            }
-        }
-    }
+//    func loadDataFromUserDefault() {
+//
+//        for order in orderKey {
+//            if let savedData = UserDefaults.standard.data(forKey: order) {
+//                let decoder = JSONDecoder()
+//                do {
+//                    let loadedOrder = try decoder.decode(Order.self, from: savedData)
+//                    displayOrder.append(loadedOrder)
+//                } catch {
+//                    print("Error decoding the order:", error)
+//                }
+//                print(displayOrder)
+//                historyView.historyTableView.reloadData()
+//            }
+//        }
+//    }
 }
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -92,7 +92,6 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let formattedDate = dateFormatter.string(from: order.orderDate)
         cell.dateLabel.text = formattedDate
-        cell.currencyLabel.text = order.currency
         cell.totalPriceLabel.text = "\(order.totalPrice)"
         
         return cell

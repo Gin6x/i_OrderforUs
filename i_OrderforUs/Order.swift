@@ -7,28 +7,25 @@
 
 import Foundation
 
-struct Order: Codable {
+struct Order: Encodable {
     var orderDate = Date()
     var menuImage: URL?
     var shopName: String
-    var currency: String
     var orderItems: [OrderItem]
     var totalPrice: Decimal{
         return orderItems.reduce(0) { $0 + $1.price }
     }
     
-    init(menuImage: URL?, shopName: String, currency: String, orderItems: [OrderItem]) {
+    init(menuImage: URL?, shopName: String, orderItems: [OrderItem]) {
         self.menuImage = menuImage
         self.shopName = shopName
-        self.currency = currency
         self.orderItems = orderItems
     }
 }
 
-struct OrderItem: Codable {
+struct OrderItem: Encodable {
     var customerName: String
     var item: String
-    var currency: String
     var price: Decimal
     var email: String
 }

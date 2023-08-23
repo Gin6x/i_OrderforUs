@@ -9,4 +9,6 @@ import Foundation
 
 struct User: Codable {
     var userInfo: [String : String] = [:]
+//    var name: String
+//    var email: String
 }

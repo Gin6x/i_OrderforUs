@@ -21,10 +21,6 @@
 		BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4342A12F465004425B6 /* OrderView.swift */; };
 		BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4382A2A0986004425B6 /* OrderCell.swift */; };
 		BE96416E2A50E23D000B9036 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96416D2A50E23D000B9036 /* ItemCell.swift */; };
-		BE9A060D2A73F4F20035F635 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A060C2A73F4F20035F635 /* RecordViewController.swift */; };
-		BE9A060F2A73F51D0035F635 /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A060E2A73F51D0035F635 /* RecordView.swift */; };
-		BEC988052A77EA430028E926 /* SummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC988042A77EA430028E926 /* SummaryCell.swift */; };
-		BEC988072A7803C80028E926 /* FinalItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC988062A7803C80028E926 /* FinalItemCell.swift */; };
 		BEDACD2D2A8A7700006D6E34 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */; };
 		BEDACD2F2A8C150A006D6E34 /* DetailHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */; };
 		BEDACD312A8C1523006D6E34 /* DetailHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */; };
@@ -50,10 +46,6 @@
 		BE7BD4342A12F465004425B6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		BE7BD4382A2A0986004425B6 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		BE96416D2A50E23D000B9036 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
-		BE9A060C2A73F4F20035F635 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
-		BE9A060E2A73F51D0035F635 /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
-		BEC988042A77EA430028E926 /* SummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCell.swift; sourceTree = "<group>"; };
-		BEC988062A7803C80028E926 /* FinalItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalItemCell.swift; sourceTree = "<group>"; };
 		BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryViewController.swift; sourceTree = "<group>"; };
 		BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryView.swift; sourceTree = "<group>"; };
@@ -84,6 +76,11 @@
 			isa = PBXGroup;
 			children = (
 				BE1B0C362A0940BC0067F492 /* i_OrderforUs */,
+				BE1B0C372A0940BC0067F492 /* AppDelegate.swift */,
+				BE1B0C392A0940BC0067F492 /* SceneDelegate.swift */,
+				BE1B0C402A0940BD0067F492 /* Assets.xcassets */,
+				BE1B0C452A0940BD0067F492 /* Info.plist */,
+				BE1B0C422A0940BD0067F492 /* LaunchScreen.storyboard */,
 				BE1B0C352A0940BB0067F492 /* Products */,
 				38786D954C045D323387A56C /* Pods */,
 			);
@@ -100,57 +97,72 @@
 		BE1B0C362A0940BC0067F492 /* i_OrderforUs */ = {
 			isa = PBXGroup;
 			children = (
+				BE3512542A9550E200CBB6EE /* Order */,
+				BE3512562A95511800CBB6EE /* Form */,
+				BE3512572A95512D00CBB6EE /* History */,
+				BE3512582A95514900CBB6EE /* DetailHistory */,
 				BE1B0C4E2A0943450067F492 /* Model */,
-				BE1B0C4F2A0943510067F492 /* View */,
-				BE1B0C4D2A0943370067F492 /* Controller */,
-				BE1B0C372A0940BC0067F492 /* AppDelegate.swift */,
-				BE1B0C392A0940BC0067F492 /* SceneDelegate.swift */,
-				BE1B0C402A0940BD0067F492 /* Assets.xcassets */,
-				BE1B0C422A0940BD0067F492 /* LaunchScreen.storyboard */,
-				BE1B0C452A0940BD0067F492 /* Info.plist */,
+				BE1B0C4D2A0943370067F492 /* Welcome */,
 			);
 			path = i_OrderforUs;
 			sourceTree = "<group>";
 		};
-		BE1B0C4D2A0943370067F492 /* Controller */ = {
+		BE1B0C4D2A0943370067F492 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				BE7BD4302A09B141004425B6 /* WelcomeView.swift */,
 				BE1B0C4B2A0943260067F492 /* WelcomeViewController.swift */,
-				BE7BD4322A12F420004425B6 /* OrderViewController.swift */,
-				BEDACD362A8F928F006D6E34 /* FormViewController.swift */,
-				BE2500A42A83AB1C00E52F55 /* HistoryViewController.swift */,
-				BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */,
-				BE9A060C2A73F4F20035F635 /* RecordViewController.swift */,
 			);
-			path = Controller;
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		BE1B0C4E2A0943450067F492 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				BE7BD4382A2A0986004425B6 /* OrderCell.swift */,
-				BE96416D2A50E23D000B9036 /* ItemCell.swift */,
-				BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */,
-				BEDACD322A8C18AE006D6E34 /* DetailHistoryCell.swift */,
 				BE2500AA2A850F9400E52F55 /* Order.swift */,
 				BE3512522A8FD89A00CBB6EE /* User.swift */,
-				BEC988042A77EA430028E926 /* SummaryCell.swift */,
-				BEC988062A7803C80028E926 /* FinalItemCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
 		};
-		BE1B0C4F2A0943510067F492 /* View */ = {
+		BE3512542A9550E200CBB6EE /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				BE7BD4302A09B141004425B6 /* WelcomeView.swift */,
+				BE96416D2A50E23D000B9036 /* ItemCell.swift */,
 				BE7BD4342A12F465004425B6 /* OrderView.swift */,
-				BEDACD382A8F92CE006D6E34 /* FormView.swift */,
-				BE2500A62A83AB4B00E52F55 /* HistoryView.swift */,
-				BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */,
-				BE9A060E2A73F51D0035F635 /* RecordView.swift */,
+				BE7BD4322A12F420004425B6 /* OrderViewController.swift */,
 			);
-			name = View;
+			path = Order;
+			sourceTree = "<group>";
+		};
+		BE3512562A95511800CBB6EE /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				BEDACD382A8F92CE006D6E34 /* FormView.swift */,
+				BEDACD362A8F928F006D6E34 /* FormViewController.swift */,
+			);
+			name = Form;
+			sourceTree = "<group>";
+		};
+		BE3512572A95512D00CBB6EE /* History */ = {
+			isa = PBXGroup;
+			children = (
+				BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */,
+				BE2500A62A83AB4B00E52F55 /* HistoryView.swift */,
+				BE2500A42A83AB1C00E52F55 /* HistoryViewController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		BE3512582A95514900CBB6EE /* DetailHistory */ = {
+			isa = PBXGroup;
+			children = (
+				BEDACD322A8C18AE006D6E34 /* DetailHistoryCell.swift */,
+				BEDACD302A8C1523006D6E34 /* DetailHistoryView.swift */,
+				BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */,
+			);
+			name = DetailHistory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,15 +240,11 @@
 				BE96416E2A50E23D000B9036 /* ItemCell.swift in Sources */,
 				BE1B0C382A0940BC0067F492 /* AppDelegate.swift in Sources */,
 				BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */,
-				BEC988072A7803C80028E926 /* FinalItemCell.swift in Sources */,
-				BE9A060F2A73F51D0035F635 /* RecordView.swift in Sources */,
 				BE2500A52A83AB1C00E52F55 /* HistoryViewController.swift in Sources */,
-				BEC988052A77EA430028E926 /* SummaryCell.swift in Sources */,
 				BEDACD392A8F92CE006D6E34 /* FormView.swift in Sources */,
 				BE3512532A8FD89A00CBB6EE /* User.swift in Sources */,
 				BEDACD372A8F928F006D6E34 /* FormViewController.swift in Sources */,
 				BE2500A72A83AB4B00E52F55 /* HistoryView.swift in Sources */,
-				BE9A060D2A73F4F20035F635 /* RecordViewController.swift in Sources */,
 				BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */,
 				BE1B0C3A2A0940BC0067F492 /* SceneDelegate.swift in Sources */,
 				BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */,
@@ -383,9 +391,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = NFCN48J3SZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = i_OrderforUs/Info.plist;
+				INFOPLIST_FILE = /Users/gin6/Documents/Development/i_OrderforUs/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -411,9 +420,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = NFCN48J3SZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = i_OrderforUs/Info.plist;
+				INFOPLIST_FILE = /Users/gin6/Documents/Development/i_OrderforUs/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
