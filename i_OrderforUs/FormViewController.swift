@@ -9,11 +9,13 @@ import UIKit
 
 protocol FormViewControllerDelegate {
     func addedNewItem(orderItem: OrderItem)
+    func addedUpdatedItem(orderItem: OrderItem)
 }
 
 class FormViewController: UIViewController {
     
     private let formView = FormView()
+    var selecteditem: OrderItem?
         
     var delegate:FormViewControllerDelegate?
 
@@ -32,10 +34,33 @@ class FormViewController: UIViewController {
         
         let saveBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveItem))
         navigationItem.rightBarButtonItem = saveBarButton
+        
+        formView.deleteButton.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        editItem()
     }
     
     @objc func cancel() {
         dismiss(animated: true)
+    }
+    
+    @objc func deleteItem() {
+        print("Delete item")
+    }
+    
+    func editItem() {
+        
+        guard let selectedItem = selecteditem else {
+            print("No item is selected from orderVC's cell")
+            return
+        }
+        formView.customerNameTextField.text = selectedItem.customerName
+        formView.itemTextField.text = selectedItem.item
+        formView.priceTextField.text = String(describing: selectedItem.price)
+        formView.emailTextField.text = selectedItem.email
+        formView.deleteButton.isHidden = false
     }
     
     //check if the email is valid
@@ -54,6 +79,21 @@ class FormViewController: UIViewController {
             print("User did not input all data fields")
             formView.warningLabel.text = "Please fill in all the text field"
             return
+        }
+        
+        if formView.deleteButton.isHidden == false { //Perform addedUpdatedItem protocol if user is editing an existing cell as the delete button is shown
+            
+            if isValidEmail(email) == true {
+                if let decimalPrice = Decimal(string: price) {
+                    let updatedItem = OrderItem(customerName: name, item: item, price: decimalPrice, email: email)
+                    print("The selected update item is as follow: \(updatedItem)")
+                    delegate?.addedUpdatedItem(orderItem: updatedItem)
+                    dismiss(animated: true)
+                    return
+                }
+            } else {
+                formView.warningLabel.text = "Invalid email"
+            }
         }
         
         if isValidEmail(email) == true {

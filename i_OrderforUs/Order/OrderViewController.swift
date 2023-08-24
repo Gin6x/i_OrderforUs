@@ -13,6 +13,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
     
     private let orderView = OrderView()
     private var newOrderItems: [OrderItem] = []
+    private var selectedSection: Int?
     private let defaults = UserDefaults()
     
     override func viewDidLoad() {
@@ -122,6 +123,17 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         orderView.orderTableView.beginUpdates()
         orderView.orderTableView.insertSections(indexSet, with: .automatic)
         orderView.orderTableView.endUpdates()
+        orderView.orderTableView.reloadData()
+    }
+    
+    //Update existing cell for FormVC
+    func addedUpdatedItem(orderItem: OrderItem) {
+        let updatedItem = orderItem
+        if let selectedSection = selectedSection {
+            newOrderItems[selectedSection] = updatedItem
+            print("The updated order item array now contain: \(newOrderItems)")
+            orderView.orderTableView.reloadData()
+        }
     }
 }
 
@@ -161,6 +173,18 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         itemCell.priceLabel.text = "£\(priceInString)"
         itemCell.emailLabel.text = item.email
         return itemCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let formVC = FormViewController()
+        formVC.delegate = self
+        let item = newOrderItems[indexPath.section]
+        selectedSection = indexPath.section
+        formVC.selecteditem = item
+        print("Current selected item is as follow: \(item)")
+        let formNavController = UINavigationController(rootViewController: formVC)
+        formNavController.modalPresentationStyle = .automatic
+        present(formNavController, animated: true)
     }
 }
 
@@ -203,7 +227,6 @@ extension OrderViewController: UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let selectedPhoto = info[.originalImage] as? UIImage {
-//            image = selectedPhoto
             orderView.photoImageView.image = selectedPhoto
             picker.dismiss(animated: true)
         }

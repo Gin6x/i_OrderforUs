@@ -66,6 +66,18 @@ class FormView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Delete item", for: .normal)
+        button.setTitleColor(.systemRed, for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 5
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
+        return button
+    }()
 
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -119,6 +131,13 @@ class FormView: UIView {
             warningLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             warningLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
             warningLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 8)
+        ])
+        
+        formContentView.addSubview(deleteButton)
+        NSLayoutConstraint.activate([
+            deleteButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            deleteButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            deleteButton.topAnchor.constraint(equalTo: warningLabel.bottomAnchor, constant: 8)
         ])
     }
 }
