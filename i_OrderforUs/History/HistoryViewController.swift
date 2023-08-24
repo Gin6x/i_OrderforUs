@@ -19,6 +19,7 @@ class HistoryViewController: UIViewController {
         self.view = historyView
         historyView.historyTableView.delegate = self
         historyView.historyTableView.dataSource = self
+        historyView.historyTableView.allowsSelection = true
         loadOrder()
     }
     
@@ -47,23 +48,6 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         return savedOrdersArray?.count ?? 0
     }
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return savedOrdersArray?.count ?? 1
-//    }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Item \(section + 1)"
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if section == 0 {
-//            return 33.0
-//        } else if section >= 1 {
-//            return 15.0
-//        }
-//        return 15.0
-//    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
@@ -84,9 +68,18 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         return historyCell
     }
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailHistoryVC = DetailHistoryViewController()
+        if let orders = savedOrdersArray {
+            let order = orders[indexPath.row]
+            detailHistoryVC.order = order
+            print("The selected contains:\(detailHistoryVC.order)")
+        }
+        
+        let detailHistoryNavController = UINavigationController(rootViewController: detailHistoryVC)
+        detailHistoryNavController.modalPresentationStyle = .automatic
+        present(detailHistoryNavController, animated: true)
+    }
 }
 //
 //    override func viewWillAppear(_ animated: Bool) {

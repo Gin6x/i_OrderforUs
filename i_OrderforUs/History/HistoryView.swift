@@ -50,8 +50,8 @@ class HistoryView: UIView {
         NSLayoutConstraint.activate([
             historyContentView.topAnchor.constraint(equalTo: topAnchor),
             historyContentView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            historyContentView.leftAnchor.constraint(equalTo: leftAnchor),
-            historyContentView.rightAnchor.constraint(equalTo: rightAnchor)
+            historyContentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            historyContentView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
         historyContentView.addSubview(historyTableView)
