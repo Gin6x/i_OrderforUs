@@ -10,6 +10,7 @@ import UIKit
 protocol FormViewControllerDelegate {
     func addedNewItem(orderItem: OrderItem)
     func addedUpdatedItem(orderItem: OrderItem)
+    func deleteSection(remove: Bool)
 }
 
 class FormViewController: UIViewController {
@@ -48,6 +49,8 @@ class FormViewController: UIViewController {
     
     @objc func deleteItem() {
         print("Delete item")
+        delegate?.deleteSection(remove: true)
+        dismiss(animated: true)
     }
     
     func editItem() {

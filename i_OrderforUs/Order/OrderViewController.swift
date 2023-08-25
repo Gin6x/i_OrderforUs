@@ -126,13 +126,24 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
         orderView.orderTableView.reloadData()
     }
     
-    //Update existing cell for FormVC
+    //Update existing cell for FormVC delegate
     func addedUpdatedItem(orderItem: OrderItem) {
         let updatedItem = orderItem
         if let selectedSection = selectedSection {
             newOrderItems[selectedSection] = updatedItem
             print("The updated order item array now contain: \(newOrderItems)")
             orderView.orderTableView.reloadData()
+        }
+    }
+    
+    //Delete section delegate from FormVC
+    func deleteSection(remove: Bool) {
+        if remove == true {
+            if let selectedSection = selectedSection {
+                newOrderItems.remove(at: selectedSection)
+                orderView.orderTableView.deleteSections(IndexSet(integer: selectedSection), with: .automatic)
+                orderView.orderTableView.reloadData()
+            }
         }
     }
 }
@@ -185,6 +196,23 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         let formNavController = UINavigationController(rootViewController: formVC)
         formNavController.modalPresentationStyle = .automatic
         present(formNavController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            newOrderItems.remove(at: indexPath.section)
+            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
+            orderView.orderTableView.reloadData()
+        }
     }
 }
 

@@ -74,6 +74,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
             let order = orders[indexPath.row]
             detailHistoryVC.order = order
             print("The selected contains:\(detailHistoryVC.order)")
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
         let detailHistoryNavController = UINavigationController(rootViewController: detailHistoryVC)
