@@ -53,7 +53,9 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let historyCell = historyView.historyTableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryCell
+        historyCell.isUserInteractionEnabled = true
         if let orders = savedOrdersArray {
             let order = orders[indexPath.row]
             historyCell.shopNameLabel.text = order.shopName
@@ -69,6 +71,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let detailHistoryVC = DetailHistoryViewController()
         if let orders = savedOrdersArray {
             let order = orders[indexPath.row]
@@ -81,64 +84,4 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         detailHistoryNavController.modalPresentationStyle = .automatic
         present(detailHistoryNavController, animated: true)
     }
-    
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-//
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        return .delete
-//    }
-//
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//
-//        if editingStyle == .delete {
-//            if let savedOrderArray = savedOrdersArray {
-//                savedOrdersArray!.remove(at: indexPath.row)
-//                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
-//                historyView.historyTableView.reloadData()
-//            }
-//        }
-//    }
 }
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        orderKey = getOrderKey()
-////        loadDataFromUserDefault()
-//        historyView.historyTableView.reloadData()
-//    }
-//
-//    func getOrderKey() -> [String] {
-//
-//        var uniqueKeys: [String] = []
-//        var counter = 1
-//
-//        while true {
-//            let key = "savedOrder\(counter)"
-//
-//            if UserDefaults.standard.object(forKey: key) == nil {
-//                break
-//            }
-//            uniqueKeys.append(key)
-//            counter += 1
-//        }
-//        print(uniqueKeys)
-//        return uniqueKeys
-//    }
-
-//    func loadDataFromUserDefault() {
-//
-//        for order in orderKey {
-//            if let savedData = UserDefaults.standard.data(forKey: order) {
-//                let decoder = JSONDecoder()
-//                do {
-//                    let loadedOrder = try decoder.decode(Order.self, from: savedData)
-//                    displayOrder.append(loadedOrder)
-//                } catch {
-//                    print("Error decoding the order:", error)
-//                }
-//                print(displayOrder)
-//                historyView.historyTableView.reloadData()
-//            }
-//        }
-//    }
