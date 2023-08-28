@@ -20,6 +20,10 @@ class HistoryViewController: UIViewController {
         historyView.historyTableView.delegate = self
         historyView.historyTableView.dataSource = self
         historyView.historyTableView.allowsSelection = true
+
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        historyView.historyTableView.addGestureRecognizer(longPressRecognizer)
+        
         loadOrder()
     }
     
@@ -28,7 +32,6 @@ class HistoryViewController: UIViewController {
     }
     
     func loadOrder() {
-        
         //Check if there are any saved orders and load the saved order array
         if let savedOrders = defaults.data(forKey: "savedOrders"),
            let decodedOrders = try? JSONDecoder().decode([Order].self, from: savedOrders) {
@@ -38,6 +41,16 @@ class HistoryViewController: UIViewController {
                 historyView.historyTableView.reloadData()
             }
             print("saved orders loaded")
+        }
+    }
+    
+    @objc func longPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == UILongPressGestureRecognizer.State.began {
+            let touchPoint = sender.location(in: historyView.historyTableView)
+            if let indexPath = historyView.historyTableView.indexPathForRow(at: touchPoint) {
+                // your code here, get the row for the indexPath or do whatever you want
+                print("Long press Pressed")
+            }
         }
     }
 }
