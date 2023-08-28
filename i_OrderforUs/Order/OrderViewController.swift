@@ -70,6 +70,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
             //Create new order object and save into saved orders
             let newOrder = Order(menuImage: imageURL, shopName: shopName, orderItems: newOrderItems)
             savedOrdersArray.append(newOrder)
+            mailCompose(order: newOrder)
             print("Updated saved orders are as following: \(savedOrdersArray)")
             do { // Save the updated saved order array to userDefault
                 
@@ -85,6 +86,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
                 let newOrder = Order(menuImage: imageURL, shopName: shopName, orderItems: newOrderItems)
                 var orderArray: [Order] = []
                 orderArray.append(newOrder)
+                mailCompose(order: newOrder)
                 print("Order array contain: \(orderArray)")
                 do {
                     let encoder = JSONEncoder()
@@ -146,6 +148,34 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
             }
         }
     }
+    
+    func mailCompose(order: Order) {
+
+        guard MFMailComposeViewController.canSendMail() else {
+            // Show error alert informing the user their devices cannot use the mail composer
+            return
+        }
+        //turn price in array of String into array of Int
+        let totalPriceInString = String(describing: order.totalPrice)
+        let mailcompserVC = MFMailComposeViewController()
+        mailcompserVC.delegate = self
+        mailcompserVC.mailComposeDelegate = self
+        //set field
+        let greeting = "Greeting everyone, \n\n \(newOrderItems[0].customerName) have paid a total of £\(order.totalPrice) for the order in \(order.shopName), order detail are as follow: \n \n"
+        let ending = "\nPlease check the detail of your order and enjoy!\n\n Kind regards, \n \(newOrderItems[0].customerName)"
+        var orderBody = ""
+        var receiptents: [String] = []
+        for orderItem in newOrderItems {
+            orderBody += "\(orderItem.customerName) ordered \(orderItem.item) for £\(orderItem.price)\n"
+            receiptents.append(orderItem.email)
+        }
+        let mailTemplate = greeting + orderBody + ending
+        mailcompserVC.setMessageBody(mailTemplate, isHTML: false)
+        mailcompserVC.setToRecipients(receiptents)
+        mailcompserVC.setSubject("Your order in \(order.shopName)")
+        self.present(mailcompserVC, animated: true, completion: nil)
+    }
+
 }
 
 extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
@@ -159,6 +189,9 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Your item"
+        }
         return "Item \(section + 1)"
     }
     
@@ -176,6 +209,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let itemCell = orderView.orderTableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
         let item = newOrderItems[indexPath.section]
         itemCell.customerNameLabel.text = item.customerName
@@ -187,6 +221,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let formVC = FormViewController()
         formVC.delegate = self
         let item = newOrderItems[indexPath.section]
@@ -208,6 +243,7 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
             newOrderItems.remove(at: indexPath.section)
             tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
@@ -272,6 +308,34 @@ extension OrderViewController: UITextFieldDelegate {
         return true
     }
 }
+
+extension OrderViewController: MFMailComposeViewControllerDelegate {
+
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        if let _ = error {
+            //Show error alert to user
+            return
+        }
+        switch result {
+        case .cancelled:
+            print("cancel pressed")
+            break
+        case .saved:
+            print("save pressed")
+            break
+        case .sent:
+            print("Mail sent")
+            break
+        case .failed:
+            print("failed to send")
+            break
+        @unknown default:
+            dismiss(animated: true)
+        }
+        controller.dismiss(animated: true)
+    }
+}
+
     
 //    func getUniqueOrderKey() -> String {
 //        var counter = 1

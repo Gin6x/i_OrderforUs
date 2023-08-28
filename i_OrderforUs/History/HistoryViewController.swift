@@ -81,6 +81,25 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         detailHistoryNavController.modalPresentationStyle = .automatic
         present(detailHistoryNavController, animated: true)
     }
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        return .delete
+//    }
+//
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//        if editingStyle == .delete {
+//            if let savedOrderArray = savedOrdersArray {
+//                savedOrdersArray!.remove(at: indexPath.row)
+//                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
+//                historyView.historyTableView.reloadData()
+//            }
+//        }
+//    }
 }
 //
 //    override func viewWillAppear(_ animated: Bool) {
