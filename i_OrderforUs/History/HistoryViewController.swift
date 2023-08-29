@@ -7,11 +7,16 @@
 
 import UIKit
 
+protocol HistoryViewControllerDelegate {
+    func reOrder(order: Order)
+}
+
 class HistoryViewController: UIViewController {
     
     private let historyView = HistoryView()
     private var savedOrdersArray: [Order]?
     private let defaults = UserDefaults()
+    var delegate:HistoryViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +51,23 @@ class HistoryViewController: UIViewController {
     
     @objc func longPress(sender: UILongPressGestureRecognizer) {
         if sender.state == UILongPressGestureRecognizer.State.began {
+            
             let touchPoint = sender.location(in: historyView.historyTableView)
             if let indexPath = historyView.historyTableView.indexPathForRow(at: touchPoint) {
-                // your code here, get the row for the indexPath or do whatever you want
-                print("Long press Pressed")
+                
+                let reOrderAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let reOrderAction = UIAlertAction(title: "Re-order", style: .default) { reOrderAction in
+                    if let savedOrder = self.savedOrdersArray?[indexPath.row] {
+                        self.delegate?.reOrder(order: savedOrder)
+                        let tabBarController = self.navigationController?.tabBarController
+                        tabBarController!.selectedIndex = 0
+                        print("navigate to order tab")
+                    }                  
+                }
+                let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+                reOrderAlertController.addAction(reOrderAction)
+                reOrderAlertController.addAction(cancelAction)
+                self.present(reOrderAlertController, animated: true)
             }
         }
     }
@@ -92,7 +110,6 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
             print("The selected contains:\(detailHistoryVC.order)")
             tableView.deselectRow(at: indexPath, animated: true)
         }
-        
         let detailHistoryNavController = UINavigationController(rootViewController: detailHistoryVC)
         detailHistoryNavController.modalPresentationStyle = .automatic
         present(detailHistoryNavController, animated: true)

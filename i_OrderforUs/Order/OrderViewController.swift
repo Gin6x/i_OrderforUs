@@ -9,8 +9,8 @@ import UIKit
 import NotificationCenter
 import MessageUI
 
-class OrderViewController: UIViewController, FormViewControllerDelegate {
-    
+class OrderViewController: UIViewController, FormViewControllerDelegate, HistoryViewControllerDelegate {
+
     private let orderView = OrderView()
     private var newOrderItems: [OrderItem] = []
     private var selectedSection: Int?
@@ -147,6 +147,28 @@ class OrderViewController: UIViewController, FormViewControllerDelegate {
                 orderView.orderTableView.reloadData()
             }
         }
+    }
+    
+    //Re-order delegate from HistoryVC
+    func reOrder(order: Order) {
+        
+        let selectedOrder = order
+        orderView.shopNameTextField.text = selectedOrder.shopName
+        for item in selectedOrder.orderItems {
+            newOrderItems.append(item)
+            print("\(newOrderItems)")
+        }
+        //set photoImage if found
+        if let orderImage = selectedOrder.menuImage {
+            do {
+                let imageData = try Data(contentsOf: orderImage)
+                orderView.photoImageView.image = UIImage(data: imageData)
+            } catch {
+                print("Error loading image : \(error)")
+            }
+        }
+        orderView.orderTableView.reloadData()
+        print("Re-ordered")
     }
     
     func mailCompose(order: Order) {
