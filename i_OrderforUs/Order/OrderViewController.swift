@@ -9,7 +9,7 @@ import UIKit
 import NotificationCenter
 import MessageUI
 
-class OrderViewController: UIViewController, FormViewControllerDelegate, HistoryViewControllerDelegate {
+class OrderViewController: UIViewController, FormViewControllerDelegate, EditFormViewControllerDelegate, HistoryViewControllerDelegate {
 
     private let orderView = OrderView()
     private var newOrderItems: [OrderItem] = []
@@ -167,7 +167,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate, History
                 print("Error loading image : \(error)")
             }
         }
-        orderView.orderTableView.reloadData()
+//        orderView.orderTableView.reloadData()
         print("Re-ordered")
     }
     
@@ -246,15 +246,15 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let formVC = FormViewController()
-        formVC.delegate = self
+        let editformVC = EditFormViewController()
+        editformVC.delegate = self
         let item = newOrderItems[indexPath.section]
         selectedSection = indexPath.section
-        formVC.selecteditem = item
+        editformVC.selecteditem = item
         print("Current selected item is as follow: \(item)")
-        let formNavController = UINavigationController(rootViewController: formVC)
-        formNavController.modalPresentationStyle = .automatic
-        present(formNavController, animated: true)
+        let editformNavController = UINavigationController(rootViewController: editformVC)
+        editformNavController.modalPresentationStyle = .automatic
+        present(editformNavController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

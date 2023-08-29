@@ -16,6 +16,7 @@
 		BE2500A72A83AB4B00E52F55 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2500A62A83AB4B00E52F55 /* HistoryView.swift */; };
 		BE2500AB2A850F9400E52F55 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2500AA2A850F9400E52F55 /* Order.swift */; };
 		BE3512532A8FD89A00CBB6EE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3512522A8FD89A00CBB6EE /* User.swift */; };
+		BE35125E2A9EB61400CBB6EE /* EditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE35125D2A9EB61400CBB6EE /* EditFormViewController.swift */; };
 		BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4302A09B141004425B6 /* WelcomeView.swift */; };
 		BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4322A12F420004425B6 /* OrderViewController.swift */; };
 		BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4342A12F465004425B6 /* OrderView.swift */; };
@@ -41,6 +42,7 @@
 		BE2500A62A83AB4B00E52F55 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		BE2500AA2A850F9400E52F55 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		BE3512522A8FD89A00CBB6EE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BE35125D2A9EB61400CBB6EE /* EditFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFormViewController.swift; sourceTree = "<group>"; };
 		BE7BD4302A09B141004425B6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BE7BD4322A12F420004425B6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		BE7BD4342A12F465004425B6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				BEDACD382A8F92CE006D6E34 /* FormView.swift */,
 				BEDACD362A8F928F006D6E34 /* FormViewController.swift */,
+				BE35125D2A9EB61400CBB6EE /* EditFormViewController.swift */,
 			);
 			name = Form;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */,
 				BE1B0C3A2A0940BC0067F492 /* SceneDelegate.swift in Sources */,
 				BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */,
+				BE35125E2A9EB61400CBB6EE /* EditFormViewController.swift in Sources */,
 				BE2500AB2A850F9400E52F55 /* Order.swift in Sources */,
 				BE1B0C4C2A0943260067F492 /* WelcomeViewController.swift in Sources */,
 				BEDACD2D2A8A7700006D6E34 /* HistoryCell.swift in Sources */,

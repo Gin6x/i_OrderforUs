@@ -59,6 +59,7 @@ class HistoryViewController: UIViewController {
                 let reOrderAction = UIAlertAction(title: "Re-order", style: .default) { reOrderAction in
                     if let savedOrder = self.savedOrdersArray?[indexPath.row] {
                         self.delegate?.reOrder(order: savedOrder)
+                        print("\(savedOrder)")
                         let tabBarController = self.navigationController?.tabBarController
                         tabBarController!.selectedIndex = 0
                         print("navigate to order tab")

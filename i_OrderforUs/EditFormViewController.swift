@@ -1,29 +1,29 @@
 //
-//  FormViewController.swift
+//  EditFormViewController.swift
 //  i_OrderforUs
 //
-//  Created by Gin on 18/8/2023.
+//  Created by Gin on 30/8/2023.
 //
 
 import UIKit
 
-protocol FormViewControllerDelegate {
-    func addedNewItem(orderItem: OrderItem)
+protocol EditFormViewControllerDelegate {
     func addedUpdatedItem(orderItem: OrderItem)
     func deleteSection(remove: Bool)
 }
 
-class FormViewController: UIViewController {
+class EditFormViewController: UIViewController {
     
     private let formView = FormView()
     var selecteditem: OrderItem?
-        
-    var delegate:FormViewControllerDelegate?
+    
+    var delegate:EditFormViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = formView
-        self.title = "Add Item"
+        self.title = "Edit Item"
+        
         formView.customerNameTextField.delegate = self
         formView.itemTextField.delegate = self
         formView.itemTextField.delegate = self
@@ -39,6 +39,10 @@ class FormViewController: UIViewController {
         formView.deleteButton.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        editItem()
+    }
+    
     @objc func cancel() {
         dismiss(animated: true)
     }
@@ -49,6 +53,19 @@ class FormViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    func editItem() {
+        
+        guard let selectedItem = selecteditem else {
+            print("No item is selected from orderVC's cell")
+            return
+        }
+        formView.customerNameTextField.text = selectedItem.customerName
+        formView.itemTextField.text = selectedItem.item
+        formView.priceTextField.text = String(describing: selectedItem.price)
+        formView.emailTextField.text = selectedItem.email
+        formView.deleteButton.isHidden = false
+    }
+
     //check if the email is valid
     func isValidEmail (_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -67,20 +84,23 @@ class FormViewController: UIViewController {
             return
         }
         
-        if isValidEmail(email) == true {
-            if let decimalPrice = Decimal(string: price) {
-                let newItem = OrderItem(customerName: name, item: item, price: decimalPrice, email: email)
-                print("The new item are as follow: \(newItem)")
-                delegate?.addedNewItem(orderItem: newItem)
-                dismiss(animated: true)
+        if formView.deleteButton.isHidden == false { //Perform addedUpdatedItem protocol if user is editing an existing cell as the delete button is shown
+            if isValidEmail(email) == true {
+                if let decimalPrice = Decimal(string: price) {
+                    let updatedItem = OrderItem(customerName: name, item: item, price: decimalPrice, email: email)
+                    print("The selected update item is as follow: \(updatedItem)")
+                    delegate?.addedUpdatedItem(orderItem: updatedItem)
+                    dismiss(animated: true)
+                    return
+                }
+            } else {
+                formView.warningLabel.text = "Invalid email"
             }
-        } else {
-            formView.warningLabel.text = "Invalid email"
         }
     }
 }
 
-extension FormViewController: UITextFieldDelegate {
+extension EditFormViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
