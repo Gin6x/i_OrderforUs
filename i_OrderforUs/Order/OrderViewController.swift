@@ -151,15 +151,14 @@ class OrderViewController: UIViewController, FormViewControllerDelegate, EditFor
     
     //Re-order delegate from HistoryVC
     func reOrder(order: Order) {
-        
-        let selectedOrder = order
-        orderView.shopNameTextField.text = selectedOrder.shopName
-        for item in selectedOrder.orderItems {
+        orderView.noDataLabel.isHidden = true
+        orderView.shopNameTextField.text = order.shopName
+        for item in order.orderItems {
             newOrderItems.append(item)
             print("\(newOrderItems)")
         }
         //set photoImage if found
-        if let orderImage = selectedOrder.menuImage {
+        if let orderImage = order.menuImage {
             do {
                 let imageData = try Data(contentsOf: orderImage)
                 orderView.photoImageView.image = UIImage(data: imageData)
@@ -167,7 +166,7 @@ class OrderViewController: UIViewController, FormViewControllerDelegate, EditFor
                 print("Error loading image : \(error)")
             }
         }
-//        orderView.orderTableView.reloadData()
+        orderView.orderTableView.reloadData()
         print("Re-ordered")
     }
     
@@ -178,7 +177,6 @@ class OrderViewController: UIViewController, FormViewControllerDelegate, EditFor
             return
         }
         //turn price in array of String into array of Int
-        let totalPriceInString = String(describing: order.totalPrice)
         let mailcompserVC = MFMailComposeViewController()
         mailcompserVC.delegate = self
         mailcompserVC.mailComposeDelegate = self

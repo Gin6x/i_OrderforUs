@@ -18,7 +18,7 @@ class HistoryView: UIView {
     
     let historyTableView: UITableView = {
         let tableView = UITableView(frame: CGRectZero, style: .plain)
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .green
         tableView.separatorStyle = .singleLine
         tableView.allowsSelection = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,8 +58,8 @@ class HistoryView: UIView {
         NSLayoutConstraint.activate([
             historyTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             historyTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            historyTableView.leftAnchor.constraint(equalTo: leftAnchor),
-            historyTableView.rightAnchor.constraint(equalTo: rightAnchor)
+            historyTableView.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
+            historyTableView.rightAnchor.constraint(equalTo: rightAnchor, constant: -8)
         ])
         
         historyTableView.addSubview(noDataLabel)

@@ -26,9 +26,9 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
         let tabBarVC = UITabBarController()
         let orderVC = OrderViewController()
         let historyVC = HistoryViewController()
+        historyVC.delegate = orderVC
         let orderNavController = UINavigationController(rootViewController: orderVC)
         let historyNavcontroller = UINavigationController(rootViewController: historyVC)
-        historyNavcontroller.delegate = orderNavController as? any UINavigationControllerDelegate
         orderNavController.navigationBar.prefersLargeTitles = true
         historyNavcontroller.navigationBar.prefersLargeTitles = true
         tabBarVC.viewControllers = [orderNavController, historyNavcontroller]

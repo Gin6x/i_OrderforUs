@@ -18,7 +18,7 @@ class FormViewController: UIViewController {
     private let formView = FormView()
     var selecteditem: OrderItem?
         
-    var delegate:FormViewControllerDelegate?
+    var delegate: FormViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

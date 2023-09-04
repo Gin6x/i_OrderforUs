@@ -38,6 +38,7 @@ class HistoryCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.layer.cornerRadius = 5
         setupCell()
     }
     
@@ -46,7 +47,7 @@ class HistoryCell: UITableViewCell {
     }
     
     func setupCell() {
-        
+
         contentView.addSubview(shopNameLabel)
         NSLayoutConstraint.activate([
             shopNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),

@@ -16,7 +16,7 @@ class HistoryViewController: UIViewController {
     private let historyView = HistoryView()
     private var savedOrdersArray: [Order]?
     private let defaults = UserDefaults()
-    var delegate:HistoryViewControllerDelegate?
+    var delegate: HistoryViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
