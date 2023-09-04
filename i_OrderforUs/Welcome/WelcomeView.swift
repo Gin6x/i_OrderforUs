@@ -39,8 +39,9 @@ class WelcomeView: UIView {
         return textLabel
     }()
     
-    private let welcomeIconView: UIView = {
-        let iconView = UIView()
+    private let welcomeIconImageView: UIImageView = {
+        let iconView = UIImageView()
+        iconView.image = UIImage(named: "appIcon.png")
         iconView.backgroundColor = .darkGray
         iconView.translatesAutoresizingMaskIntoConstraints = false
         return iconView
@@ -80,7 +81,7 @@ class WelcomeView: UIView {
         
         welcomeContentView.addSubview(welcomeLabel)
         NSLayoutConstraint.activate([
-            welcomeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            welcomeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
             welcomeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             welcomeLabel.widthAnchor.constraint(equalToConstant: 200),
             welcomeLabel.heightAnchor.constraint(equalToConstant: 80)
@@ -88,37 +89,26 @@ class WelcomeView: UIView {
         
         welcomeContentView.addSubview(welcomeSubLabel)
         NSLayoutConstraint.activate([
-            welcomeSubLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor),
+            welcomeSubLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 5),
             welcomeSubLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             welcomeSubLabel.widthAnchor.constraint(equalToConstant: 350),
             welcomeSubLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        welcomeContentView.addSubview(welcomeIconView)
+        welcomeContentView.addSubview(welcomeIconImageView)
         NSLayoutConstraint.activate([
-            welcomeIconView.topAnchor.constraint(equalTo: welcomeSubLabel.bottomAnchor, constant: 30),
-            welcomeIconView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            welcomeIconView.widthAnchor.constraint(equalToConstant: 300),
-            welcomeIconView.heightAnchor.constraint(equalToConstant: 350)
+            welcomeIconImageView.topAnchor.constraint(equalTo: welcomeSubLabel.bottomAnchor, constant: 30),
+            welcomeIconImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            welcomeIconImageView.widthAnchor.constraint(equalToConstant: 300),
+            welcomeIconImageView.heightAnchor.constraint(equalToConstant: 300)
         ])
         
         welcomeContentView.addSubview(startOrderButton)
         NSLayoutConstraint.activate([
-            startOrderButton.topAnchor.constraint(equalTo: welcomeIconView.bottomAnchor, constant: 50),
+            startOrderButton.topAnchor.constraint(equalTo: welcomeIconImageView.bottomAnchor, constant: 50),
             startOrderButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             startOrderButton.widthAnchor.constraint(equalToConstant: 200),
             startOrderButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-        
-//        welcomeContentView.addSubview(testButton)
-//        NSLayoutConstraint.activate([
-//            testButton.topAnchor.constraint(equalTo: startOrderButton.bottomAnchor, constant: 50),
-//            testButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-//            testButton.widthAnchor.constraint(equalToConstant: 200),
-//            testButton.heightAnchor.constraint(equalToConstant: 50)
-//        ])
     }
-    
-    
-
 }

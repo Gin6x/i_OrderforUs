@@ -77,11 +77,19 @@ class HistoryViewController: UIViewController {
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return savedOrdersArray?.count ?? 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return savedOrdersArray?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,7 +97,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         let historyCell = historyView.historyTableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryCell
         historyCell.isUserInteractionEnabled = true
         if let orders = savedOrdersArray {
-            let order = orders[indexPath.row]
+            let order = orders[indexPath.section]
             historyCell.shopNameLabel.text = order.shopName
             //Convert data
             let formatter = DateFormatter()
@@ -106,7 +114,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         
         let detailHistoryVC = DetailHistoryViewController()
         if let orders = savedOrdersArray {
-            let order = orders[indexPath.row]
+            let order = orders[indexPath.section]
             detailHistoryVC.order = order
             print("The selected contains:\(detailHistoryVC.order)")
             tableView.deselectRow(at: indexPath, animated: true)

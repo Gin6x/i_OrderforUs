@@ -38,7 +38,10 @@ class HistoryCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.layer.cornerRadius = 5
+        self.backgroundColor = .clear
+        self.contentView.backgroundColor = .white
+        self.contentView.layer.cornerRadius = 15
+        self.contentView.layer.masksToBounds = true
         setupCell()
     }
     

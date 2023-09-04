@@ -17,10 +17,9 @@ class HistoryView: UIView {
     }()
     
     let historyTableView: UITableView = {
-        let tableView = UITableView(frame: CGRectZero, style: .plain)
-        tableView.backgroundColor = .green
-        tableView.separatorStyle = .singleLine
-        tableView.allowsSelection = false
+        let tableView = UITableView(frame: CGRectZero, style: .grouped)
+        tableView.backgroundColor = .systemCyan
+        tableView.allowsSelection = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
         return tableView
