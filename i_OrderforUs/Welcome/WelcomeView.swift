@@ -29,7 +29,7 @@ class WelcomeView: UIView {
     
     private let welcomeSubLabel: UILabel = {
         let textLabel = UILabel(frame: CGRect(x: 100, y: 100, width: 350, height: 50))
-        textLabel.text = "Easy orders recording and notify your working companions"
+        textLabel.text = "Easy orders recording and notify your work companions"
         textLabel.numberOfLines = 2
         textLabel.textAlignment = .center
         textLabel.textColor = .darkGray
