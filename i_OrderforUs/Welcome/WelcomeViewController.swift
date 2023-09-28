@@ -34,6 +34,7 @@ class WelcomeViewController: UIViewController, UIImagePickerControllerDelegate {
         tabBarVC.viewControllers = [orderNavController, historyNavcontroller]
         orderVC.tabBarItem = UITabBarItem(title: "Order", image: UIImage(systemName: "house"), tag: 0)
         historyVC.tabBarItem = UITabBarItem(title: "History", image: UIImage(systemName: "list.clipboard"), tag: 1)
+        orderNavController.tabBarItem = nil
         tabBarVC.modalPresentationStyle = .fullScreen
         self.present(tabBarVC, animated: true, completion: nil)
     }
