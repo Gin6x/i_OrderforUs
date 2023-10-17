@@ -3,6 +3,11 @@ This is a recording app for keeping tracking of takeaway order and notifying eve
 
 Bulid with fully native Swift and MVC.
 
+#Technologies:
+UIKit
+UserDefaults
+MessageUI
+
 ## Screenshots
 <img src="i_OrderforUs/Images/mockApp1.PNG" width="270" height="500" /> <img src="i_OrderforUs/Images/mockApp2.PNG" width="270" height="500" />
 
