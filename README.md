@@ -12,6 +12,6 @@ UserDefaults
 MessageUI
 
 ## Screenshots
-<img src="i_OrderforUs/Images/mockApp1.PNG" width="270" height="500" /> <img src="i_OrderforUs/Images/mockApp2.PNG" width="270" height="500" />
+<img src="i_OrderforUs/Images/mockApp1.PNG" width="270" height="550" /> <img src="i_OrderforUs/Images/mockApp2.PNG" width="270" height="550" />
 
-<img src="i_OrderforUs/Images/mockApp7.PNG" width="270" height="500" /> <img src="i_OrderforUs/Images/mockApp6.PNG" width="270" height="500" />
+<img src="i_OrderforUs/Images/mockApp7.PNG" width="270" height="550" /> <img src="i_OrderforUs/Images/mockApp6.PNG" width="270" height="550" />
