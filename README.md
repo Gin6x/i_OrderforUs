@@ -5,7 +5,7 @@ Bulid with fully native Swift and MVC.
 
 # Technologies used:
 
-UIKit <i class="fa-solid fa-toolbox">
+UIKit
 
 UserDefaults
 
