@@ -3,7 +3,7 @@ This is a recording app for keeping tracking of takeaway order and notifying eve
 
 Bulid with fully native Swift and MVC.
 
-# Technologies used:
+# Technologies used
 
 UIKit
 
