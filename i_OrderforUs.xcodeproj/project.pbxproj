@@ -394,7 +394,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = NFCN48J3SZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/gin6/Documents/Development/i_OrderforUs/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -424,7 +424,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = NFCN48J3SZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/gin6/Documents/Development/i_OrderforUs/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
