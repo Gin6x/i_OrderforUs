@@ -19,7 +19,6 @@
 		BE7BD4312A09B141004425B6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4302A09B141004425B6 /* WelcomeView.swift */; };
 		BE7BD4332A12F420004425B6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4322A12F420004425B6 /* OrderViewController.swift */; };
 		BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4342A12F465004425B6 /* OrderView.swift */; };
-		BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD4382A2A0986004425B6 /* OrderCell.swift */; };
 		BE96416E2A50E23D000B9036 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96416D2A50E23D000B9036 /* ItemCell.swift */; };
 		BEDACD2D2A8A7700006D6E34 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */; };
 		BEDACD2F2A8C150A006D6E34 /* DetailHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */; };
@@ -44,7 +43,6 @@
 		BE7BD4302A09B141004425B6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BE7BD4322A12F420004425B6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		BE7BD4342A12F465004425B6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
-		BE7BD4382A2A0986004425B6 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		BE96416D2A50E23D000B9036 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		BEDACD2C2A8A7700006D6E34 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		BEDACD2E2A8C150A006D6E34 /* DetailHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHistoryViewController.swift; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 		BE1B0C4E2A0943450067F492 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BE7BD4382A2A0986004425B6 /* OrderCell.swift */,
 				BE2500AA2A850F9400E52F55 /* Order.swift */,
 			);
 			name = Model;
@@ -244,7 +241,6 @@
 				BEDACD392A8F92CE006D6E34 /* FormView.swift in Sources */,
 				BEDACD372A8F928F006D6E34 /* FormViewController.swift in Sources */,
 				BE2500A72A83AB4B00E52F55 /* HistoryView.swift in Sources */,
-				BE7BD4392A2A0986004425B6 /* OrderCell.swift in Sources */,
 				BE1B0C3A2A0940BC0067F492 /* SceneDelegate.swift in Sources */,
 				BE7BD4352A12F465004425B6 /* OrderView.swift in Sources */,
 				BE35125E2A9EB61400CBB6EE /* EditFormViewController.swift in Sources */,
